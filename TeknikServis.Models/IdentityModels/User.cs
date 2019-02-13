@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
 namespace TeknikServis.Models.IdentityModels
@@ -12,6 +13,8 @@ namespace TeknikServis.Models.IdentityModels
         [StringLength(60)]
         [Required]
         public string Surname { get; set; }
+
+        public DateTime RegisterDate { get; set; } = DateTime.Now;
 
         public string ActivationCode { get; set; }
 
