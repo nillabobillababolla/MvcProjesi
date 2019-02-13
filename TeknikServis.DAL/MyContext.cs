@@ -8,7 +8,7 @@ namespace TeknikServis.DAL
     {
         public DateTime InstanceDate { get; set; }
 
-        public MyContext() /*: base("MyCon");*/
+        public MyContext() : base("MyCon")
         {
             InstanceDate = DateTime.Now;
         }
