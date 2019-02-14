@@ -3,7 +3,7 @@
     public class ProfilePasswordVM
     {
 
-        public UserProfileVM UserProfileViewModel { get; set; }
-        public ChangePasswordVM ChangePasswordViewModel { get; set; }
+        public UserProfileVM UserProfileVM { get; set; }
+        public ChangePasswordVM ChangePasswordVM { get; set; }
     }
 }
