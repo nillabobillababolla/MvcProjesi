@@ -2,7 +2,7 @@
 {
     public class RegisterLoginVM
     {
-        public LoginVM LoginViewModel { get; set; }
-        public RegisterVM RegisterViewModel { get; set; }
+        public LoginVM LoginVM { get; set; }
+        public RegisterVM RegisterVM { get; set; }
     }
 }
