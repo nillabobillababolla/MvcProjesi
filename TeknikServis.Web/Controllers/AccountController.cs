@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Services.Senders;
@@ -27,7 +26,10 @@ namespace TeknikServis.Web.Controllers
         {
             //HttpContext.User.Identity.GetUserId();
             if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -114,7 +116,9 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 if (!ModelState.IsValid)
+                {
                     return View("Index", model);
+                }
 
                 var userManager = NewUserManager();
                 var user = await userManager.FindAsync(model.LoginVM.UserName, model.LoginVM.Password);
@@ -225,7 +229,10 @@ namespace TeknikServis.Web.Controllers
                     var dosyayolu = Server.MapPath("~/Upload/") + fileName + extName;
 
                     if (!Directory.Exists(klasoryolu))
+                    {
                         Directory.CreateDirectory(klasoryolu);
+                    }
+
                     file.SaveAs(dosyayolu);
 
                     WebImage img = new WebImage(dosyayolu);
@@ -348,7 +355,7 @@ namespace TeknikServis.Web.Controllers
                     ViewBag.Message = $"<span class='alert alert-danger'>Aktivasyon başarısız</span>";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ViewBag.Message = "<span class='alert alert-danger'>Aktivasyon işleminde bir hata oluştu</span>";
             }
@@ -442,9 +449,14 @@ namespace TeknikServis.Web.Controllers
             {
                 case SignInStatus.Success:
                     if (string.IsNullOrEmpty(returnUrl))
+                    {
                         return RedirectToAction("Index", "Home");
+                    }
                     else
+                    {
                         return Redirect(returnUrl);
+                    }
+
                 case SignInStatus.Failure:
                     //ilk defa gelen kişi kayıt yönergelerini tamamlatacağız
                     ViewBag.ReturnUrl = returnUrl;
