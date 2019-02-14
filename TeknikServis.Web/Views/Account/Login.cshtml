@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 login-box">
                         <h4 class="login-title">Sign in to your account</h4>
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("Login","Account",FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
 

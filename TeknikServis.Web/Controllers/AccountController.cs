@@ -22,6 +22,7 @@ namespace TeknikServis.Web.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
+        [Authorize]
         public ActionResult Index()
         {
             //HttpContext.User.Identity.GetUserId();
@@ -34,13 +35,14 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterVM model)
         {
@@ -117,13 +119,17 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
+            if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Account");
             return View();
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Login(LoginVM model)
         {
             try
@@ -163,11 +169,12 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Logout()
         {
             var authManager = HttpContext.GetOwinContext().Authentication;
             authManager.SignOut();
-            return RedirectToAction("Index", "Account");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
@@ -178,18 +185,15 @@ namespace TeknikServis.Web.Controllers
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
                 var user = NewUserManager().FindById(id);
-                var data = new ProfilePasswordVM()
+                var data = new UserProfileVM()
                 {
-                    UserProfileVM = new UserProfileVM()
-                    {
-                        Email = user.Email,
-                        Id = user.Id,
-                        Name = user.Name,
-                        PhoneNumber = user.PhoneNumber,
-                        Surname = user.Surname,
-                        UserName = user.UserName,
-                        AvatarPath = string.IsNullOrEmpty(user.AvatarPath) ? "/assets/img/avatars/avatar3.jpg" : user.AvatarPath
-                    }
+                    Email = user.Email,
+                    Id = user.Id,
+                    Name = user.Name,
+                    PhoneNumber = user.PhoneNumber,
+                    Surname = user.Surname,
+                    UserName = user.UserName,
+                    AvatarPath = string.IsNullOrEmpty(user.AvatarPath) ? "/assets/images/icon-noprofile.png" : user.AvatarPath
                 };
                 return View(data);
             }
@@ -209,7 +213,7 @@ namespace TeknikServis.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> UpdateProfile(ProfilePasswordVM model)
+        public async Task<ActionResult> UserProfile(UserProfileVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -219,39 +223,39 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var userManager = NewUserManager();
-                var user = await userManager.FindByIdAsync(model.UserProfileVM.Id);
+                var user = await userManager.FindByIdAsync(model.Id);
 
-                user.Name = model.UserProfileVM.Name;
-                user.Surname = model.UserProfileVM.Surname;
-                user.PhoneNumber = model.UserProfileVM.PhoneNumber;
-                if (user.Email != model.UserProfileVM.Email)
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.PhoneNumber = model.PhoneNumber;
+                if (user.Email != model.Email)
                 {
                     //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.
                 }
-                user.Email = model.UserProfileVM.Email;
+                user.Email = model.Email;
 
-                if (model.UserProfileVM.PostedFile != null &&
-                    model.UserProfileVM.PostedFile.ContentLength > 0)
+                if (model.PostedFile != null &&
+                    model.PostedFile.ContentLength > 0)
                 {
-                    var file = model.UserProfileVM.PostedFile;
+                    var file = model.PostedFile;
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                     string extName = Path.GetExtension(file.FileName);
                     fileName = StringHelpers.UrlFormatConverter(fileName);
                     fileName += StringHelpers.GetCode();
-                    var klasoryolu = Server.MapPath("~/Upload/");
-                    var dosyayolu = Server.MapPath("~/Upload/") + fileName + extName;
+                    var directorypath = Server.MapPath("~/Upload/");
+                    var filepath = Server.MapPath("~/Upload/") + fileName + extName;
 
-                    if (!Directory.Exists(klasoryolu))
+                    if (!Directory.Exists(directorypath))
                     {
-                        Directory.CreateDirectory(klasoryolu);
+                        Directory.CreateDirectory(directorypath);
                     }
 
-                    file.SaveAs(dosyayolu);
+                    file.SaveAs(filepath);
 
-                    WebImage img = new WebImage(dosyayolu);
+                    WebImage img = new WebImage(filepath);
                     img.Resize(250, 250, false);
                     img.AddTextWatermark("Wissen");
-                    img.Save(dosyayolu);
+                    img.Save(filepath);
                     var oldPath = user.AvatarPath;
                     user.AvatarPath = "/Upload/" + fileName + extName;
 
@@ -260,14 +264,14 @@ namespace TeknikServis.Web.Controllers
 
 
                 await userManager.UpdateAsync(user);
-                TempData["Message"] = "Güncelleme işlemi başarılı";
+                TempData["Message"] = "Güncelleme işlemi başarılı.";
                 return RedirectToAction("UserProfile");
             }
             catch (Exception ex)
             {
                 TempData["Model"] = new ErrorVM()
                 {
-                    Text = $"Bir hata oluştu {ex.Message}",
+                    Text = $"Bir hata oluştu: {ex.Message}",
                     ActionName = "UserProfile",
                     ControllerName = "Account",
                     ErrorCode = 500

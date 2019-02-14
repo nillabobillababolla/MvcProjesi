@@ -9,5 +9,17 @@ namespace TeknikServis.Web.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Error404()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Error500()
+        {
+            return View();
+        }
     }
 }

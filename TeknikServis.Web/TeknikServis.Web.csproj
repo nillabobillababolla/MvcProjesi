@@ -138,6 +138,7 @@
     <Content Include="assets\css\custom.css" />
     <Content Include="assets\css\ecaps.css" />
     <Content Include="assets\css\ecaps.min.css" />
+    <Content Include="assets\images\icon-noprofile.png" />
     <Content Include="assets\js\ecaps.js" />
     <Content Include="assets\js\ecaps.min.js" />
     <Content Include="assets\js\pages\chart.js" />
@@ -686,6 +687,9 @@
     <Content Include="assets\Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Home\Error404.cshtml" />
+    <Content Include="Views\Home\Error500.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -695,7 +699,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\images\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
