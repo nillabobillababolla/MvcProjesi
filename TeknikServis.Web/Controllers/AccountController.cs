@@ -77,7 +77,7 @@ namespace TeknikServis.Web.Controllers
                                      (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
 
                     var emailService = new EmailService();
-                    var body = $"Merhaba <b>{newUser.Name} {newUser.Surname}</b><br>Hesabınızı aktif etmek için aşadıdaki linke tıklayınız<br> <a href='{SiteUrl}/account/activation?code={newUser.ActivationCode}' >Aktivasyon Linki </a> ";
+                    var body = $"Merhaba <b>{newUser.Name} {newUser.Surname}</b><br>Hesabınızı aktif etmek için aşağıdaki linke tıklayınız<br> <a href='{SiteUrl}/account/activation?code={newUser.ActivationCode}' >Aktivasyon Linki </a> ";
                     await emailService.SendAsync(new IdentityMessage() { Body = body, Subject = "Sitemize Hoşgeldiniz" }, newUser.Email);
                 }
                 else
@@ -91,7 +91,7 @@ namespace TeknikServis.Web.Controllers
                     return View("Index", model);
                 }
 
-                TempData["Message"] = "Kaydınız alınlıştır. Lütfen giriş yapınız";
+                TempData["Message"] = "Kaydınız alınmıştır. Lütfen giriş yapınız";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -395,7 +395,7 @@ namespace TeknikServis.Web.Controllers
                 }
 
                 var emailService = new EmailService();
-                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sistemize giriş yapabilirsiniz.</p>";
+                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sitemize giriş yapabilirsiniz.</p>";
                 emailService.Send(new IdentityMessage() { Body = body, Subject = $"{user.UserName} Şifre Kurtarma" }, user.Email);
             }
             catch (Exception ex)
