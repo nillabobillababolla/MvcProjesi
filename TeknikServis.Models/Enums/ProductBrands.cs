@@ -4,8 +4,8 @@
     {
         Samsung,
         Bosch,
-        Aeg,
-        Franke,
-        Miele
+        Miele,
+        Electrolux,
+        Dyson
     }
 }
