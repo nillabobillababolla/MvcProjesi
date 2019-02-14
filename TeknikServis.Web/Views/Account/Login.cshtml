@@ -1,7 +1,6 @@
-﻿@model TeknikServis.Models.ViewModels.RegisterVM
+﻿@model TeknikServis.Models.ViewModels.LoginVM
 
 @{
-    ViewBag.Title = "Register";
     Layout = null;
 }
 
@@ -16,7 +15,7 @@
     <meta name="author" content="skcats">
     <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Title -->
-    <title>Register Page</title>
+    <title>Login Page</title>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -45,8 +44,8 @@
         <div class="page-inner login-page">
             <div id="main-wrapper" class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-6 login-box">
-                        <h4 class="login-title">Create an account</h4>
+                    <div class="col-md-6 col-md-offset-3 login-box">
+                        <h4 class="login-title">Sign in to your account</h4>
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
@@ -55,34 +54,10 @@
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
@@ -95,42 +70,42 @@
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.RememberMe)
+                                            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Create" class="btn btn-default" />
+                                        <input type="submit" value="Login" class="btn btn-default" />
                                     </div>
                                 </div>
                             </div>
                         }
+
                         <div>
                             @Html.ActionLink("Back to List", "Index")
                         </div>
-
                     </div>
                 </div>
             </div>
         </div><!-- /Page Content -->
     </div><!-- /Page Container -->
     <!-- Javascripts -->
-    
+    <script src="~/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/plugins/uniform/js/jquery.uniform.standalone.js"></script>
+    <script src="~/assets/plugins/switchery/switchery.min.js"></script>
+    <script src="~/assets/js/ecaps.min.js"></script>
+    <script src="~/assets/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/assets/Scripts/jquery.validate.min.js"></script>
+    <script src="~/assets/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>
 
 
-
-<script src="~/assets/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/assets/Scripts/jquery.validate.min.js"></script>
-<script src="~/assets/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
-<script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="~/assets/plugins/uniform/js/jquery.uniform.standalone.js"></script>
-<script src="~/assets/plugins/switchery/switchery.min.js"></script>
-<script src="~/assets/js/ecaps.min.js"></script>

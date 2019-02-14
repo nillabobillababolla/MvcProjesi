@@ -97,7 +97,6 @@
     <Compile Include="ViewModels\ProductVM.cs" />
     <Compile Include="ViewModels\ProfilePasswordVM.cs" />
     <Compile Include="ViewModels\RecoverPasswordVM.cs" />
-    <Compile Include="ViewModels\RegisterLoginVM.cs" />
     <Compile Include="ViewModels\RegisterVM.cs" />
     <Compile Include="ViewModels\UpdateUserRoleVM.cs" />
     <Compile Include="ViewModels\UserProfileVM.cs" />

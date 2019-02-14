@@ -116,9 +116,15 @@ namespace TeknikServis.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(RegisterLoginVM model)
+        public async Task<ActionResult> Login(LoginVM model)
         {
             try
             {
@@ -128,7 +134,7 @@ namespace TeknikServis.Web.Controllers
                 }
 
                 var userManager = NewUserManager();
-                var user = await userManager.FindAsync(model.LoginVM.UserName, model.LoginVM.Password);
+                var user = await userManager.FindAsync(model.UserName, model.Password);
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
@@ -139,7 +145,7 @@ namespace TeknikServis.Web.Controllers
                     await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                 authManager.SignIn(new AuthenticationProperties()
                 {
-                    IsPersistent = model.LoginVM.RememberMe
+                    IsPersistent = model.RememberMe
                 }, userIdentity);
                 return RedirectToAction("Index", "Home");
             }
