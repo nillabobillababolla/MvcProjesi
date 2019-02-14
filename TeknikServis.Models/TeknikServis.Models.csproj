@@ -77,14 +77,13 @@
   <ItemGroup>
     <Compile Include="Abstracts\BaseEntity.cs" />
     <Compile Include="Abstracts\BaseEntity2.cs" />
-    <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Enums\IdentityRoles.cs" />
     <Compile Include="Enums\MessageStates.cs" />
     <Compile Include="Enums\IssueStates.cs" />
     <Compile Include="Enums\ProductBrands.cs" />
-    <Compile Include="Enums\WarrantyStates.cs" />
+    <Compile Include="Enums\ProductTypes.cs" />
     <Compile Include="IdentityModels\Role.cs" />
     <Compile Include="IdentityModels\User.cs" />
     <Compile Include="Models\ResponseData.cs" />

@@ -2,10 +2,10 @@
 {
     public enum ProductBrands
     {
-        Apple,
-        Casper,
+        Samsung,
         Bosch,
-        HTC,
-        Samsung
+        Aeg,
+        Franke,
+        Miele
     }
 }

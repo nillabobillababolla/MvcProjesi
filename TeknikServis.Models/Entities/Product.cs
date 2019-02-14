@@ -23,23 +23,11 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Ürün Markası")]
         public ProductBrands ProductBrand { get; set; }
 
-        [Required]
-        [DisplayName("Satın Alma Tarihi")]
-        public DateTime PurchaseDate { get; set; }
-
-        [Required]
-        [DisplayName("Garanti Durumu")]
-        public WarrantyStates WarrantyState { get; set; }
-
-        [DisplayName("Ürün Kategorisi")]
-        public string CategoryId { get; set; }
-
+        [DisplayName("Ürün Tipi")]
+        public ProductTypes ProductType { get; set; }
+        
         [StringLength(250)]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
-
-        
-        [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
     }
 }
