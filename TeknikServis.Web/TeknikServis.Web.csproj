@@ -580,6 +580,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -666,6 +667,10 @@
     <None Include="packages.config" />
     <Content Include="Views\Shared\_LayoutMain.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Partial\_DrawerPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_ModalPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_FooterPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -677,7 +682,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\images\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Shared\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeknikServis.BLL\TeknikServis.BLL.csproj">
