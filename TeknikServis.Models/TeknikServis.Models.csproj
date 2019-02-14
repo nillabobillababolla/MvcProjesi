@@ -67,6 +67,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,13 +89,23 @@
     <Compile Include="IdentityModels\User.cs" />
     <Compile Include="Models\ResponseData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ChangePasswordVM.cs" />
+    <Compile Include="ViewModels\ErrorVM.cs" />
+    <Compile Include="ViewModels\ExternalLoginVM.cs" />
+    <Compile Include="ViewModels\IssueVM.cs" />
+    <Compile Include="ViewModels\LoginVM.cs" />
+    <Compile Include="ViewModels\ProductVM.cs" />
+    <Compile Include="ViewModels\ProfilePasswordVM.cs" />
+    <Compile Include="ViewModels\RecoverPasswordVM.cs" />
+    <Compile Include="ViewModels\RegisterLoginVM.cs" />
+    <Compile Include="ViewModels\RegisterVM.cs" />
+    <Compile Include="ViewModels\UpdateUserRoleVM.cs" />
+    <Compile Include="ViewModels\UserProfileVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
