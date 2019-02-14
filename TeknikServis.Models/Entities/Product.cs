@@ -8,12 +8,20 @@ using TeknikServis.Models.Enums;
 
 namespace TeknikServis.Models.Entities
 {
-    public class Product : BaseEntity<int>
+    public class Product : BaseEntity<string>
     {
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "Ürün adı 1 ile 100 karakter aralığında olmalıdır")]
+        public Product()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Ürün adı 1 ile 100 karakter aralığında olmalıdır.")]
         [Required]
         [DisplayName("Ürün Adı")]
         public string ProductName { get; set; }
+
+        [DisplayName("Ürün Markası")]
+        public ProductBrands ProductBrand { get; set; }
 
         [Required]
         [DisplayName("Satın Alma Tarihi")]
@@ -24,7 +32,7 @@ namespace TeknikServis.Models.Entities
         public WarrantyStates WarrantyState { get; set; }
 
         [DisplayName("Ürün Kategorisi")]
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         [StringLength(250)]
         [DisplayName("Açıklama")]

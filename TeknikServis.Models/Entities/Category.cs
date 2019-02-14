@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,15 +8,20 @@ using TeknikServis.Models.Abstracts;
 
 namespace TeknikServis.Models.Entities
 {
-    public class Category : BaseEntity<int>
+    public class Category : BaseEntity<string>
     {
+        public Category()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         [StringLength(100, ErrorMessage = "Kategori Adı 3 ile 100 karakter arasında olabilir", MinimumLength = 3)]
         [DisplayName("Kategori Adı")]
         [Required]
         public string CategoryName { get; set; }
 
         [DisplayName("Üst Kategori")]
-        public int? SupCategoryId { get; set; }
+        public string SupCategoryId { get; set; }
 
         [StringLength(150)]
         [DisplayName("Açıklama")]

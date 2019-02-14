@@ -83,6 +83,7 @@
     <Compile Include="Enums\IdentityRoles.cs" />
     <Compile Include="Enums\MessageStates.cs" />
     <Compile Include="Enums\IssueStates.cs" />
+    <Compile Include="Enums\ProductBrands.cs" />
     <Compile Include="Enums\WarrantyStates.cs" />
     <Compile Include="IdentityModels\Role.cs" />
     <Compile Include="IdentityModels\User.cs" />

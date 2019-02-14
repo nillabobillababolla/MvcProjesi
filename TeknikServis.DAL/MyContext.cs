@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Data.Entity;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.IdentityModels;
 
 namespace TeknikServis.DAL
@@ -12,6 +14,9 @@ namespace TeknikServis.DAL
         {
             InstanceDate = DateTime.Now;
         }
-
+        
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Issue> Issues { get; set; }
     }
 }
