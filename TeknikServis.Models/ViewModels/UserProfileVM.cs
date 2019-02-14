@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Web;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TeknikServis.Models.ViewModels
 {
@@ -18,18 +22,6 @@ namespace TeknikServis.Models.ViewModels
         [Required]
         [DisplayName("Soyadı")]
         public string Surname { get; set; }
-
-        [StringLength(50)]
-        [Required]
-        [DisplayName("Kullanıcı Adı")]
-        public string UserName { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Display(Name = "Telefon Numarası")]
-        public string PhoneNumber { get; set; }
 
         [DisplayName("Kayıt Tarihi")]
         public DateTime RegisterDate { get; set; } = DateTime.Now;
