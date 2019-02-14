@@ -18,10 +18,10 @@ using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
-    [RequireHttps]
+    //[RequireHttps]
     public class AccountController : Controller
     {
-        // GET: Account
+        [HttpGet]
         public ActionResult Index()
         {
             //HttpContext.User.Identity.GetUserId();
@@ -33,9 +33,16 @@ namespace TeknikServis.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterLoginVM model)
+        public async Task<ActionResult> Register(RegisterVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +53,7 @@ namespace TeknikServis.Web.Controllers
                 var userStore = NewUserStore();
                 var userManager = NewUserManager();
 
-                var rm = model.RegisterVM;
+                var rm = model;
 
                 var user = await userManager.FindByNameAsync(rm.UserName);
                 if (user != null)
