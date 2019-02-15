@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.AspNet.Identity;
+using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Identity;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
@@ -17,7 +19,8 @@ namespace TeknikServis.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             AutoMapperConfig.RegisterMappings();
             var roller = Enum.GetNames(typeof(IdentityRoles));
-
+            var userManager = MembershipTools.NewUserManager();
+            var userStore = MembershipTools.NewUserStore();
             var roleManager = MembershipTools.NewRoleManager();
             foreach (var rol in roller)
             {
@@ -26,6 +29,11 @@ namespace TeknikServis.Web
                     {
                         Name = rol
                     });
+            }
+
+            if (userStore.Users.Count() == 0)
+            {
+                MockDataHelpers.AddMockUsersAsync();
             }
         }
     }

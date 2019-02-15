@@ -5,9 +5,9 @@ using TeknikServis.Models.IdentityModels;
 
 namespace TeknikServis.BLL.Helpers
 {
-    public class MockDataHelpers
+    public static class MockDataHelpers
     {
-        public async void AddMockUsersAsync()
+        public static async void AddMockUsersAsync()
         {
             var usermanager = MembershipTools.NewUserManager();
             var userstore = MembershipTools.NewUserStore();

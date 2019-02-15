@@ -7,7 +7,7 @@ namespace TeknikServis.Models.ViewModels
         [Required]
         [Display(Name = "Kullanıcı Adı")]
         public string UserName { get; set; }
-        [StringLength(10, MinimumLength = 5, ErrorMessage = "Şifreniz en az 5 karakter olmalıdır!")]
+        [StringLength(10, MinimumLength = 5, ErrorMessage = "Şifreniz 5-10 karakter arası olmalıdır!")]
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

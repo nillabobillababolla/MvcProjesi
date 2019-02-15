@@ -30,7 +30,7 @@ namespace TeknikServis.Web.Controllers
             //HttpContext.User.Identity.GetUserId();
             if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
             }
 
             return View();
@@ -138,7 +138,7 @@ namespace TeknikServis.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("Index", model);
+                    return View("Login", model);
                 }
 
                 var userManager = NewUserManager();
@@ -146,7 +146,7 @@ namespace TeknikServis.Web.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
-                    return View("Index", model);
+                    return View("Login", model);
                 }
                 var authManager = HttpContext.GetOwinContext().Authentication;
                 var userIdentity =
@@ -155,7 +155,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IsPersistent = model.RememberMe
                 }, userIdentity);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
             }
             catch (Exception ex)
             {
