@@ -49,7 +49,7 @@
                         @using (Html.BeginForm("Login","Account",FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-
+                            <h4>@TempData["Message"]</h4>
                             <div class="form-horizontal">
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -71,8 +71,8 @@
 
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-4" })
-                                    <div class="col-md-6">
-                                        <div class="checkbox">
+                                    <div class="col-md-6 checkbox">
+                                        <div>
                                             @Html.EditorFor(model => model.RememberMe)
                                             @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
                                         </div>
