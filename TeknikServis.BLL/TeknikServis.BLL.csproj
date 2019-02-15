@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Helpers\EntityHelpers.cs" />
     <Compile Include="Helpers\EnumHelpers.cs" />
+    <Compile Include="Helpers\MockDataHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Identity\MembershipTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

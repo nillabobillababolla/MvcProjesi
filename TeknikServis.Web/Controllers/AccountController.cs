@@ -255,7 +255,7 @@ namespace TeknikServis.Web.Controllers
 
                     WebImage img = new WebImage(filepath);
                     img.Resize(250, 250, false);
-                    img.AddTextWatermark("Wissen");
+                    img.AddTextWatermark("TeknikServis");
                     img.Save(filepath);
                     var oldPath = user.AvatarPath;
                     user.AvatarPath = "/Upload/" + fileName + extName;
