@@ -48,7 +48,7 @@ namespace TeknikServis.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", model);
+                return View("Register", model);
             }
             try
             {
@@ -61,7 +61,7 @@ namespace TeknikServis.Web.Controllers
                 if (user != null)
                 {
                     ModelState.AddModelError("UserName", "Bu kullanıcı adı daha önceden alınmıştır");
-                    return View("Index", model);
+                    return View("Register", model);
                 }
 
                 var newUser = new User()
@@ -70,7 +70,8 @@ namespace TeknikServis.Web.Controllers
                     Email = rm.Email,
                     Name = rm.Name,
                     Surname = rm.Surname,
-                    ActivationCode = StringHelpers.GetCode()
+                    ActivationCode = StringHelpers.GetCode(),
+                    AvatarPath = "/assets/images/icon-noprofile.png"
                 };
                 var result = await userManager.CreateAsync(newUser, rm.Password);
                 if (result.Succeeded)
@@ -99,22 +100,22 @@ namespace TeknikServis.Web.Controllers
                         err += resultError + " ";
                     }
                     ModelState.AddModelError("", err);
-                    return View("Index", model);
+                    return View("Register", model);
                 }
 
                 TempData["Message"] = "Kaydınız alınmıştır. Lütfen giriş yapınız";
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
             catch (Exception ex)
             {
                 TempData["Model"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
-                    ActionName = "Index",
+                    ActionName = "Register",
                     ControllerName = "Account",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
         }
 
@@ -164,7 +165,7 @@ namespace TeknikServis.Web.Controllers
                     ControllerName = "Account",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
         }
 
@@ -206,7 +207,7 @@ namespace TeknikServis.Web.Controllers
                     ControllerName = "Account",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
         }
 
@@ -276,43 +277,46 @@ namespace TeknikServis.Web.Controllers
                     ControllerName = "Account",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> ChangePassword(ProfilePasswordVM model)
+        public async Task<ActionResult> ChangePassword(ChangePasswordVM model)
         {
             try
             {
                 var userManager = NewUserManager();
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
                 var user = NewUserManager().FindById(id);
-                var data = new ProfilePasswordVM()
+
+                var data = new ChangePasswordVM()
                 {
-                    UserProfileVM = new UserProfileVM()
-                    {
-                        Email = user.Email,
-                        Id = user.Id,
-                        Name = user.Name,
-                        PhoneNumber = user.PhoneNumber,
-                        Surname = user.Surname,
-                        UserName = user.UserName
-                    }
+                    OldPassword=model.OldPassword,
+                    NewPassword=model.NewPassword,
+                    ConfirmNewPassword=model.ConfirmNewPassword
                 };
-                model.UserProfileVM = data.UserProfileVM;
+
+                model = data;
                 if (!ModelState.IsValid)
                 {
-                    model.ChangePasswordVM = new ChangePasswordVM();
+                    model = new ChangePasswordVM();
                     return View("UserProfile", model);
                 }
 
 
                 var result = await userManager.ChangePasswordAsync(
                     HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId(),
-                    model.ChangePasswordVM.OldPassword, model.ChangePasswordVM.NewPassword);
+                    model.OldPassword, model.NewPassword);
 
                 if (result.Succeeded)
                 {
@@ -327,7 +331,7 @@ namespace TeknikServis.Web.Controllers
                         err += resultError + " ";
                     }
                     ModelState.AddModelError("", err);
-                    model.ChangePasswordVM = new ChangePasswordVM();
+                    model = new ChangePasswordVM();
                     return View("UserProfile", model);
                 }
             }
@@ -340,7 +344,7 @@ namespace TeknikServis.Web.Controllers
                     ControllerName = "Account",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
         }
 
@@ -415,7 +419,7 @@ namespace TeknikServis.Web.Controllers
                         ControllerName = "Account",
                         ErrorCode = 500
                     };
-                    return RedirectToAction("Error", "Home");
+                    return RedirectToAction("Error500", "Home");
                 }
 
                 var emailService = new EmailService();
@@ -431,7 +435,7 @@ namespace TeknikServis.Web.Controllers
                     ControllerName = "Account",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
 
             return View();
