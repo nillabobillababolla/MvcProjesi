@@ -585,7 +585,6 @@
     <Content Include="assets\Scripts\jquery.validate.min.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Upload\buttercupsrerjizm3uifsgdymi32a.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -706,6 +705,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Upload\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
