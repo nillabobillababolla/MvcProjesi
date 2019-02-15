@@ -575,16 +575,16 @@
     <Content Include="assets\plugins\x-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css" />
     <Content Include="assets\plugins\x-editable\inputs-ext\wysihtml5\wysihtml5.js" />
     <Content Include="Global.asax" />
-    <None Include="assets\Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="assets\Scripts\jquery-1.10.2.js" />
-    <Content Include="assets\Scripts\jquery-1.10.2.min.js" />
+    <None Include="assets\Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="assets\Scripts\jquery-3.3.1.js" />
+    <Content Include="assets\Scripts\jquery-3.3.1.min.js" />
+    <Content Include="assets\Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="assets\Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="assets\Scripts\jquery.validate-vsdoc.js" />
     <Content Include="assets\Scripts\jquery.validate.js" />
     <Content Include="assets\Scripts\jquery.validate.min.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Upload\buttercupsrerjizm3uifsgdymi32a.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -687,12 +687,14 @@
     <Content Include="Views\Shared\Partial\_ModalPartial.cshtml" />
     <Content Include="Views\Shared\Partial\_FooterPartial.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="assets\Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Home\Error404.cshtml" />
     <Content Include="Views\Home\Error500.cshtml" />
+    <Content Include="assets\Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="assets\Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Account\RecoverPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
