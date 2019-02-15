@@ -206,7 +206,7 @@ namespace TeknikServis.Web.Controllers
 
                     WebImage img = new WebImage(dosyayolu);
                     img.Resize(250, 250, false);
-                    img.AddTextWatermark("Wissen");
+                    img.AddTextWatermark("TeknikServis");
                     img.Save(dosyayolu);
                     var oldPath = user.AvatarPath;
                     user.AvatarPath = "/Upload/" + fileName + extName;
