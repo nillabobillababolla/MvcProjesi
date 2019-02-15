@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using AutoMapper;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Services.Senders;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.IdentityModels;
 using TeknikServis.Models.ViewModels;
 using TeknikServis.Web.Helpers;
@@ -55,34 +57,33 @@ namespace TeknikServis.Web.Controllers
                 var userStore = NewUserStore();
                 var userManager = NewUserManager();
 
-                var rm = model;
-
-                var user = await userManager.FindByNameAsync(rm.UserName);
+                var user = await userManager.FindByNameAsync(model.UserName);
                 if (user != null)
                 {
                     ModelState.AddModelError("UserName", "Bu kullanıcı adı daha önceden alınmıştır");
                     return View("Register", model);
                 }
 
-                var newUser = new User()
-                {
-                    UserName = rm.UserName,
-                    Email = rm.Email,
-                    Name = rm.Name,
-                    Surname = rm.Surname,
-                    ActivationCode = StringHelpers.GetCode(),
-                    AvatarPath = "/assets/images/icon-noprofile.png"
-                };
-                var result = await userManager.CreateAsync(newUser, rm.Password);
+                var newUser = Mapper.Map<RegisterVM, User>(model);
+                newUser.AvatarPath = "/assets/images/icon-noprofile.png";
+
+                var result = await userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
-                    if (userStore.Users.Count() == 1)
+                    switch (userStore.Users.Count())
                     {
-                        await userManager.AddToRoleAsync(newUser.Id, "Admin");
-                    }
-                    else
-                    {
-                        await userManager.AddToRoleAsync(newUser.Id, "Customer");
+                        case 1:
+                            await userManager.AddToRoleAsync(newUser.Id, "Admin");
+                            break;
+                        case 2:
+                            await userManager.AddToRoleAsync(newUser.Id, "Operator");
+                            break;
+                        case 3:
+                            await userManager.AddToRoleAsync(newUser.Id, "Technician");
+                            break;
+                        default:
+                            await userManager.AddToRoleAsync(newUser.Id, "Customer");
+                            break;
                     }
 
                     string SiteUrl = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host +
@@ -127,7 +128,7 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Index", "Account");
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -186,16 +187,8 @@ namespace TeknikServis.Web.Controllers
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
                 var user = NewUserManager().FindById(id);
-                var data = new UserProfileVM()
-                {
-                    Email = user.Email,
-                    Id = user.Id,
-                    Name = user.Name,
-                    PhoneNumber = user.PhoneNumber,
-                    Surname = user.Surname,
-                    UserName = user.UserName,
-                    AvatarPath = string.IsNullOrEmpty(user.AvatarPath) ? "/assets/images/icon-noprofile.png" : user.AvatarPath
-                };
+                var data = Mapper.Map<User, UserProfileVM>(user);
+
                 return View(data);
             }
             catch (Exception ex)
@@ -226,14 +219,21 @@ namespace TeknikServis.Web.Controllers
                 var userManager = NewUserManager();
                 var user = await userManager.FindByIdAsync(model.Id);
 
-                user.Name = model.Name;
-                user.Surname = model.Surname;
-                user.PhoneNumber = model.PhoneNumber;
+                //user.Name = model.Name;
+                //user.Surname = model.Surname;
+                //user.PhoneNumber = model.PhoneNumber;
+                //if (user.Email != model.Email)
+                //{
+                //    //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.
+                //}
+                //user.Email = model.Email;
+
+                user = Mapper.Map<UserProfileVM, User>(model);
+
                 if (user.Email != model.Email)
                 {
                     //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.
                 }
-                user.Email = model.Email;
 
                 if (model.PostedFile != null &&
                     model.PostedFile.ContentLength > 0)
@@ -299,12 +299,13 @@ namespace TeknikServis.Web.Controllers
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
                 var user = NewUserManager().FindById(id);
 
-                var data = new ChangePasswordVM()
-                {
-                    OldPassword=model.OldPassword,
-                    NewPassword=model.NewPassword,
-                    ConfirmNewPassword=model.ConfirmNewPassword
-                };
+                var data = Mapper.Map<User, ChangePasswordVM>(user);
+                //    new ChangePasswordVM()
+                //{
+                //    OldPassword = model.OldPassword,
+                //    NewPassword = model.NewPassword,
+                //    ConfirmNewPassword = model.ConfirmNewPassword
+                //};
 
                 model = data;
                 if (!ModelState.IsValid)

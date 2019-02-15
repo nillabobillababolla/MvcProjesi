@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using TeknikServis.BLL.Identity;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
+using TeknikServis.Web.App_Start;
 
 namespace TeknikServis.Web
 {
@@ -14,6 +15,7 @@ namespace TeknikServis.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            AutoMapperConfig.RegisterMappings();
             var roller = Enum.GetNames(typeof(IdentityRoles));
 
             var roleManager = MembershipTools.NewRoleManager();
