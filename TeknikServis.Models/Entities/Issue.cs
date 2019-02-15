@@ -26,6 +26,10 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Güncel Durum")]
         public IssueStates IssueState { get; set; }
 
+        [StringLength(250)]
+        [DisplayName("Açıklama")]
+        public string Description { get; set; }
+
         [DisplayName("Enlem")]
         [Required]
         public string Latitude { get; set; }
