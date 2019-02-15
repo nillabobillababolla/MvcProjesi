@@ -12,18 +12,20 @@ namespace TeknikServis.Models.Entities
     {
         public Issue()
         {
-            this.Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
         }
 
         [Required]
         public string CustomerId { get; set; }
-
         public string OperatorId { get; set; }
         public string TechnicianId { get; set; }
-        
+
+        [Required]
+        public string ProductId { get; set; }
+
         [DisplayName("Güncel Durum")]
         public IssueStates IssueState { get; set; }
-        
+
         [DisplayName("Enlem")]
         [Required]
         public string Latitude { get; set; }
@@ -31,11 +33,11 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Boylam")]
         [Required]
         public string Longitude { get; set; }
-        
+
         [Required]
         [DisplayName("Satın Alma Tarihi")]
         public DateTime PurchasedDate { get; set; }
-        
+
         [DisplayName("Garanti Durumu")]
         public bool WarrantyState { get; set; }
 
@@ -53,5 +55,7 @@ namespace TeknikServis.Models.Entities
 
         [ForeignKey("TechnicianId")]
         public virtual User Technician { get; set; }
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
     }
 }

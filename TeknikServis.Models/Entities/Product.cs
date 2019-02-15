@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 using TeknikServis.Models.Abstracts;
 using TeknikServis.Models.Enums;
@@ -12,7 +11,7 @@ namespace TeknikServis.Models.Entities
     {
         public Product()
         {
-            this.Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
         }
 
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Ürün adı 1 ile 100 karakter aralığında olmalıdır.")]
@@ -25,7 +24,7 @@ namespace TeknikServis.Models.Entities
 
         [DisplayName("Ürün Tipi")]
         public ProductTypes ProductType { get; set; }
-        
+
         [StringLength(250)]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
