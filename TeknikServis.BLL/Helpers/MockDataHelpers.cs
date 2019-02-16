@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 using TeknikServis.BLL.Identity;
+using TeknikServis.BLL.Repository;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.IdentityModels;
 
 namespace TeknikServis.BLL.Helpers
@@ -73,6 +75,42 @@ namespace TeknikServis.BLL.Helpers
                 var newPassword = "123456";
                 await userstore.SetPasswordHashAsync(user, usermanager.PasswordHasher.HashPassword(newPassword));
                 await usermanager.CreateAsync(user);
+            }
+        }
+
+        public static async void AddMockProductsAsync()
+        {
+            List<Product> products = new List<Product>();
+
+            var prod1 = new Product
+            {
+                ProductName = "Bosch Süpürge",
+            };
+            products.Add(prod1);
+            var prod2 = new Product
+            {
+                ProductName = "Bosch Fırın",
+            };
+            products.Add(prod2);
+            var prod3 = new Product
+            {
+                ProductName = "Siemens Buzdolabı",
+            };
+            products.Add(prod3);
+            var prod4 = new Product
+            {
+                ProductName = "Siemens Bulaşık Makinesi",
+            };
+            products.Add(prod4);
+            var prod5 = new Product
+            {
+                ProductName = "Siemens Çamaşır Makinesi",
+            };
+            products.Add(prod5);
+
+            foreach (var product in products)
+            {
+                await new ProductRepo().InsertAsync(product);
             }
         }
     }

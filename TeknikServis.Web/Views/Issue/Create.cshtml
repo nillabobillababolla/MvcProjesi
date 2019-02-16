@@ -16,18 +16,10 @@
         @Html.Hidden("CustomerId", HttpContext.Current.User.Identity.GetUserId())
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Product.ProductBrand, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Product, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Product.ProductBrand, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Product.ProductBrand, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Product.ProductType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Product.ProductType, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Product.ProductType, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.Product, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Product, "", new { @class = "text-danger" })
             </div>
         </div>
 

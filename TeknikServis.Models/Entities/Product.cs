@@ -18,13 +18,7 @@ namespace TeknikServis.Models.Entities
         [Required]
         [DisplayName("Ürün Adı")]
         public string ProductName { get; set; }
-
-        [DisplayName("Ürün Markası")]
-        public ProductBrands ProductBrand { get; set; }
-
-        [DisplayName("Ürün Tipi")]
-        public ProductTypes ProductType { get; set; }
-
+        
         [StringLength(250)]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
