@@ -20,12 +20,12 @@ namespace TeknikServis.Models.ViewModels
         public string OperatorId { get; set; }
         public string TechnicianId { get; set; }
 
-        [Required]
-        public string ProductId { get; set; }
-
         [StringLength(250)]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
+
+        [DisplayName("Ürün")]
+        public ProductTypes ProductType {get;set;}
 
         public string PhotoPath { get; set; }
         public string BillPath { get; set; }
@@ -72,8 +72,5 @@ namespace TeknikServis.Models.ViewModels
 
         [ForeignKey("TechnicianId")]
         public virtual User Technician { get; set; }
-
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; }
     }
 }

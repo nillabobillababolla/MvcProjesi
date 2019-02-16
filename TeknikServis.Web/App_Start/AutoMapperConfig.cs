@@ -15,7 +15,6 @@ namespace TeknikServis.Web.App_Start
         {
             Mapper.Initialize(cfg =>
             {
-                ProductMapping(cfg);
                 IssueMapping(cfg);
                 RegisterUserMapping(cfg);
                 ProfileUserMapping(cfg);
@@ -43,11 +42,6 @@ namespace TeknikServis.Web.App_Start
         private static void IssueMapping(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Issue, IssueVM>().ReverseMap();
-        }
-
-        private static void ProductMapping(IMapperConfigurationExpression cfg)
-        {
-            cfg.CreateMap<Product, ProductVM>().ReverseMap();
         }
     }
 }

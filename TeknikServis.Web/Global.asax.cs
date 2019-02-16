@@ -36,11 +36,6 @@ namespace TeknikServis.Web
             {
                 MockDataHelpers.AddMockUsersAsync();
             }
-
-            if (new ProductRepo().GetAll().Count == 0)
-            {
-                MockDataHelpers.AddMockProductsAsync();
-            }
         }
     }
 }
