@@ -31,7 +31,7 @@ namespace TeknikServis.Web
                     });
             }
 
-            if (userStore.Users.Count() == 0)
+            if (!userStore.Users.Any())
             {
                 MockDataHelpers.AddMockUsersAsync();
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 using TeknikServis.BLL.Identity;
 using TeknikServis.Models.IdentityModels;
 
@@ -69,9 +70,10 @@ namespace TeknikServis.BLL.Helpers
 
             foreach (var user in Users)
             {
-                var newPassword = StringHelpers.GetCode().Substring(0, 6);
+                var newPassword = "123456";
                 await userstore.SetPasswordHashAsync(user, usermanager.PasswordHasher.HashPassword(newPassword));
-            };
+                await usermanager.CreateAsync(user);
+            }
         }
     }
 }
