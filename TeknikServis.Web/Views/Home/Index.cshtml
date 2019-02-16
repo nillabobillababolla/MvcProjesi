@@ -1,6 +1,68 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model TeknikServis.Models.ViewModels.UserProfileVM
+@{
+    ViewBag.Title = "User Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h1>Tema Giydirme</h1>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.AvatarPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvatarPath)
+        </dd>
+
+        <dt>
+            @Html.ActionLink("Created Issues","Index","Issue",@Model.Id,new {})
+        </dt>
+
+    </dl>
+</div>
+
+<p>
+   <a href="@Url.Action("Index","Issue")">Created Issues()</a> | <a href="@Url.Action("Index","Home")">Home</a>
+</p>

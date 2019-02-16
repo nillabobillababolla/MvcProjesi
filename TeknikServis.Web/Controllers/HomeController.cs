@@ -1,4 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
+using AutoMapper;
+using Microsoft.AspNet.Identity;
+using TeknikServis.Models.IdentityModels;
+using TeknikServis.Models.ViewModels;
+using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
@@ -8,7 +14,13 @@ namespace TeknikServis.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var userManager = NewUserManager();
+            var userId = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
+            var user = userManager.FindById(userId);
+            if (user == null)
+                RedirectToAction("Error500", "Home");
+            var data = Mapper.Map<User, UserProfileVM>(user);
+            return View(data);
         }
 
         [HttpGet]

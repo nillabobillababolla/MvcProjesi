@@ -23,12 +23,15 @@ namespace TeknikServis.Models.Entities
         [Required]
         public string ProductId { get; set; }
 
-        [DisplayName("Güncel Durum")]
-        public IssueStates IssueState { get; set; }
-
         [StringLength(250)]
         [DisplayName("Açıklama")]
         public string Description { get; set; }
+
+        public string PhotoPath { get; set; }
+        public string BillPath { get; set; }
+
+        [DisplayName("Güncel Durum")]
+        public IssueStates IssueState { get; set; } = IssueStates.Created;
 
         [DisplayName("Enlem")]
         [Required]
@@ -37,19 +40,26 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Boylam")]
         [Required]
         public string Longitude { get; set; }
-
+        
         [Required]
         [DisplayName("Satın Alma Tarihi")]
         public DateTime PurchasedDate { get; set; }
-
+        
         [DisplayName("Garanti Durumu")]
         public bool WarrantyState { get; set; }
 
-        [DisplayName("Arıza Kapanma Tarihi")]
-        public DateTime? ClosedDate { get; set; }
+        [DisplayName("Arıza Oluşturma Tarihi")]
+        public DateTime OpenedDate { get; set; } = DateTime.Now;
 
         [DisplayName("Servis Bedeli")]
-        public decimal ServiceCharge { get; set; }
+        public decimal ServiceCharge { get; set; } = 100;
+
+        [StringLength(250)]
+        [DisplayName("Rapor")]
+        public string Report { get; set; }
+
+        [DisplayName("Arıza Kapanma Tarihi")]
+        public DateTime? ClosedDate { get; set; }
 
         [ForeignKey("CustomerId")]
         public virtual User Customer { get; set; }

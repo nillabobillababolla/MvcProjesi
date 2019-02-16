@@ -30,7 +30,7 @@ namespace TeknikServis.Web.Controllers
             //HttpContext.User.Identity.GetUserId();
             if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -125,7 +125,7 @@ namespace TeknikServis.Web.Controllers
         public ActionResult Login()
         {
             if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -155,7 +155,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IsPersistent = model.RememberMe
                 }, userIdentity);
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
