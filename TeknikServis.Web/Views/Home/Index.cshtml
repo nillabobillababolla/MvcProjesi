@@ -47,7 +47,7 @@
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.AvatarPath)
         </dt>
@@ -56,13 +56,9 @@
             @Html.DisplayFor(model => model.AvatarPath)
         </dd>
 
-        <dt>
-            @Html.ActionLink("Created Issues","Index","Issue",@Model.Id,new {})
-        </dt>
-
     </dl>
 </div>
 
 <p>
-   <a href="@Url.Action("Index","Issue")">Created Issues()</a> | <a href="@Url.Action("Index","Home")">Home</a>
+    <a href="@Url.Action("Index", "Issue")">Created Issues</a> | <a href="@Url.Action("Index", "Home")">Home</a>
 </p>

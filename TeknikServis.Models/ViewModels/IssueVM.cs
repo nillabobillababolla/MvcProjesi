@@ -16,8 +16,11 @@ namespace TeknikServis.Models.ViewModels
     public class IssueVM
     {
         [Required]
+        [DisplayName("Müşteri Id")]
         public string CustomerId { get; set; }
+        [DisplayName("Operatör Id")]
         public string OperatorId { get; set; }
+        [DisplayName("Teknisyen Id")]
         public string TechnicianId { get; set; }
 
         [StringLength(250)]
@@ -27,7 +30,9 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Ürün")]
         public ProductTypes ProductType {get;set;}
 
+        [DisplayName("Fotoğraf Yolu")]
         public string PhotoPath { get; set; }
+        [DisplayName("Fatura Yolu")]
         public string BillPath { get; set; }
 
         [DisplayName("Güncel Durum")]
