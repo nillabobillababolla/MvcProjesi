@@ -25,19 +25,6 @@ namespace TeknikServis.Web.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        [Authorize]
-        public ActionResult Index()
-        {
-            //HttpContext.User.Identity.GetUserId();
-            if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View();
-        }
-
-        [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
         {

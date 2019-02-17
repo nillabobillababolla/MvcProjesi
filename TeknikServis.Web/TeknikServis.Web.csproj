@@ -687,7 +687,6 @@
     <Content Include="Views\Shared\Partial\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\Partial\_ModalPartial.cshtml" />
     <Content Include="Views\Shared\Partial\_FooterPartial.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />

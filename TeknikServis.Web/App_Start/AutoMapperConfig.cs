@@ -30,7 +30,7 @@ namespace TeknikServis.Web.App_Start
         private static void ProfileUserMapping(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<User, UserProfileVM>()
-                .ForMember(dest => dest.AvatarPath, opt => opt.MapFrom((s, d) => s.AvatarPath == null ? "/assets/images/icon-noprofile.png" : s.AvatarPath))
+                .ForMember(dest => dest.AvatarPath, opt => opt.MapFrom((s, d) => s.AvatarPath ?? "/assets/images/icon-noprofile.png"))
                 .ReverseMap();
         }
 
