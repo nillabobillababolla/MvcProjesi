@@ -16,6 +16,9 @@ namespace TeknikServis.Models.ViewModels
     public class IssueVM
     {
         [Required]
+        public string Id { get; set; }
+
+        [Required]
         [DisplayName("Müşteri Id")]
         public string CustomerId { get; set; }
         [DisplayName("Operatör Id")]

@@ -1,0 +1,64 @@
+﻿@using TeknikServis.BLL.Identity
+@model List<TeknikServis.Models.ViewModels.IssueVM>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div>
+    <hr />
+    <!-- Page Inner -->
+    <div class="page-inner">
+        <div id="main-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="example2" class="display table" style="width: 100%; mso-cellspacing: 0;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Issue Id</th>
+                                            <th>State</th>
+                                            <th>Technician</th>
+                                            <th>Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Issue Id</th>
+                                            <th>State</th>
+                                            <th>Technician</th>
+                                            <th>Detail</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.Count; i++)
+                                            {
+                                                var current = Model[i];
+                                                <tr>
+                                                    <th>@(i + 1)</th>
+                                                    <td>@current.Id</td>
+                                                    <td>@current.IssueState</td>
+                                                    <td>@MembershipTools.GetNameSurname(current.TechnicianId)</td>
+                                                    <td><a href="@Url.Action("Index", "Issue")" class="btn btn-default">Detail</a></td>
+                                                </tr>
+                                            }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Row -->
+        </div><!-- Main Wrapper -->
+
+    </div><!-- /Page Inner -->
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
