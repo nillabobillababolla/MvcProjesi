@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using AutoMapper;
+using TeknikServis.BLL.Repository;
 using TeknikServis.Models.ViewModels;
 
 namespace TeknikServis.Web.Controllers
@@ -9,11 +13,28 @@ namespace TeknikServis.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            try
+            {
+                var data = new IssueRepo().GetAll().Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                if (data != null)
+                    return View(data);
+            }
+            catch (Exception ex)
+            {
+                TempData["Model"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Details",
+                    ControllerName = "Issue",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
             return View();
         }
 
         [HttpGet]
-        public ActionResult Details(string id)
+        public ActionResult Details()
         {
             return View();
         }
@@ -35,7 +56,7 @@ namespace TeknikServis.Web.Controllers
                 RedirectToAction("Create", "Issue", model);
             }
 
-            TempData["Message"]= "Arıza kaydınız başarı ile oluşturuldu.";
+            TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
             return View("Create");
         }
 

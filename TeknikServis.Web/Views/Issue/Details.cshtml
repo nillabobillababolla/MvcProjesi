@@ -1,5 +1,4 @@
-﻿@using TeknikServis.BLL.Identity
-@model List<TeknikServis.Models.ViewModels.IssueVM>
+﻿@model TeknikServis.Models.ViewModels.IssueVM
 
 @{
     ViewBag.Title = "Details";
@@ -8,55 +7,145 @@
 
 <div>
     <hr />
-    <!-- Page Inner -->
-    <div class="page-inner">
-        <div id="main-wrapper">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-white">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table id="example2" class="display table" style="width: 100%; mso-cellspacing: 0;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Issue Id</th>
-                                            <th>State</th>
-                                            <th>Technician</th>
-                                            <th>Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Issue Id</th>
-                                            <th>State</th>
-                                            <th>Technician</th>
-                                            <th>Detail</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        @for (int i = 0; i < Model.Count; i++)
-                                            {
-                                                var current = Model[i];
-                                                <tr>
-                                                    <th>@(i + 1)</th>
-                                                    <td>@current.Id</td>
-                                                    <td>@current.IssueState</td>
-                                                    <td>@MembershipTools.GetNameSurname(current.TechnicianId)</td>
-                                                    <td><a href="@Url.Action("Index", "Issue")" class="btn btn-default">Detail</a></td>
-                                                </tr>
-                                            }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- Row -->
-        </div><!-- Main Wrapper -->
+    <dl class="dl-horizontal">
+        @*<dt>
+                @Html.DisplayNameFor(model => model.PhotoPath)
+            </dt>*@
 
-    </div><!-- /Page Inner -->
+        @*<dd>
+                <img src="@(Model.PhotoPath??"photopath field")" alt="Photo" width="100" height="100" />
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.BillPath)
+            </dt>*@
+
+        @*<dd>
+                <img src="@(Model.BillPath??"billpathfield")" alt="Bill" width="100" height="100" />
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OperatorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperatorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TechnicianId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TechnicianId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchasedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchasedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WarrantyState)
+        </dt>
+
+        <dd>
+            @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled", @checked = "checked" })
+            
+            @*@if (Model.PurchasedDate.AddYears(2) <= Model.OpenedDate)
+            {
+                @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled" ,@checked="checked"})
+            }
+            else
+            {
+                @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled" })
+            }*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpenedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpenedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceCharge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceCharge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Report)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Report)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosedDate)
+        </dd>
+
+    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
