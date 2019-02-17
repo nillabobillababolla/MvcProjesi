@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNet.Identity;
+using System.Linq;
 using TeknikServis.BLL.Identity;
-using TeknikServis.BLL.Repository;
-using TeknikServis.Models.Entities;
 using TeknikServis.Models.IdentityModels;
 
 namespace TeknikServis.BLL.Helpers
@@ -73,8 +71,26 @@ namespace TeknikServis.BLL.Helpers
             foreach (var user in Users)
             {
                 var newPassword = "123456";
-                await userstore.SetPasswordHashAsync(user, usermanager.PasswordHasher.HashPassword(newPassword));
-                await usermanager.CreateAsync(user);
+                var result = await usermanager.CreateAsync(user, newPassword);
+
+                if (result.Succeeded)
+                {
+                    switch (userstore.Users.Count())
+                    {
+                        case 1:
+                            await usermanager.AddToRoleAsync(user.Id, "Admin");
+                            break;
+                        case 2:
+                            await usermanager.AddToRoleAsync(user.Id, "Operator");
+                            break;
+                        case 3:
+                            await usermanager.AddToRoleAsync(user.Id, "Technician");
+                            break;
+                        default:
+                            await usermanager.AddToRoleAsync(user.Id, "Customer");
+                            break;
+                    }
+                }
             }
         }
     }
