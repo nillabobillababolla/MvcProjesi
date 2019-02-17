@@ -1,8 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using TeknikServis.BLL.Repository;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.ViewModels;
 
 namespace TeknikServis.Web.Controllers
@@ -17,7 +18,9 @@ namespace TeknikServis.Web.Controllers
             {
                 var data = new IssueRepo().GetAll().Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
+                {
                     return View(data);
+                }
             }
             catch (Exception ex)
             {
@@ -55,9 +58,30 @@ namespace TeknikServis.Web.Controllers
                 ModelState.AddModelError("", "Hata Oluştu.");
                 RedirectToAction("Create", "Issue", model);
             }
+            try
+            {
+                Issue issue = Mapper.Map<IssueVM, Issue>(model);
 
-            TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
-            return View("Create");
+                var repo = new IssueRepo();
+
+                repo.InsertForMark(issue);
+                repo.Save();
+
+                TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Model"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Create",
+                    ControllerName = "Issue",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
+
         }
 
         // GET: Issue/Edit/5
