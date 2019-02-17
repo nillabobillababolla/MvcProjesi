@@ -1,44 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using System.Web.Mvc;
 using TeknikServis.Models.ViewModels;
-using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
+    [Authorize]
     public class IssueController : Controller
     {
-        // GET: Issue
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Issue/Details/5
+        [HttpGet]
         public ActionResult Details(string id)
         {
             return View();
         }
 
-        // GET: Issue/Create
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Issue/Create
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public ActionResult Create(IssueVM model)
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("","Hata Oluştu.");
-                RedirectToAction("Create", "Issue",model);
+                ModelState.AddModelError("", "Hata Oluştu.");
+                RedirectToAction("Create", "Issue", model);
             }
 
+            TempData["Message"]= "Arıza kaydınız başarı ile oluşturuldu.";
             return View("Create");
         }
 

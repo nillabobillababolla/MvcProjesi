@@ -21,6 +21,7 @@ using static TeknikServis.BLL.Identity.MembershipTools;
 namespace TeknikServis.Web.Controllers
 {
     //[RequireHttps]
+    [Authorize]
     public class AccountController : Controller
     {
         [HttpGet]
