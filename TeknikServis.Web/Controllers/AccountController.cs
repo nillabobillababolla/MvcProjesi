@@ -54,6 +54,7 @@ namespace TeknikServis.Web.Controllers
 
                 var newUser = Mapper.Map<RegisterVM, User>(model);
                 newUser.AvatarPath = "/assets/images/icon-noprofile.png";
+                newUser.ActivationCode=StringHelpers.GetCode();
 
                 var result = await userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
