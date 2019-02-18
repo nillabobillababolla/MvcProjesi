@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-                var data = new IssueRepo().GetAll(x=>x.CustomerId==id).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                var data = new IssueRepo().GetAll(x => x.CustomerId == id).Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
                 {
                     return View(data);
@@ -45,9 +44,16 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details()
+        public ActionResult Details(string id)
         {
-            return View();
+            var issue = new IssueRepo().GetById(id);
+            if (issue == null)
+            {
+                TempData["Message2"] = "Arıza kaydı bulunamadi.";
+                return RedirectToAction("Index", "Issue");
+            }
+            var data = Mapper.Map<Issue, IssueVM>(issue);
+            return View(data);
         }
 
         [HttpGet]
@@ -77,12 +83,12 @@ namespace TeknikServis.Web.Controllers
                     PhotoPath = model.PhotoPath,
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
-                    PurchasedDate=model.PurchasedDate,
-                    ServiceCharge=model.ServiceCharge,
-                    ClosedDate=model.ClosedDate,
-                    CreatedDate=model.CreatedDate,
-                    OperatorId=model.OperatorId,
-                    Report=model.Report
+                    PurchasedDate = model.PurchasedDate,
+                    ServiceCharge = model.ServiceCharge,
+                    ClosedDate = model.ClosedDate,
+                    CreatedDate = model.CreatedDate,
+                    OperatorId = model.OperatorId,
+                    Report = model.Report
                 };
 
                 if (model.PostedPhoto != null &&
