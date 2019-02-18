@@ -8,6 +8,7 @@
 }
 <div>
     <h3 style="color:green">@TempData["Message"]</h3>
+    <h3 style="color:red">@TempData["Message2"]</h3>
     <hr />
     <!-- Page Inner -->
     <div class="page-inner">
@@ -39,11 +40,11 @@
                                                 <td>
                                                     @if (current.IssueState == IssueStates.Tamamlandı)
                                                     {
-                                                        <a href="@Url.Action("Index", "Issue")" class="btn btn-success">Detay</a>
+                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-success">Detay</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("Index", "Issue")" class="btn btn-warning">Detay</a>
+                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-warning">Detay</a>
                                                     }
                                                 </td>
 
