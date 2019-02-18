@@ -54,7 +54,7 @@ namespace TeknikServis.Web.Controllers
 
                 var newUser = Mapper.Map<RegisterVM, User>(model);
                 newUser.AvatarPath = "/assets/images/icon-noprofile.png";
-                newUser.ActivationCode=StringHelpers.GetCode();
+                newUser.ActivationCode = StringHelpers.GetCode();
 
                 var result = await userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
@@ -288,13 +288,12 @@ namespace TeknikServis.Web.Controllers
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
                 var user = NewUserManager().FindById(id);
 
-                var data = Mapper.Map<User, ChangePasswordVM>(user);
-                //    new ChangePasswordVM()
-                //{
-                //    OldPassword = model.OldPassword,
-                //    NewPassword = model.NewPassword,
-                //    ConfirmNewPassword = model.ConfirmNewPassword
-                //};
+                var data = new ChangePasswordVM()
+                {
+                    OldPassword = model.OldPassword,
+                    NewPassword = model.NewPassword,
+                    ConfirmNewPassword = model.ConfirmNewPassword
+                };
 
                 model = data;
                 if (!ModelState.IsValid)
