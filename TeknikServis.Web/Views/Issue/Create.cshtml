@@ -51,18 +51,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PurchasedDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.PurchasedDate, new { @type = "date" })
+            @Html.TextBoxFor(model => model.PurchasedDate, new { @type = "date", @max = DateTime.Now })
             @Html.ValidationMessageFor(model => model.PurchasedDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.WarrantyState, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.WarrantyState)
-                @Html.ValidationMessageFor(model => model.WarrantyState, "", new { @class = "text-danger" })
-            </div>
         </div>
     </div>
 
