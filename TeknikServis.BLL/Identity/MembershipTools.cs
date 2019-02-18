@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web;
+using TeknikServis.BLL.Repository;
 using TeknikServis.DAL;
 using TeknikServis.Models.IdentityModels;
 
@@ -60,29 +61,35 @@ namespace TeknikServis.BLL.Identity
             return $"{user.Email}";
         }
 
-    public static string GetAvatarPath(string userId)
-    {
-        User user;
-        if (string.IsNullOrEmpty(userId))
+        public static int GetIssueCount()
         {
             var id = HttpContext.Current.User.Identity.GetUserId();
-            if (string.IsNullOrEmpty(id))
-            {
-                return "/assets/images/icon-noprofile.png";
-            }
-
-            user = NewUserManager().FindById(id);
+            return new IssueRepo().GetAll(x => x.CustomerId == id).Count;
         }
-        else
+
+        public static string GetAvatarPath(string userId)
         {
-            user = NewUserManager().FindById(userId);
-            if (user == null)
+            User user;
+            if (string.IsNullOrEmpty(userId))
             {
-                return "/assets/images/icon-noprofile.png";
-            }
-        }
+                var id = HttpContext.Current.User.Identity.GetUserId();
+                if (string.IsNullOrEmpty(id))
+                {
+                    return "/assets/images/icon-noprofile.png";
+                }
 
-        return $"{user.AvatarPath}";
+                user = NewUserManager().FindById(id);
+            }
+            else
+            {
+                user = NewUserManager().FindById(userId);
+                if (user == null)
+                {
+                    return "/assets/images/icon-noprofile.png";
+                }
+            }
+
+            return $"{user.AvatarPath}";
+        }
     }
-}
 }
