@@ -138,6 +138,8 @@
     <Content Include="assets\css\custom.css" />
     <Content Include="assets\css\ecaps.css" />
     <Content Include="assets\css\ecaps.min.css" />
+    <Content Include="assets\css\jquery-ui.css" />
+    <Content Include="assets\css\jquery-ui.min.css" />
     <Content Include="assets\images\icon-noprofile.png" />
     <Content Include="assets\images\photo-unavailable.png" />
     <Content Include="assets\js\ecaps.js" />
@@ -580,6 +582,8 @@
     <Content Include="assets\plugins\x-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.min.js" />
     <Content Include="assets\plugins\x-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css" />
     <Content Include="assets\plugins\x-editable\inputs-ext\wysihtml5\wysihtml5.js" />
+    <Content Include="assets\Scripts\jquery-ui.js" />
+    <Content Include="assets\Scripts\jquery-ui.min.js" />
     <Content Include="Global.asax" />
     <None Include="assets\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="assets\Scripts\jquery-3.3.1.js" />
