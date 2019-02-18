@@ -178,7 +178,16 @@ namespace TeknikServis.Web.Controllers
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
                 var user = NewUserManager().FindById(id);
-                var data = Mapper.Map<User, UserProfileVM>(user);
+                var data = new UserProfileVM()
+                {
+                    Email = user.Email,
+                    Id = user.Id,
+                    Name = user.Name,
+                    PhoneNumber = user.PhoneNumber,
+                    Surname = user.Surname,
+                    UserName = user.UserName,
+                    AvatarPath = string.IsNullOrEmpty(user.AvatarPath) ? "/assets/images/icon-noprofile.png" : user.AvatarPath
+                };
 
                 return View(data);
             }
@@ -210,21 +219,14 @@ namespace TeknikServis.Web.Controllers
                 var userManager = NewUserManager();
                 var user = await userManager.FindByIdAsync(model.Id);
 
-                //user.Name = model.Name;
-                //user.Surname = model.Surname;
-                //user.PhoneNumber = model.PhoneNumber;
-                //if (user.Email != model.Email)
-                //{
-                //    //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.
-                //}
-                //user.Email = model.Email;
-
-                user = Mapper.Map<UserProfileVM, User>(model);
-
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.PhoneNumber = model.PhoneNumber;
                 if (user.Email != model.Email)
                 {
                     //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.
                 }
+                user.Email = model.Email;
 
                 if (model.PostedFile != null &&
                     model.PostedFile.ContentLength > 0)
