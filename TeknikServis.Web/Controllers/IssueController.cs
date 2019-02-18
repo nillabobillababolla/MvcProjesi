@@ -16,7 +16,7 @@ using TeknikServis.Models.ViewModels;
 namespace TeknikServis.Web.Controllers
 {
     [Authorize]
-    public class IssueController : Controller
+    public class IssueController : BaseController
     {
         [HttpGet]
         public ActionResult Index()

@@ -9,7 +9,7 @@ using static TeknikServis.BLL.Identity.MembershipTools;
 namespace TeknikServis.Web.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         [HttpGet]
         public ActionResult Index()
