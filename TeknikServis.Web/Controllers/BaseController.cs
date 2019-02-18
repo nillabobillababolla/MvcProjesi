@@ -6,7 +6,7 @@ using TeknikServis.BLL.Identity;
 namespace TeknikServis.Web.Controllers
 {
     [Authorize]
-    [RequireHttps]
+   // [RequireHttps]
     public class BaseController : Controller
     {
         protected List<SelectListItem> GetRoleList()

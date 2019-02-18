@@ -235,6 +235,7 @@
     <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.vi.js" />
     <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="assets\plugins\bootstrap-notify\bootstrap-notify.min.js" />
     <Content Include="assets\plugins\bootstrap-tagsinput\bootstrap-tagsinput.css" />
     <Content Include="assets\plugins\bootstrap-tagsinput\bootstrap-tagsinput.js" />
     <Content Include="assets\plugins\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
@@ -277,6 +278,7 @@
     <Content Include="assets\plugins\datatables\css\jquery.datatables.css" />
     <Content Include="assets\plugins\datatables\css\jquery.datatables.min.css" />
     <Content Include="assets\plugins\datatables\css\jquery.datatables_themeroller.css" />
+    <Content Include="assets\plugins\datatables\dataTables.min.css" />
     <Content Include="assets\plugins\datatables\images\favicon.ico" />
     <Content Include="assets\plugins\datatables\images\sort_asc.png" />
     <Content Include="assets\plugins\datatables\images\sort_asc_disabled.png" />
@@ -518,6 +520,9 @@
     <Content Include="assets\plugins\plupload\js\plupload.dev.js" />
     <Content Include="assets\plugins\plupload\js\plupload.full.min.js" />
     <Content Include="assets\plugins\plupload\js\plupload.min.js" />
+    <Content Include="assets\plugins\select2\select2-bootstrap.css" />
+    <Content Include="assets\plugins\select2\select2.full.min.js" />
+    <Content Include="assets\plugins\select2\select2.min.css" />
     <Content Include="assets\plugins\simple-line-icons\css\simple-line-icons.css" />
     <Content Include="assets\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="assets\plugins\summernote-master\summernote-bs2.css" />
@@ -700,6 +705,8 @@
     <Content Include="Views\Issue\Create.cshtml" />
     <Content Include="Views\Account\Activation.cshtml" />
     <Content Include="Views\Issue\Details.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -711,7 +718,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Upload\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeknikServis.BLL\TeknikServis.BLL.csproj">
