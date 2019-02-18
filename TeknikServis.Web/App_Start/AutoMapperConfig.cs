@@ -41,7 +41,9 @@ namespace TeknikServis.Web.App_Start
 
         private static void IssueMapping(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Issue, IssueVM>().ReverseMap();
+            cfg.CreateMap<Issue, IssueVM>()
+                .ForMember(dest => dest.IssueId, opt => opt.MapFrom(x => x.Id))
+                .ReverseMap();
         }
     }
 }
