@@ -13,7 +13,7 @@ using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class AdminController : BaseController
     {
         [HttpGet]
@@ -116,6 +116,7 @@ namespace TeknikServis.Web.Controllers
                 });
             }
         }
+
         [HttpGet]
         public ActionResult EditUser(string id)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
@@ -8,11 +9,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using AutoMapper;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Services.Senders;
-using TeknikServis.Models.Entities;
 using TeknikServis.Models.IdentityModels;
 using TeknikServis.Models.ViewModels;
 using TeknikServis.Web.Helpers;
@@ -114,7 +113,10 @@ namespace TeknikServis.Web.Controllers
         public ActionResult Login()
         {
             if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
+            {
                 return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
