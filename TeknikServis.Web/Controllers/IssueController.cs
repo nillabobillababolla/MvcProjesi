@@ -79,7 +79,6 @@ namespace TeknikServis.Web.Controllers
                     Description = model.Description,
                     IssueState = model.IssueState,
                     Location = model.Location,
-                    WarrantyState = model.WarrantyState,
                     PhotoPath = model.PhotoPath,
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
@@ -90,7 +89,24 @@ namespace TeknikServis.Web.Controllers
                     OperatorId = model.OperatorId,
                     Report = model.Report
                 };
-
+                switch (issue.ProductType)
+                {
+                    case Models.Enums.ProductTypes.Buzdolabı:
+                        if (issue.PurchasedDate.AddYears(1) < DateTime.Now)
+                            issue.WarrantyState = true;
+                        issue.WarrantyState = false;
+                        break;
+                    case Models.Enums.ProductTypes.BulaşıkMakinesi:
+                        break;
+                    case Models.Enums.ProductTypes.Fırın:
+                        break;
+                    case Models.Enums.ProductTypes.ÇamaşırMakinesi:
+                        break;
+                    case Models.Enums.ProductTypes.Mikrodalga:
+                        break;
+                    default:
+                        break;
+                }
                 if (model.PostedPhoto != null &&
                     model.PostedPhoto.ContentLength > 0)
                 {
