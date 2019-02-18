@@ -35,7 +35,7 @@
                                                 <th>@(i + 1)</th>
                                                 <td>@current.IssueId</td>
                                                 <td>@current.IssueState</td>
-                                                <td>@MembershipTools.GetNameSurname(current.TechnicianId)</td>
+                                                <td style="text-align:justify">@(current.TechnicianId==null?"Teknisyen Atanmadı":MembershipTools.GetNameSurname(current.TechnicianId))</td>
                                                 <td>
                                                     @if (current.IssueState == IssueStates.Completed)
                                                     {

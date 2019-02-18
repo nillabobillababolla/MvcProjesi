@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
@@ -51,11 +50,18 @@ namespace TeknikServis.Web.Controllers
                     return View("Register", model);
                 }
 
-                var newUser = Mapper.Map<RegisterVM, User>(model);
-                newUser.AvatarPath = "/assets/images/icon-noprofile.png";
+                var newUser = new User()
+                {
+                    AvatarPath = "/assets/images/icon-noprofile.png",
+                    EmailConfirmed = false,
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Email = model.Email,
+                    UserName = model.UserName
+                };
                 newUser.ActivationCode = StringHelpers.GetCode();
 
-                var result = await userManager.CreateAsync(newUser, model.Password);
+                var result = await userManager.CreateAsync(newUser, model.ConfirmPassword);
                 if (result.Succeeded)
                 {
                     switch (userStore.Users.Count())
@@ -251,9 +257,11 @@ namespace TeknikServis.Web.Controllers
                     img.AddTextWatermark("TeknikServis");
                     img.Save(filepath);
                     var oldPath = user.AvatarPath;
+                    if (oldPath != "/assets/images/icon-noprofile.png")
+                    {
+                        System.IO.File.Delete(Server.MapPath(oldPath));
+                    }
                     user.AvatarPath = "/Upload/" + fileName + extName;
-
-                    System.IO.File.Delete(Server.MapPath(oldPath));
                 }
 
 
