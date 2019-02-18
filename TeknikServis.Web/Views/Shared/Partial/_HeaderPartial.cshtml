@@ -72,8 +72,8 @@
                         </ul>
                     </li>
                     <li>
-                        <p>@(MembershipTools.GetNameSurnameCurrent() ?? "Bulunamadi.")</p>
-                        <p class="text-muted">@(MembershipTools.GetEmailCurrent() ?? "Bulunamadi.")</p>
+                        <p class="text-capitalize" style="font-size:medium">@(MembershipTools.GetNameSurnameCurrent() ?? "Bulunamadi.")
+                        <p class="text-muted" style="font-size:small">@(MembershipTools.GetEmailCurrent() ?? "Bulunamadi.")</p>
                     </li>
                     <li class="dropdown user-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@MembershipTools.GetAvatarPath(null)" alt="User profile pic" class="img-circle"></a>
