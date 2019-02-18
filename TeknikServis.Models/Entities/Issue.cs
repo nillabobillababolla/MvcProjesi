@@ -28,18 +28,13 @@ namespace TeknikServis.Models.Entities
         public ProductTypes ProductType { get; set; }
 
         public string PhotoPath { get; set; }
-        public string BillPath { get; set; }
 
         [DisplayName("Güncel Durum")]
         public IssueStates IssueState { get; set; } = IssueStates.Created;
 
-        [DisplayName("Enlem")]
+        [DisplayName("Konum")]
         [Required]
-        public string Latitude { get; set; }
-
-        [DisplayName("Boylam")]
-        [Required]
-        public string Longitude { get; set; }
+        public string Location { get; set; }
 
         [Required]
         [DisplayName("Satın Alma Tarihi")]
@@ -47,9 +42,6 @@ namespace TeknikServis.Models.Entities
 
         [DisplayName("Garanti Durumu")]
         public bool WarrantyState { get; set; }
-
-        [DisplayName("Arıza Oluşturma Tarihi")]
-        public DateTime OpenedDate { get; set; } = DateTime.Now;
 
         [DisplayName("Servis Bedeli")]
         public decimal ServiceCharge { get; set; } = 100;

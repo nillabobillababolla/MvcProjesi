@@ -8,8 +8,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-
 <div>
+    <h3>@TempData["Message"]</h3>
     <hr />
     <!-- Page Inner -->
     <div class="page-inner">
@@ -35,7 +35,7 @@
                                             var current = Model[i];
                                             <tr>
                                                 <th>@(i + 1)</th>
-                                                <td>@current.Id</td>
+                                                <td>@current.IssueId</td>
                                                 <td>@current.IssueState</td>
                                                 <td>@MembershipTools.GetNameSurname(current.TechnicianId)</td>
                                                 <td>

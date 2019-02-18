@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using TeknikServis.Models.Entities;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
 
@@ -15,8 +10,7 @@ namespace TeknikServis.Models.ViewModels
 {
     public class IssueVM
     {
-        [Required]
-        public string Id { get; set; }
+        public string IssueId { get; set; }
 
         [Required]
         [DisplayName("Müşteri Id")]
@@ -31,23 +25,17 @@ namespace TeknikServis.Models.ViewModels
         public string Description { get; set; }
 
         [DisplayName("Ürün")]
-        public ProductTypes ProductType {get;set;}
+        public ProductTypes ProductType { get; set; }
 
-        [DisplayName("Fotoğraf Yolu")]
+        [DisplayName("Fotoğraf")]
         public string PhotoPath { get; set; }
-        [DisplayName("Fatura Yolu")]
-        public string BillPath { get; set; }
 
         [DisplayName("Güncel Durum")]
         public IssueStates IssueState { get; set; } = IssueStates.Created;
 
-        [DisplayName("Enlem")]
+        [DisplayName("Konum")]
         [Required]
-        public string Latitude { get; set; }
-
-        [DisplayName("Boylam")]
-        [Required]
-        public string Longitude { get; set; }
+        public string Location { get; set; }
 
         [Required]
         [DisplayName("Satın Alma Tarihi")]
@@ -56,8 +44,8 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Garanti Durumu")]
         public bool WarrantyState { get; set; }
 
-        [DisplayName("Arıza Oluşturma Tarihi")]
-        public DateTime OpenedDate { get; set; } = DateTime.Now;
+        [DisplayName("Oluşturulma Tarihi")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         [DisplayName("Servis Bedeli")]
         public decimal ServiceCharge { get; set; } = 100;
@@ -69,7 +57,6 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
 
-        public HttpPostedFile PostedBill { get; set; }
         public HttpPostedFile PostedPhoto { get; set; }
 
         [ForeignKey("CustomerId")]
