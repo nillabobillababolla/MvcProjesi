@@ -1,4 +1,5 @@
-﻿@model TeknikServis.Models.ViewModels.UserProfileVM
+﻿@using TeknikServis.BLL.Identity;
+@model TeknikServis.Models.ViewModels.UserProfileVM
 @{
     ViewBag.Title = "User Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -54,5 +55,5 @@
 <br />
 <p>
     <a href="@Url.Action("UserProfile", "Account")" class="btn btn-info">Update Profile</a> |
-    <a href="@Url.Action("Index", "Issue")" class="btn btn-info">Created Issues</a>
+    <a href="@Url.Action("Index", "Issue")" class="btn btn-info">Created Issues(@(MembershipTools.GetIssueCount()))</a>
 </p>
