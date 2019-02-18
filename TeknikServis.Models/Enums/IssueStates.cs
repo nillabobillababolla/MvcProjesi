@@ -2,10 +2,10 @@
 {
     public enum IssueStates
     {
-        Created,
-        Assigned,
-        Accepted,
-        InProgress,
-        Completed
+        Beklemede,
+        Atandı,
+        KabulEdildi,
+        İşlemde,
+        Tamamlandı
     }
 }

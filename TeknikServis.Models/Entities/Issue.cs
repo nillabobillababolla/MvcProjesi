@@ -30,7 +30,7 @@ namespace TeknikServis.Models.Entities
         public string PhotoPath { get; set; }
 
         [DisplayName("Güncel Durum")]
-        public IssueStates IssueState { get; set; } = IssueStates.Created;
+        public IssueStates IssueState { get; set; } = IssueStates.Beklemede;
 
         [DisplayName("Konum")]
         [Required]

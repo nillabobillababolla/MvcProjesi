@@ -2,10 +2,10 @@
 {
     public enum ProductTypes
     {
-        Refrigerator,
-        Dishwasher,
-        Oven,
-        WashingMachine,
-        Microwave
+        Buzdolabı,
+        BulaşıkMakinesi,
+        Fırın,
+        ÇamaşırMakinesi,
+        Mikrodalga
     }
 }

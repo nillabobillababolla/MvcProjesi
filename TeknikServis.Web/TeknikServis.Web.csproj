@@ -139,6 +139,7 @@
     <Content Include="assets\css\ecaps.css" />
     <Content Include="assets\css\ecaps.min.css" />
     <Content Include="assets\images\icon-noprofile.png" />
+    <Content Include="assets\images\photo-unavailable.png" />
     <Content Include="assets\js\ecaps.js" />
     <Content Include="assets\js\ecaps.min.js" />
     <Content Include="assets\js\pages\chart.js" />

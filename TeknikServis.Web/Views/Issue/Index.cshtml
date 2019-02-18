@@ -21,10 +21,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Issue Id</th>
-                                            <th>Issue State</th>
-                                            <th>Technician</th>
-                                            <th>Detail</th>
+                                            <th>Id</th>
+                                            <th>Durum</th>
+                                            <th>Teknisyen</th>
+                                            <th>Detay</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -37,13 +37,13 @@
                                                 <td>@current.IssueState</td>
                                                 <td style="text-align:justify">@(current.TechnicianId==null?"Teknisyen Atanmadı":MembershipTools.GetNameSurname(current.TechnicianId))</td>
                                                 <td>
-                                                    @if (current.IssueState == IssueStates.Completed)
+                                                    @if (current.IssueState == IssueStates.Tamamlandı)
                                                     {
-                                                        <a href="@Url.Action("Index", "Issue")" class="btn btn-success">Detail</a>
+                                                        <a href="@Url.Action("Index", "Issue")" class="btn btn-success">Detay</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("Index", "Issue")" class="btn btn-warning">Detail</a>
+                                                        <a href="@Url.Action("Index", "Issue")" class="btn btn-warning">Detay</a>
                                                     }
                                                 </td>
 
