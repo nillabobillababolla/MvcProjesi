@@ -37,7 +37,7 @@
                                                 <th>@(i + 1)</th>
                                                 <td>@current.IssueId</td>
                                                 <td>@current.IssueState</td>
-                                                <td style="text-align:justify">@(current.TechnicianId==null?"Teknisyen Atanmadı":MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
                                                 <td>
                                                     @current.Location
                                                 </td>
@@ -64,8 +64,9 @@
         </div><!-- Main Wrapper -->
 
     </div><!-- /Page Inner -->
+    <div class="col-md-4">
+        <a href="@Url.Action("Create","Issue")" class="btn btn-block btn-facebook">Create Issue</a>
+        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-google">Back to Profile</a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

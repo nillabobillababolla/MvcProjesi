@@ -85,15 +85,6 @@
 
         <dd>
             @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled", @checked = "checked" })
-
-            @*@if (Model.PurchasedDate.AddYears(2) <= Model.OpenedDate)
-                {
-                    @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled" ,@checked="checked"})
-                }
-                else
-                {
-                    @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled" })
-                }*@
         </dd>
 
         <dt>
@@ -129,8 +120,8 @@
         </dd>
 
     </dl>
+
+    <div class="col-md-4">
+        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-facebook">Back to Profile</a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
