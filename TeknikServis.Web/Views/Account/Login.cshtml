@@ -70,19 +70,21 @@
                                 </div>
 
                                 <div class="form-group">
-                                        @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-4" })
-                                    <div class="col-md-6">
+                                    <div class="col-md-4 col-md-offset-4">
+                                        
                                         <div>
-                                            @Html.EditorFor(model => model.RememberMe,"", new {type="checkbox"})
+                                            @Html.EditorFor(model => model.RememberMe, "", new { type = "checkbox" })
+                                            @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label" })
                                             @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Login" class="btn btn-default" />
-                                        <a href="@Url.Action("Register","Account")" class="btn btn-default">Create New User</a>
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <input type="submit" value="Login" class="btn btn-block btn-default" />
+                                        <a href="@Url.Action("Register","Account")" class="btn btn-block btn-default">Create New User</a>
+                                        <a href="@Url.Action("RecoverPassword","Account")" class="btn btn-block btn-default">Recover Password</a>
                                     </div>
                                 </div>
                             </div>

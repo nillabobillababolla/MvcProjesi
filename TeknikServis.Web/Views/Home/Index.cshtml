@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<div>
+<div class="col-md-6 col-md-offset-3">
     <hr />
     <dl class="dl-horizontal">
         <dd>
-            <img src="@Model.AvatarPath" alt="Alternate Text" width="100" height="100" />
+            <img src="@Model.AvatarPath" alt="Alternate Text" width="100" height="100" style="border-radius:12px"/>
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -61,7 +61,9 @@
     </dl>
 </div>
 <br />
-<p>
-    <a href="@Url.Action("UserProfile", "Account")" class="btn btn-info">Update Profile</a> |
-    <a href="@Url.Action("Index", "Issue")" class="btn btn-info">Created Issues(@(MembershipTools.GetIssueCount()))</a>
-</p>
+<div class="form-group">
+    <div class="col-md-3 col-md-offset-4">
+        <a href="@Url.Action("UserProfile", "Account")" class="btn btn-facebook btn-block">Update Profile</a>
+        <a href="@Url.Action("Index", "Issue")" class="btn btn-google btn-block">Created Issues(@(MembershipTools.GetIssueCount()))</a>
+    </div>
+</div>
