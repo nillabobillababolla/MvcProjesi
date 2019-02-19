@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using TeknikServis.Models.Enums;
 
 namespace TeknikServis.Models.ViewModels
 {
@@ -23,6 +25,10 @@ namespace TeknikServis.Models.ViewModels
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [DisplayName("Konum")]
+        public Locations Location { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Şifre Tekrar")]

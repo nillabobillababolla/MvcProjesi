@@ -80,6 +80,7 @@
     <Compile Include="Abstracts\BaseEntity2.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Enums\IdentityRoles.cs" />
+    <Compile Include="Enums\Locations.cs" />
     <Compile Include="Enums\MessageStates.cs" />
     <Compile Include="Enums\IssueStates.cs" />
     <Compile Include="Enums\ProductTypes.cs" />

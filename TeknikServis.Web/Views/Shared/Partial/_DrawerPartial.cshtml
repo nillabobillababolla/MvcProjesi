@@ -28,11 +28,6 @@
                     </li>
                     <li class="menu-divider"></li>
                     <li>
-                        <a href="@Url.Action("Login","Account")">
-                            <i class="menu-icon icon-account_box"></i><span>Login</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="@Url.Action("Logout","Account")">
                             <i class="menu-icon icon-power2"></i><span>Logout</span>
                         </a>
@@ -53,17 +48,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Create","Issue")">
-                            <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
+                        <a href="@Url.Action("Index","Operator")">
+                            <i class="menu-icon icon-alarm_on"></i><span>Unassigned Issues</span>
                         </a>
                     </li>
 
                     <li class="menu-divider"></li>
-                    <li>
-                        <a href="@Url.Action("Login","Account")">
-                            <i class="menu-icon icon-account_box"></i><span>Login</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="@Url.Action("Logout","Account")">
                             <i class="menu-icon icon-power2"></i><span>Logout</span>
@@ -85,17 +75,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Create","Issue")">
-                            <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
+                        <a href="@Url.Action("Index","Technician")">
+                            <i class="menu-icon icon-alarm_on"></i><span>Assigned Issues</span>
                         </a>
                     </li>
 
                     <li class="menu-divider"></li>
-                    <li>
-                        <a href="@Url.Action("Login","Account")">
-                            <i class="menu-icon icon-account_box"></i><span>Login</span>
-                        </a>
-                    </li>
+                    
                     <li>
                         <a href="@Url.Action("Logout","Account")">
                             <i class="menu-icon icon-power2"></i><span>Logout</span>
@@ -105,35 +91,35 @@
             }
             @if (HttpContext.Current.User.IsInRole("Admin"))
             {
-                <ul class="accordion-menu">
-                    <li>
-                        <a href="@Url.Action("UserProfile","Account")">
-                            <i class="menu-icon icon-profile"></i><span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Home")">
-                            <i class="menu-icon icon-home4"></i><span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Create","Issue")">
-                            <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
-                        </a>
-                    </li>
+        <ul class="accordion-menu">
+            <li>
+                <a href="@Url.Action("UserProfile","Account")">
+                    <i class="menu-icon icon-profile"></i><span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Home")">
+                    <i class="menu-icon icon-home4"></i><span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create","Issue")">
+                    <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("EditIssue","Admin")">
+                    <i class="menu-icon icon-alarm_on"></i><span>All Issues</span>
+                </a>
+            </li>
+            <li class="menu-divider"></li>
 
-                    <li class="menu-divider"></li>
-                    <li>
-                        <a href="@Url.Action("Login","Account")">
-                            <i class="menu-icon icon-account_box"></i><span>Login</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Logout","Account")">
-                            <i class="menu-icon icon-power2"></i><span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
+            <li>
+                <a href="@Url.Action("Logout","Account")">
+                    <i class="menu-icon icon-power2"></i><span>Logout</span>
+                </a>
+            </li>
+        </ul>
             }
         </div>
     </div>

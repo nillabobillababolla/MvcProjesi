@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using TeknikServis.Models.Enums;
 
 namespace TeknikServis.Models.ViewModels
 {
@@ -38,6 +39,9 @@ namespace TeknikServis.Models.ViewModels
         public string ActivationCode { get; set; }
 
         public string AvatarPath { get; set; }
+
+        [DisplayName("Konum")]
+        public Locations Location { get; set; }
 
         public HttpPostedFileBase PostedFile { get; set; }
     }
