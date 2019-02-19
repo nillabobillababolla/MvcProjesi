@@ -95,5 +95,6 @@ namespace TeknikServis.BLL.Services.Senders
                 await SendAsync(message, contacts);
             });
         }
+
     }
 }

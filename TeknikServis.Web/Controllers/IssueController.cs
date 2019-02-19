@@ -4,13 +4,17 @@ using System;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
+using TeknikServis.BLL.Services.Senders;
 using TeknikServis.Models.Entities;
+using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
+using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
@@ -140,7 +144,6 @@ namespace TeknikServis.Web.Controllers
                     img.Save(filepath);
                     var oldPath = issue.PhotoPath;
                     issue.PhotoPath = "/Upload/" + fileName + extName;
-
                     System.IO.File.Delete(Server.MapPath(oldPath));
                 }
 
@@ -174,6 +177,47 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Error500", "Home");
             }
 
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SendIssueMail()
+        {
+            try
+            {
+                var customerId = HttpContext.User.Identity.GetUserId();
+                var userStore = NewUserStore();
+                var user = await userStore.FindByIdAsync(customerId);
+                if (user == null)
+                {
+                    return Json(new ResponseData()
+                    {
+                        message = "Kullanıcı veya arıza kaydı bulunamadı.",
+                        success = false
+                    });
+                }
+                var emailService = new EmailService();
+
+                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Arıza kaydınız başarıyla oluşturuldu.Birimlerimiz sorunu çözmek için en kısa zamanda olay yerine intikal edecektir.<br> Ayrıntılı bilgi için telefon numaramız:<i>0212 684 75 33</i>";
+
+                await emailService.SendAsync(new IdentityMessage()
+                {
+                    Body = body,
+                    Subject = "Arıza kaydı oluşturdu."
+                }, user.Email);
+                return Json(new ResponseData()
+                {
+                    message = "Kullanıcıya yeni aktivasyon maili gönderildi",
+                    success = true
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseData()
+                {
+                    message = $"Bir hata oluştu: {ex.Message}",
+                    success = false
+                });
+            }
         }
 
         // GET: Issue/Edit/5
@@ -219,5 +263,6 @@ namespace TeknikServis.Web.Controllers
                 return View();
             }
         }
+
     }
 }
