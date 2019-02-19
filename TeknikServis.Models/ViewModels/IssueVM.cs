@@ -42,7 +42,7 @@ namespace TeknikServis.Models.ViewModels
         public DateTime PurchasedDate { get; set; }
 
         [DisplayName("Garanti Durumu")]
-        public bool WarrantyState { get; set; }
+        public bool WarrantyState { get; set; } = false;
 
         [DisplayName("Oluşturulma Tarihi")]
         public DateTime CreatedDate { get; set; } = DateTime.Now;

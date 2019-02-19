@@ -92,19 +92,28 @@ namespace TeknikServis.Web.Controllers
                 switch (issue.ProductType)
                 {
                     case Models.Enums.ProductTypes.Buzdolabı:
-                        if (issue.PurchasedDate.AddYears(1) < DateTime.Now)
+                        if (issue.PurchasedDate.AddYears(1) > DateTime.Now)
                             issue.WarrantyState = true;
-                        issue.WarrantyState = false;
                         break;
                     case Models.Enums.ProductTypes.BulaşıkMakinesi:
+                        if (issue.PurchasedDate.AddYears(2) > DateTime.Now)
+                            issue.WarrantyState = true;
                         break;
                     case Models.Enums.ProductTypes.Fırın:
+                        if (issue.PurchasedDate.AddYears(3) > DateTime.Now)
+                            issue.WarrantyState = true;
                         break;
                     case Models.Enums.ProductTypes.ÇamaşırMakinesi:
+                        if (issue.PurchasedDate.AddYears(4) > DateTime.Now)
+                            issue.WarrantyState = true;
                         break;
                     case Models.Enums.ProductTypes.Mikrodalga:
+                        if (issue.PurchasedDate.AddYears(5) > DateTime.Now)
+                            issue.WarrantyState = true;
                         break;
                     default:
+                        if (issue.PurchasedDate.AddYears(2) > DateTime.Now)
+                            issue.WarrantyState = true;
                         break;
                 }
                 if (model.PostedPhoto != null &&

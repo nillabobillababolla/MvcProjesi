@@ -41,7 +41,7 @@ namespace TeknikServis.Models.Entities
         public DateTime PurchasedDate { get; set; }
 
         [DisplayName("Garanti Durumu")]
-        public bool WarrantyState { get; set; }
+        public bool WarrantyState { get; set; } = false;
 
         [DisplayName("Servis Bedeli")]
         public decimal ServiceCharge { get; set; } = 100;
