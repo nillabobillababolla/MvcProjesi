@@ -1,6 +1,6 @@
 ﻿@model TeknikServis.Models.ViewModels.IssueVM
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Unassigned Issue Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -10,11 +10,6 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
-
-        <dd>
-            <img src="@(Model.PhotoPath??"/assets/images/photo-unavailable.png")" alt="Photo" width="100" height="100" />
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.IssueId)
         </dt>
@@ -48,14 +43,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductType)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
@@ -84,16 +71,7 @@
         </dt>
 
         <dd>
-            @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled", @checked = "checked" })
-
-            @*@if (Model.PurchasedDate.AddYears(2) <= Model.OpenedDate)
-                {
-                    @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled" ,@checked="checked"})
-                }
-                else
-                {
-                    @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled" })
-                }*@
+            @Html.DisplayFor(model => model.WarrantyState)
         </dd>
 
         <dt>

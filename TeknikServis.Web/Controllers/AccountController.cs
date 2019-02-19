@@ -57,7 +57,8 @@ namespace TeknikServis.Web.Controllers
                     Name = model.Name,
                     Surname = model.Surname,
                     Email = model.Email,
-                    UserName = model.UserName
+                    UserName = model.UserName,
+                    Location = model.Location == Models.Enums.Locations.KonumYok ? Models.Enums.Locations.Beşiktaş : model.Location,
                 };
                 newUser.ActivationCode = StringHelpers.GetCode();
 
@@ -192,7 +193,8 @@ namespace TeknikServis.Web.Controllers
                     PhoneNumber = user.PhoneNumber,
                     Surname = user.Surname,
                     UserName = user.UserName,
-                    AvatarPath = string.IsNullOrEmpty(user.AvatarPath) ? "/assets/images/icon-noprofile.png" : user.AvatarPath
+                    AvatarPath = string.IsNullOrEmpty(user.AvatarPath) ? "/assets/images/icon-noprofile.png" : user.AvatarPath,
+                    Location = user.Location
                 };
 
                 return View(data);
@@ -228,6 +230,7 @@ namespace TeknikServis.Web.Controllers
                 user.Name = model.Name;
                 user.Surname = model.Surname;
                 user.PhoneNumber = model.PhoneNumber;
+                user.Location = model.Location;
                 if (user.Email != model.Email)
                 {
                     //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.

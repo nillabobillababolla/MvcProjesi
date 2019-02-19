@@ -24,7 +24,8 @@ namespace TeknikServis.Web.App_Start
 
         private static void ChangePasswordMapping(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<User, ChangePasswordVM>().ReverseMap();
+            cfg.CreateMap<User, ChangePasswordVM>()
+                .ReverseMap();
         }
 
         private static void ProfileUserMapping(IMapperConfigurationExpression cfg)

@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using TeknikServis.Models.Enums;
 
 namespace TeknikServis.Models.IdentityModels
 {
@@ -24,5 +25,8 @@ namespace TeknikServis.Models.IdentityModels
         public string ActivationCode { get; set; }
 
         public string AvatarPath { get; set; }
+
+        [DisplayName("Konum")]
+        public Locations Location { get; set; }
     }
 }

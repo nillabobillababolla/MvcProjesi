@@ -35,7 +35,7 @@ namespace TeknikServis.Models.ViewModels
 
         [DisplayName("Konum")]
         [Required]
-        public string Location { get; set; }
+        public Locations Location { get; set; }
 
         [Required]
         [DisplayName("Satın Alma Tarihi")]

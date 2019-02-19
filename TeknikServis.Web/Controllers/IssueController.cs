@@ -76,13 +76,15 @@ namespace TeknikServis.Web.Controllers
                 ModelState.AddModelError("", "Hata Oluştu.");
                 RedirectToAction("Create", "Issue", model);
             }
+            var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
+            var user = NewUserManager().FindById(id);
             try
             {
                 var issue = new Issue()
                 {
                     Description = model.Description,
                     IssueState = model.IssueState,
-                    Location = model.Location,
+                    Location = model.Location==Models.Enums.Locations.KonumYok?Models.Enums.Locations.Beşiktaş:model.Location,
                     PhotoPath = model.PhotoPath,
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
