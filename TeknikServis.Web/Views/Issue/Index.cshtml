@@ -33,26 +33,50 @@
                                         @for (int i = 0; i < Model.Count; i++)
                                         {
                                             var current = Model[i];
-                                            <tr>
-                                                <th>@(i + 1)</th>
-                                                <td>@current.IssueId</td>
-                                                <td>@current.IssueState</td>
-                                                <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                <td>
-                                                    @current.Location
-                                                </td>
-                                                <td>
-                                                    @if (current.IssueState == IssueStates.Tamamlandı)
-                                                    {
-                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-success">Detay</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-warning">Detay</a>
-                                                    }
-                                                </td>
-
-                                            </tr>
+                                            if (current.IssueState == IssueStates.Tamamlandı)
+                                             {
+                                                 <tr style="background: mediumseagreen">
+                                                     <th>@(i + 1)</th>
+                                                     <td>@current.IssueId</td>
+                                                     <td>@current.IssueState</td>
+                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                     <td>
+                                                         @current.Location
+                                                     </td>
+                                                     <td>
+                                                         @if (current.IssueState == IssueStates.Tamamlandı)
+                                                         {
+                                                             <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-success">Detay</a>
+                                                         }
+                                                         else
+                                                         {
+                                                             <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-warning">Detay</a>
+                                                         }
+                                                     </td>
+                                                 </tr>
+                                            }
+                                             else
+                                             {
+                                                 <tr style="background: salmon">
+                                                     <th>@(i + 1)</th>
+                                                     <td>@current.IssueId</td>
+                                                     <td>@current.IssueState</td>
+                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                     <td>
+                                                         @current.Location
+                                                     </td>
+                                                     <td>
+                                                         @if (current.IssueState == IssueStates.Tamamlandı)
+                                                         {
+                                                             <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-success">Detay</a>
+                                                         }
+                                                         else
+                                                         {
+                                                             <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-warning">Detay</a>
+                                                         }
+                                                     </td>
+                                                 </tr>
+                                             }
                                         }
                                     </tbody>
                                 </table>

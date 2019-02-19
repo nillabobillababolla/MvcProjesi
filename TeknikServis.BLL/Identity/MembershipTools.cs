@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web;
 using TeknikServis.BLL.Repository;
 using TeknikServis.DAL;
+using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
 
 namespace TeknikServis.BLL.Identity
@@ -64,7 +65,7 @@ namespace TeknikServis.BLL.Identity
         public static int GetIssueCount()
         {
             var id = HttpContext.Current.User.Identity.GetUserId();
-            return new IssueRepo().GetAll(x => x.CustomerId == id).Count;
+            return new IssueRepo().GetAll(x => x.CustomerId == id && x.IssueState != IssueStates.Tamamlandı).Count;
         }
 
         public static string GetAvatarPath(string userId)
