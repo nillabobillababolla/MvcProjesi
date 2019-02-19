@@ -84,7 +84,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     Description = model.Description,
                     IssueState = model.IssueState,
-                    Location = model.Location==Models.Enums.Locations.KonumYok?Models.Enums.Locations.Beşiktaş:model.Location,
+                    Location = model.Location==Models.Enums.Locations.KonumYok?user.Location:model.Location,
                     PhotoPath = model.PhotoPath,
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
