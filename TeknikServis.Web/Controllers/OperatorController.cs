@@ -101,7 +101,7 @@ namespace TeknikServis.Web.Controllers
                     Subject = $"{issue.Description} adlı arıza hk."
                 }, issue.Customer.Email);
 
-                return RedirectToAction("Index", "Operator");
+                return RedirectToAction("AllIssues", "Operator");
             }
             catch (DbEntityValidationException ex)
             {
@@ -133,7 +133,32 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-                var data = new IssueRepo().GetAll(x => x.OperatorId == id && x.TechnicianId!=null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                var data = new IssueRepo().GetAll(x => x.OperatorId == id && x.TechnicianId == null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                if (data != null)
+                {
+                    return View(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Index",
+                    ControllerName = "Operator",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AllIssues()
+        {
+            try
+            {
+                var data = new IssueRepo().GetAll().Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
                 {
                     return View(data);
