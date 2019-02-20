@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Entities;
 using TeknikServis.Models.ViewModels;
 using System.Threading.Tasks;
+using TeknikServis.BLL.Helpers;
 using static TeknikServis.BLL.Identity.MembershipTools;
 using TeknikServis.BLL.Services.Senders;
 
@@ -101,7 +103,17 @@ namespace TeknikServis.Web.Controllers
 
                 return RedirectToAction("Index", "Operator");
             }
-
+            catch (DbEntityValidationException ex)
+            {
+                TempData["Message3"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu: {EntityHelpers.ValidationMessage(ex)}",
+                    ActionName = "Create",
+                    ControllerName = "Issue",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
             catch (Exception ex)
             {
                 TempData["Message"] = new ErrorVM()
@@ -121,7 +133,7 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-                var data = new IssueRepo().GetAll(x => x.OperatorId == id).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                var data = new IssueRepo().GetAll(x => x.OperatorId == id && x.TechnicianId!=null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
                 {
                     return View(data);

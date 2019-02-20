@@ -23,7 +23,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Id</th>
+                                            <th>Açıklama</th>
                                             <th>Durum</th>
                                             <th>Teknisyen</th>
                                             <th>Konum</th>
@@ -38,7 +38,7 @@
                                             {
                                                 <tr style="background: mediumseagreen">
                                                     <th>@(i + 1)</th>
-                                                    <td>@current.IssueId</td>
+                                                    <td>@current.Description</td>
                                                     <td>@current.IssueState</td>
                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
                                                     <td>

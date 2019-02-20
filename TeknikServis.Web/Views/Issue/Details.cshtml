@@ -7,122 +7,90 @@
 
 <h3 style="color:green">@TempData["Message"]</h3>
 <h3 style="color:red">@TempData["Message2"]</h3>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dd>
-            <img src="@Model.PhotoPath" alt="Alternate Text" width="100" height="100" style="border-radius:12px" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IssueId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IssueId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer.Name)
-        </dt>
-
-        <dd>
-            @MembershipTools.GetNameSurname(Model.CustomerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Operator.Name)
-        </dt>
-
-        <dd>
-            @MembershipTools.GetNameSurname(Model.OperatorId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Technician.Name)
-        </dt>
-
-        <dd>
-            @MembershipTools.GetNameSurname(Model.TechnicianId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PurchasedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PurchasedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.WarrantyState)
-        </dt>
-
-        <dd>
-            @Html.CheckBoxFor(model => model.WarrantyState, new { @disabled = "disabled", @checked = "checked" })
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ServiceCharge)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ServiceCharge)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Report)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Report)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClosedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClosedDate)
-        </dd>
-
-    </dl>
-
-    <div class="col-md-4">
-        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-facebook">Back to Profile</a>
-    </div>
+<div class="col-md-6 col-md-offset-3">
+    <table id="user" class="table table-bordered table-striped" style="clear: both">
+        <tbody>
+            <tr>
+                <td style="width: 35%;font-weight: bold"></td>
+                <td style="width: 65%;"><img src="@Model.PhotoPath" style="width: 200px; height: 200px;" /></td>
+            </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Issue Id</td>
+                <td style="width: 65%;">@Model.IssueId</td>
+            </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Müşteri Adı</td>
+                <td style="width: 65%;">@MembershipTools.GetNameSurname(Model.CustomerId)</td>
+            </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Operatör Adı</td>
+                <td style="width: 65%;">@(Model.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(Model.OperatorId))</td>
+            </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Teknisyen Adı</td>
+                <td style="width: 65%;">@(Model.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(Model.TechnicianId))</td>
+            </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Ürün</td>
+                <td style="width: 65%;">@Model.ProductType</td>
+            </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Açıklama</td>
+                <td style="width: 65%;">@Model.Description</td>
+            </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Konum</td>
+            <td style="width: 65%;">@Model.Location</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Satın Alma Tarihi</td>
+            <td style="width: 65%;">@Model.PurchasedDate.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Garanti Durumu</td>
+            @if (@Model.WarrantyState)
+            {
+                <td style="width: 65%;">Garantisi Var</td>
+            }
+            else
+            {
+                <td style="width: 65%;">Garantisi Yok</td>
+            }
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Kayıt Oluşturma Tarihi</td>
+            <td style="width: 65%;">@Model.CreatedDate.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Servis Bedeli</td>
+            <td style="width: 65%;">@Model.ServiceCharge ₺</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Konum</td>
+            <td style="width: 65%;">@Model.Location</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Rapor</td>
+            @if (@Model.Report==null)
+            {
+                <td style="width: 65%;">Rapor henüz oluşturulmamıştır.</td>
+            }
+            else
+            {
+                <td style="width: 65%;">@Model.Report</td>
+            }
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Kayıt Kapanma Tarihi</td>
+            @if (@Model.ClosedDate==null)
+            {
+                <td style="width: 65%;">Arıza henüz sonuçlanmamıştır.</td>
+            }
+            else
+            {
+                <td style="width: 65%;">@(Model.ClosedDate?.ToShortDateString())</td>
+            }        </tr>
+        </tbody>
+    </table>
 </div>
+
