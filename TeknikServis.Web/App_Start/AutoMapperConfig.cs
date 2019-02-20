@@ -44,8 +44,6 @@ namespace TeknikServis.Web.App_Start
         {
             cfg.CreateMap<Issue, IssueVM>()
                 .ForMember(dest => dest.IssueId, opt => opt.MapFrom(x => x.Id))
-                .ForMember(dest => dest.Operator, opt => opt.MapFrom((s, d) => s.Operator == null ? "-" : (s.Operator.Name + " " + s.Operator.Surname)))
-                .ForMember(dest => dest.Technician, opt => opt.MapFrom((s, d) => s.Technician == null ? "-" : (s.Technician.Name + " " + s.Technician.Surname)))
                 .ReverseMap(); 
         }
     }

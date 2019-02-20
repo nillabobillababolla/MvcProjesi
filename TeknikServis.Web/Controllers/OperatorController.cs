@@ -58,8 +58,10 @@ namespace TeknikServis.Web.Controllers
 
             issue.OperatorId = userid;
             var data = Mapper.Map<Issue, IssueVM>(issue);
+            data.CustomerName = issue.Customer.Name + " " + issue.Customer.Surname;
             if (new IssueRepo().Update(issue) > 0)
             {
+                data.OperatorName = issue.Operator.Name + " " + issue.Operator.Surname;
                 TempData["Message"] = "Üzerine alma işlemi başarılı.";
                 return View(data);
             }

@@ -95,6 +95,7 @@ namespace TeknikServis.Web.Controllers
                     OperatorId = model.OperatorId,
                     Report = model.Report
                 };
+                model.CustomerName = user.Name + " " + user.Surname;
                 switch (issue.ProductType)
                 {
                     case Models.Enums.ProductTypes.Buzdolabı:
