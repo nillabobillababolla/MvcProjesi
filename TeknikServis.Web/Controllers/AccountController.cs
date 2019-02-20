@@ -441,7 +441,7 @@ namespace TeknikServis.Web.Controllers
                 };
                 return RedirectToAction("Error500", "Home");
             }
-
+            TempData["Message"]=$"{model.Email} mail adresine yeni şifre gönderildi.";
             return View();
         }
 

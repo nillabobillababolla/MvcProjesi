@@ -56,8 +56,7 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Index", "Issue");
             }
             var data = Mapper.Map<Issue, IssueVM>(issue);
-            data.CustomerName = issue.Customer.Name + " " + issue.Customer.Surname;
-            data.OperatorName = issue.Operator.Name + " " + issue.Operator.Surname;
+           var user = NewUserManager().FindById(data.CustomerId);
             return View(data);
         }
 

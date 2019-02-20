@@ -1,4 +1,5 @@
-﻿@model TeknikServis.Models.ViewModels.IssueVM
+﻿@using TeknikServis.BLL.Identity;
+@model TeknikServis.Models.ViewModels.IssueVM
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -28,7 +29,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CustomerName)
+            @MembershipTools.GetNameSurname(Model.CustomerId)
         </dd>
 
         <dt>
@@ -36,7 +37,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OperatorName)
+            @MembershipTools.GetNameSurname(Model.OperatorId)
         </dd>
 
         <dt>
@@ -44,7 +45,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TechnicianName)
+            @MembershipTools.GetNameSurname(Model.TechnicianId)
         </dd>
 
         <dt>

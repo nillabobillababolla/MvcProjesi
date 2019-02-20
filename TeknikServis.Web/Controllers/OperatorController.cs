@@ -63,7 +63,6 @@ namespace TeknikServis.Web.Controllers
             var data = Mapper.Map<Issue, IssueVM>(issue);
             if (new IssueRepo().Update(issue) > 0)
             {
-                data.OperatorName = issue.Operator.Name + " " + issue.Operator.Surname;
                 issue.IssueState = Models.Enums.IssueStates.KabulEdildi;
                 data.IssueState = issue.IssueState;
                 new IssueRepo().Update(issue);
