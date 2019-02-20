@@ -46,10 +46,27 @@ namespace TeknikServis.Web.Controllers
             if (issue == null)
             {
                 TempData["Message2"] = "Arıza kaydı bulunamadi.";
+                return RedirectToAction("Index", "Operator");
+            }
+            var userid = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
+            if (userid == null)
+            {
                 return RedirectToAction("Index", "Issue");
             }
+
+            issue.OperatorId = userid;
             var data = Mapper.Map<Issue, IssueVM>(issue);
-            return View(data);
+            if (new IssueRepo().Update(issue) > 0)
+            {
+                TempData["Message"] = "Üzerine alma işlemi başarılı.";
+                return View(data);
+            }
+            else
+            {
+                TempData["Message2"] = "Üzerine alma işlemi başarısız.";
+                return RedirectToAction("Index", "Operator");
+            }
+
         }
     }
 }
