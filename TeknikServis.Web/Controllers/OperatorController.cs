@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using TeknikServis.BLL.Helpers;
 using static TeknikServis.BLL.Identity.MembershipTools;
 using TeknikServis.BLL.Services.Senders;
+using TeknikServis.BLL.Identity;
 
 namespace TeknikServis.Web.Controllers
 {
@@ -24,7 +25,7 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-                var data = new IssueRepo().GetAll(x => x.OperatorId == null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                var data = new IssueRepo().GetAll(x => x.OperatorId == null || x.TechnicianId==null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
                 {
                     return View(data);
@@ -60,6 +61,11 @@ namespace TeknikServis.Web.Controllers
             {
                 return RedirectToAction("Index", "Issue");
             }
+            if(issue.OperatorId!=null)
+            {
+                TempData["Message2"]="Bu kayıt zaten bir operatöre atanmış.";
+                return RedirectToAction("Index","Operator");
+            }
 
             issue.OperatorId = userid;
             var data = Mapper.Map<Issue, IssueVM>(issue);
@@ -94,7 +100,7 @@ namespace TeknikServis.Web.Controllers
                     $"{issue.Description} adlı arızaya {technician.Name}  {technician.Surname} teknisyeni atandı.";
 
                 var emailService = new EmailService();
-                var body = $"Merhaba <b>{issue.Customer.Name} {issue.Customer.Surname}</b><br>{issue.Description} adlı arızanız onaylanmıştır ve görevli teknisyen en kısa sürede yola çıkacaktır.";
+                var body = $"Merhaba <b>{GetNameSurname(issue.CustomerId)}</b><br>{issue.Description} adlı arızanız onaylanmıştır ve görevli teknisyen en kısa sürede yola çıkacaktır.";
                 await emailService.SendAsync(new IdentityMessage()
                 {
                     Body = body,
@@ -133,7 +139,7 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-                var data = new IssueRepo().GetAll(x => x.OperatorId == id && x.TechnicianId!=null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                var data = new IssueRepo().GetAll(x => x.OperatorId == id | x.TechnicianId==null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
                 {
                     return View(data);
