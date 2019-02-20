@@ -104,7 +104,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "Register",
@@ -157,7 +157,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "Index",
@@ -201,7 +201,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "UserProfile",
@@ -274,7 +274,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu: {ex.Message}",
                     ActionName = "UserProfile",
@@ -341,7 +341,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "UserProfile",
@@ -416,7 +416,7 @@ namespace TeknikServis.Web.Controllers
                 var result = userStore.Context.SaveChanges();
                 if (result == 0)
                 {
-                    TempData["Model"] = new ErrorVM()
+                    TempData["Message"] = new ErrorVM()
                     {
                         Text = $"Bir hata oluştu",
                         ActionName = "RecoverPassword",
@@ -432,7 +432,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "RecoverPassword",

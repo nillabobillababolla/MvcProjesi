@@ -30,7 +30,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "Index",
@@ -105,7 +105,7 @@ namespace TeknikServis.Web.Controllers
 
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "AssignTechAsync",
@@ -130,7 +130,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "Index",
