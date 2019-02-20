@@ -3,7 +3,7 @@
 @model List<TeknikServis.Models.ViewModels.IssueVM>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Issues";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 <div>
@@ -23,11 +23,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Açıklama</th>
+                                            <th>Id</th>
                                             <th>Durum</th>
                                             <th>Teknisyen</th>
                                             <th>Konum</th>
-                                            <th>Detay</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -38,15 +37,10 @@
                                             {
                                                 <tr style="background: lightgrey">
                                                     <th>@(i + 1)</th>
-                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueId</td>
                                                     <td>@current.IssueState</td>
                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                    <td>
-                                                        @current.Location
-                                                    </td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-facebook">Detay</a>
-                                                    </td>
+                                                    <td>@current.Location</td>
                                                 </tr>
                                             }
                                             if (current.IssueState == IssueStates.Atandı || current.IssueState == IssueStates.KabulEdildi || current.IssueState == IssueStates.İşlemde)
@@ -56,27 +50,17 @@
                                                     <td>@current.IssueId</td>
                                                     <td>@current.IssueState</td>
                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                    <td>
-                                                        @current.Location
-                                                    </td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-facebook">Detay</a>
-                                                    </td>
+                                                    <td>@current.Location</td>
                                                 </tr>
                                             }
                                             if (current.IssueState == IssueStates.Tamamlandı)
                                             {
                                                 <tr style="background: mediumseagreen">
                                                     <th>@(i + 1)</th>
-                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueId</td>
                                                     <td>@current.IssueState</td>
                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                    <td>
-                                                        @current.Location
-                                                    </td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-facebook">Detay</a>
-                                                    </td>
+                                                    <td>@current.Location</td>
                                                 </tr>
                                             }
                                         }
@@ -91,8 +75,9 @@
 
     </div><!-- /Page Inner -->
     <div class="col-md-4">
-        <a href="@Url.Action("Create","Issue")" class="btn btn-block btn-facebook">Create Issue</a>
-        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-google">Back to Profile</a>
+        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-facebook">Back to Profile</a>
     </div>
 </div>
+
+
 
