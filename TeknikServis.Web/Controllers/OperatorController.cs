@@ -42,6 +42,8 @@ namespace TeknikServis.Web.Controllers
         [HttpGet]
         public ActionResult Details(string id)
         {
+            ViewBag.TechnicianList = GetTechnicianList();
+
             var issue = new IssueRepo().GetById(id);
             if (issue == null)
             {

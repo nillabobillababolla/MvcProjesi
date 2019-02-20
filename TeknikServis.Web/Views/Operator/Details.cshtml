@@ -39,7 +39,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TechnicianId)
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.TechnicianId, (List<SelectListItem>) ViewBag.TechnicianList, new {@class = "form-control col-md-4", size = "1"})
+            </div>
         </dd>
 
         <dt>
@@ -84,6 +86,7 @@
 
     </dl>
     <div class="col-md-4">
-        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-facebook">Back to Profile</a>
+        <a href="@Url.Action("AssignTech","Operator")" class="btn btn-block btn-facebook">Teknisyene Ata</a>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-block btn-google">Back to Profile</a>
     </div>
 </div>
