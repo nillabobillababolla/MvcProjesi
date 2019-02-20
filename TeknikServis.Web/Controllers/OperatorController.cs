@@ -119,6 +119,26 @@ namespace TeknikServis.Web.Controllers
         [HttpGet]
         public ActionResult AssignedIssues()
         {
+            try
+            {
+                var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
+                var data = new IssueRepo().GetAll(x => x.OperatorId == id).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                if (data != null)
+                {
+                    return View(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Model"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Index",
+                    ControllerName = "Operator",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
             return View();
         }
     }

@@ -716,6 +716,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Operator\Index.cshtml" />
     <Content Include="Views\Operator\Details.cshtml" />
+    <Content Include="Views\Operator\AssignedIssues.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

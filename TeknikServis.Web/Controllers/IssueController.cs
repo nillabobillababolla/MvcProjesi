@@ -77,10 +77,10 @@ namespace TeknikServis.Web.Controllers
                 ModelState.AddModelError("", "Hata Oluştu.");
                 RedirectToAction("Create", "Issue", model);
             }
-            var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-            var user = NewUserManager().FindById(id);
             try
             {
+                var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
+                var user = NewUserManager().FindById(id);
                 var issue = new Issue()
                 {
                     Description = model.Description,
