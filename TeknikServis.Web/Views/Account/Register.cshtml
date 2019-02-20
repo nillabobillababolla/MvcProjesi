@@ -46,77 +46,73 @@
             <div id="main-wrapper" class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-4 login-box">
-                        <h4 class="login-title">Create an account</h4>
+                        <br />
+                        <br />
+                        <br />
+                        <h4 class="login-title">Yeni Hesap Oluştur</h4>
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                            <div class="form-horizontal">
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-rounded", @placeholder = "Adı" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control input-rounded", @placeholder = "Soyadı" } })
+                                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control input-rounded", @placeholder = "Kullanıcı Adı" } })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-rounded", @placeholder = "Mail Adresi" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-rounded", @placeholder = "Şifre" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control input-rounded", @placeholder = "Şifre Tekrar" } })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EnumDropDownListFor(model => model.Location, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        @Html.EnumDropDownListFor(model => model.Location, new { @class = "form-control input-rounded",@placeholder="Konum" })
+                                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-1 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default btn-block" />
-                                <a href="@Url.Action("Login","Account")" class="btn btn-default btn-block">Back to Login</a>
+                                <div class="form-group">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <input type="submit" value="Hesap Oluştur" class="btn btn-instagram btn-block" />
+                                        <a href="@Url.Action("Login", "Account")" class="btn btn-instagram btn-block">Geri Dön</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
                         }
                     </div>
                 </div>
