@@ -62,6 +62,9 @@ namespace TeknikServis.Web.Controllers
             if (new IssueRepo().Update(issue) > 0)
             {
                 data.OperatorName = issue.Operator.Name + " " + issue.Operator.Surname;
+                issue.IssueState = Models.Enums.IssueStates.KabulEdildi;
+                data.IssueState = issue.IssueState;
+                new IssueRepo().Update(issue);
                 TempData["Message"] = "Üzerine alma işlemi başarılı.";
                 return View(data);
             }
@@ -70,7 +73,6 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message2"] = "Üzerine alma işlemi başarısız.";
                 return RedirectToAction("Index", "Operator");
             }
-
         }
     }
 }

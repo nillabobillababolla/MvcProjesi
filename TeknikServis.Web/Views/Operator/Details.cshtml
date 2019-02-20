@@ -20,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
+            @Html.DisplayNameFor(model => model.CustomerName)
         </dt>
 
         <dd>
@@ -28,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OperatorId)
+            @Html.DisplayNameFor(model => model.OperatorName)
         </dt>
 
         <dd>
@@ -36,12 +36,12 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TechnicianId)
+            @Html.DisplayNameFor(model => model.TechnicianName)
         </dt>
 
         <dd>
-            <div class="col-md-3">
-                @Html.DropDownListFor(model => model.TechnicianId, (List<SelectListItem>) ViewBag.TechnicianList, new {@class = "form-control col-md-4", size = "1"})
+            <div>
+                @Html.DropDownListFor(model => model.TechnicianId, (List<SelectListItem>)ViewBag.TechnicianList, new {@class = "form-control col-md-6", size = "1"})
             </div>
         </dd>
 

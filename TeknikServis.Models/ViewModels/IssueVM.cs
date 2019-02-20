@@ -15,12 +15,21 @@ namespace TeknikServis.Models.ViewModels
         [Required]
         [DisplayName("Müşteri Id")]
         public string CustomerId { get; set; }
+
+        [DisplayName("Müşteri Adı")]
         public string CustomerName { get; set; }
-        public string OperatorName { get; set; }
+       
         [DisplayName("Operatör Id")]
         public string OperatorId { get; set; }
+
+        [DisplayName("Operator Adı")]
+        public string OperatorName { get; set; }
+
         [DisplayName("Teknisyen Id")]
         public string TechnicianId { get; set; }
+
+        [DisplayName("Teknisyen Adı")]
+        public string TechnicianName { get; set; }
 
         [StringLength(250)]
         [DisplayName("Açıklama")]
