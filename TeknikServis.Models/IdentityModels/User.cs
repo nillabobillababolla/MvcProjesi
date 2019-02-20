@@ -28,10 +28,5 @@ namespace TeknikServis.Models.IdentityModels
 
         [DisplayName("Konum")]
         public Locations Location { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Name} {Surname}";
-        }
     }
 }
