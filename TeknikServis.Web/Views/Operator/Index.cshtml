@@ -26,7 +26,7 @@
                                             <th>Durum</th>
                                             <th>Teknisyen</th>
                                             <th>Konum</th>
-                                            <th>Detay</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,7 +55,7 @@
                                                     <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
                                                     <td>@current.Location</td>
                                                     <td>
-                                                        <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Detay</a>
+                                                        <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Üzerine Al</a>
                                                     </td>
                                                 </tr>
                                             }

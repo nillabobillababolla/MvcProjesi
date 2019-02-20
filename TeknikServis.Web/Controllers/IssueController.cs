@@ -122,6 +122,8 @@ namespace TeknikServis.Web.Controllers
                             issue.WarrantyState = true;
                         break;
                 }
+                if (issue.WarrantyState == true)
+                    issue.ServiceCharge = 0;
                 if (model.PostedPhoto != null &&
                     model.PostedPhoto.ContentLength > 0)
                 {
