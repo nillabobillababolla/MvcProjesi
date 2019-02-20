@@ -12,7 +12,6 @@ using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
 using TeknikServis.BLL.Services.Senders;
 using TeknikServis.Models.Entities;
-using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
 using static TeknikServis.BLL.Identity.MembershipTools;
 
@@ -71,7 +70,7 @@ namespace TeknikServis.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Customer")]
-        public ActionResult Create(IssueVM model)
+        public async Task<ActionResult> Create(IssueVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +85,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     Description = model.Description,
                     IssueState = model.IssueState,
-                    Location = model.Location==Models.Enums.Locations.KonumYok?user.Location:model.Location,
+                    Location = model.Location == Models.Enums.Locations.KonumYok ? user.Location : model.Location,
                     PhotoPath = model.PhotoPath,
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
@@ -97,36 +96,50 @@ namespace TeknikServis.Web.Controllers
                     OperatorId = model.OperatorId,
                     Report = model.Report
                 };
-                model.CustomerName = user.Name + " " + user.Surname;
                 switch (issue.ProductType)
                 {
                     case Models.Enums.ProductTypes.Buzdolabı:
                         if (issue.PurchasedDate.AddYears(1) > DateTime.Now)
+                        {
                             issue.WarrantyState = true;
+                        }
                         break;
                     case Models.Enums.ProductTypes.BulaşıkMakinesi:
                         if (issue.PurchasedDate.AddYears(2) > DateTime.Now)
+                        {
                             issue.WarrantyState = true;
+                        }
                         break;
                     case Models.Enums.ProductTypes.Fırın:
                         if (issue.PurchasedDate.AddYears(3) > DateTime.Now)
+                        {
                             issue.WarrantyState = true;
+                        }
                         break;
                     case Models.Enums.ProductTypes.ÇamaşırMakinesi:
                         if (issue.PurchasedDate.AddYears(4) > DateTime.Now)
+                        {
                             issue.WarrantyState = true;
+                        }
                         break;
                     case Models.Enums.ProductTypes.Mikrodalga:
                         if (issue.PurchasedDate.AddYears(5) > DateTime.Now)
+                        {
                             issue.WarrantyState = true;
+                        }
                         break;
                     default:
                         if (issue.PurchasedDate.AddYears(2) > DateTime.Now)
+                        {
                             issue.WarrantyState = true;
+                        }
                         break;
                 }
                 if (issue.WarrantyState == true)
+                {
                     issue.ServiceCharge = 0;
+                }
+
                 if (model.PostedPhoto != null &&
                     model.PostedPhoto.ContentLength > 0)
                 {
@@ -159,11 +172,21 @@ namespace TeknikServis.Web.Controllers
                 repo.InsertForMark(issue);
                 repo.Save();
                 TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
+
+                var emailService = new EmailService();
+
+                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Arıza kaydınız başarıyla oluşturuldu.Birimlerimiz sorunu çözmek için en kısa zamanda olay yerine intikal edecektir.<br><br> Ayrıntılı bilgi için telefon numaramız:<i>0212 684 75 33</i>";
+
+                await emailService.SendAsync(new IdentityMessage()
+                {
+                    Body = body,
+                    Subject = "Arıza kaydı oluşturuldu."
+                }, user.Email);
                 return RedirectToAction("Index", "Issue");
             }
             catch (DbEntityValidationException ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message3"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu: {EntityHelpers.ValidationMessage(ex)}",
                     ActionName = "Create",
@@ -174,7 +197,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Model"] = new ErrorVM()
+                TempData["Message2"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
                     ActionName = "Create",
@@ -183,49 +206,8 @@ namespace TeknikServis.Web.Controllers
                 };
                 return RedirectToAction("Error500", "Home");
             }
-
         }
 
-        [HttpPost]
-        public async Task<JsonResult> SendIssueMail()
-        {
-            try
-            {
-                var customerId = HttpContext.User.Identity.GetUserId();
-                var userStore = NewUserStore();
-                var user = await userStore.FindByIdAsync(customerId);
-                if (user == null)
-                {
-                    return Json(new ResponseData()
-                    {
-                        message = "Kullanıcı veya arıza kaydı bulunamadı.",
-                        success = false
-                    });
-                }
-                var emailService = new EmailService();
-
-                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Arıza kaydınız başarıyla oluşturuldu.Birimlerimiz sorunu çözmek için en kısa zamanda olay yerine intikal edecektir.<br> Ayrıntılı bilgi için telefon numaramız:<i>0212 684 75 33</i>";
-
-                await emailService.SendAsync(new IdentityMessage()
-                {
-                    Body = body,
-                    Subject = "Arıza kaydı oluşturdu."
-                }, user.Email);
-                return Json(new ResponseData()
-                {
-                    message = "Kullanıcıya yeni aktivasyon maili gönderildi",
-                    success = true
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new ResponseData()
-                {
-                    message = $"Bir hata oluştu: {ex.Message}",
-                    success = false
-                });
-            }
-        }
 
         // GET: Issue/Edit/5
         public ActionResult Edit(int id)

@@ -1,11 +1,13 @@
 ﻿@using Microsoft.AspNet.Identity
 @model TeknikServis.Models.ViewModels.IssueVM
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+                ViewBag.Title = "Create";
+                Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Create</h2>
+<h3 style="color:green">@TempData["Message"]</h3>
+<h3 style="color:red">@TempData["Message2"]</h3>
+<h3 style="color:red">@TempData["Message3"]</h3>
 
 @using (Html.BeginForm("Create", "Issue", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
@@ -43,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EnumDropDownListFor(model => model.Location, new { @class = "form-control"})
+                @Html.EnumDropDownListFor(model => model.Location, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,7 +60,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-4">
-                <input type="submit" value="Create" class="btn btn-facebook btn-block"  />
+                <input type="submit" value="Create" class="btn btn-facebook btn-block" />
                 <a href="@Url.Action("Index","Home")" class="btn btn-block btn-google">Back to Profile</a>
             </div>
         </div>

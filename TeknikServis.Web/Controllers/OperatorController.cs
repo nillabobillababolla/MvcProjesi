@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Entities;
 using TeknikServis.Models.ViewModels;
+using System.Threading.Tasks;
+using static TeknikServis.BLL.Identity.MembershipTools;
+using TeknikServis.BLL.Services.Senders;
 
 namespace TeknikServis.Web.Controllers
 {
@@ -58,7 +61,6 @@ namespace TeknikServis.Web.Controllers
 
             issue.OperatorId = userid;
             var data = Mapper.Map<Issue, IssueVM>(issue);
-            data.CustomerName = issue.Customer.Name + " " + issue.Customer.Surname;
             if (new IssueRepo().Update(issue) > 0)
             {
                 data.OperatorName = issue.Operator.Name + " " + issue.Operator.Surname;
@@ -73,6 +75,51 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message2"] = "Üzerine alma işlemi başarısız.";
                 return RedirectToAction("Index", "Operator");
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Operator")]
+        public async Task<ActionResult> AssignTechAsync(IssueVM model)
+        {
+            try
+            {
+                var issue = new IssueRepo().GetById(model.IssueId);
+                issue.TechnicianId = model.TechnicianId;
+                issue.IssueState = Models.Enums.IssueStates.Atandı;
+                new IssueRepo().Update(issue);
+                var technician = await NewUserStore().FindByIdAsync(issue.TechnicianId);
+                TempData["Message"] =
+                    $"{issue.Description} adlı arızaya {technician.Name}  {technician.Surname} teknisyeni atandı.";
+
+                var emailService = new EmailService();
+                var body = $"Merhaba <b>{issue.Customer.Name} {issue.Customer.Surname}</b><br>{issue.Description} adlı arızanız onaylanmıştır ve görevli teknisyen en kısa sürede yola çıkacaktır.";
+                await emailService.SendAsync(new IdentityMessage()
+                {
+                    Body = body,
+                    Subject = $"{issue.Description} adlı arıza hk."
+                }, issue.Customer.Email);
+
+                return RedirectToAction("Index", "Operator");
+            }
+
+            catch (Exception ex)
+            {
+                TempData["Model"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "AssignTechAsync",
+                    ControllerName = "Operator",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AssignedIssues()
+        {
+            return View();
         }
     }
 }
