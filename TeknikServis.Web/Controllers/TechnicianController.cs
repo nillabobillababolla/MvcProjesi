@@ -28,9 +28,9 @@ namespace TeknikServis.Web.Controllers
             {
                 TempData["Message"] = new ErrorVM()
                 {
-                    Text = $"Bir hata oluştu {ex.Message}",
-                    ActionName = "Details",
-                    ControllerName = "Issue",
+                    Text = $"Bir hata oluştu. {ex.Message}",
+                    ActionName = "Index",
+                    ControllerName = "Technician",
                     ErrorCode = 500
                 };
                 return RedirectToAction("Error500", "Home");
