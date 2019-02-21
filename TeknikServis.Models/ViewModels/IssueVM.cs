@@ -59,7 +59,7 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
 
-        public HttpPostedFile PostedPhoto { get; set; }
+        public HttpPostedFileBase PostedPhoto { get; set; }
 
         [ForeignKey("CustomerId")]
         public virtual User Customer { get; set; }

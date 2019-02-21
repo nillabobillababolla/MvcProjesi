@@ -217,15 +217,48 @@ namespace TeknikServis.Web.Controllers
         [Authorize]
         public async Task<ActionResult> UserProfile(UserProfileVM model)
         {
+            var userManager = NewUserManager();
+            var user = await userManager.FindByIdAsync(model.Id);
+
             if (!ModelState.IsValid)
             {
                 return View("UserProfile", model);
             }
 
+
+            if (model.PostedFile != null &&
+                   model.PostedFile.ContentLength > 0)
+            {
+                var file = model.PostedFile;
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extName = Path.GetExtension(file.FileName);
+                fileName = StringHelpers.UrlFormatConverter(fileName);
+                fileName += StringHelpers.GetCode();
+                var directorypath = Server.MapPath("~/Upload/");
+                var filepath = Server.MapPath("~/Upload/") + fileName + extName;
+
+                if (!Directory.Exists(directorypath))
+                {
+                    Directory.CreateDirectory(directorypath);
+                }
+
+                file.SaveAs(filepath);
+
+                WebImage img = new WebImage(filepath);
+                img.Resize(250, 250, false);
+                img.AddTextWatermark("TeknikServis");
+                img.Save(filepath);
+                var oldPath = user.AvatarPath;
+                if (oldPath != "/assets/images/icon-noprofile.png")
+                {
+                    System.IO.File.Delete(Server.MapPath(oldPath));
+                }
+                user.AvatarPath = "/Upload/" + fileName + extName;
+            }
+
             try
             {
-                var userManager = NewUserManager();
-                var user = await userManager.FindByIdAsync(model.Id);
+
 
                 user.Name = model.Name;
                 user.Surname = model.Surname;
@@ -236,37 +269,6 @@ namespace TeknikServis.Web.Controllers
                     //todo tekrar aktivasyon maili gönderilmeli. rolü de aktif olmamış role çevrilmeli.
                 }
                 user.Email = model.Email;
-
-                if (model.PostedFile != null &&
-                    model.PostedFile.ContentLength > 0)
-                {
-                    var file = model.PostedFile;
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extName = Path.GetExtension(file.FileName);
-                    fileName = StringHelpers.UrlFormatConverter(fileName);
-                    fileName += StringHelpers.GetCode();
-                    var directorypath = Server.MapPath("~/Upload/");
-                    var filepath = Server.MapPath("~/Upload/") + fileName + extName;
-
-                    if (!Directory.Exists(directorypath))
-                    {
-                        Directory.CreateDirectory(directorypath);
-                    }
-
-                    file.SaveAs(filepath);
-
-                    WebImage img = new WebImage(filepath);
-                    img.Resize(250, 250, false);
-                    img.AddTextWatermark("TeknikServis");
-                    img.Save(filepath);
-                    var oldPath = user.AvatarPath;
-                    if (oldPath != "/assets/images/icon-noprofile.png")
-                    {
-                        System.IO.File.Delete(Server.MapPath(oldPath));
-                    }
-                    user.AvatarPath = "/Upload/" + fileName + extName;
-                }
-
 
                 await userManager.UpdateAsync(user);
                 TempData["Message"] = "Güncelleme işlemi başarılı.";
@@ -441,7 +443,7 @@ namespace TeknikServis.Web.Controllers
                 };
                 return RedirectToAction("Error500", "Home");
             }
-            TempData["Message"]=$"{model.Email} mail adresine yeni şifre gönderildi.";
+            TempData["Message"] = $"{model.Email} mail adresine yeni şifre gönderildi.";
             return View();
         }
 
