@@ -33,45 +33,16 @@
                                         @for (int i = 0; i < Model.Count; i++)
                                         {
                                             var current = Model[i];
-                                            if (current.IssueState == IssueStates.Beklemede)
-                                            {
-                                                <tr style="background: lightgrey">
-                                                    <th>@(i + 1)</th>
-                                                    <td>@current.IssueId</td>
-                                                    <td>@current.IssueState</td>
-                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                    <td>@current.Location</td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Üzerine Al</a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                            if (current.IssueState == IssueStates.Atandı || current.IssueState == IssueStates.KabulEdildi || current.IssueState == IssueStates.İşlemde)
-                                            {
-                                                <tr style="background: salmon">
-                                                    <th>@(i + 1)</th>
-                                                    <td>@current.IssueId</td>
-                                                    <td>@current.IssueState</td>
-                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                    <td>@current.Location</td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Üzerine Al</a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                            if (current.IssueState == IssueStates.Tamamlandı)
-                                            {
-                                                <tr style="background: mediumseagreen">
-                                                    <th>@(i + 1)</th>
-                                                    <td>@current.IssueId</td>
-                                                    <td>@current.IssueState</td>
-                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                    <td>@current.Location</td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Üzerine Al</a>
-                                                    </td>
-                                                </tr>
-                                            }
+                                            <tr style="background: lightgrey">
+                                                <th>@(i + 1)</th>
+                                                <td>@current.IssueId</td>
+                                                <td>@current.IssueState</td>
+                                                <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                <td>@current.Location</td>
+                                                <td>
+                                                    <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Üzerine Al</a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>
