@@ -69,7 +69,6 @@ namespace TeknikServis.Web.Controllers
                 issue.IssueState = Models.Enums.IssueStates.KabulEdildi;
                 data.IssueState = issue.IssueState;
                 new IssueRepo().Update(issue);
-                TempData["Message"] = "Üzerine alma işlemi başarılı.";
                 return View(data);
             }
             else
