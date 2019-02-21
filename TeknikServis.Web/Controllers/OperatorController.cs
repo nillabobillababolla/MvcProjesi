@@ -25,7 +25,7 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
-                var data = new IssueRepo().GetAll(x => x.OperatorId == null || x.TechnicianId==null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
+                var data = new IssueRepo().GetAll(x => x.OperatorId == null).Select(x => Mapper.Map<IssueVM>(x)).ToList();
                 if (data != null)
                 {
                     return View(data);
@@ -94,13 +94,15 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message"] =
                     $"{issue.Description} adlı arızaya {technician.Name}  {technician.Surname} teknisyeni atandı.";
 
+                var customer = NewUserManager().FindById(issue.CustomerId);
+
                 var emailService = new EmailService();
                 var body = $"Merhaba <b>{GetNameSurname(issue.CustomerId)}</b><br>{issue.Description} adlı arızanız onaylanmıştır ve görevli teknisyen en kısa sürede yola çıkacaktır.";
                 await emailService.SendAsync(new IdentityMessage()
                 {
                     Body = body,
                     Subject = $"{issue.Description} adlı arıza hk."
-                }, issue.Customer.Email);
+                }, customer.Email);
 
                 return RedirectToAction("AllIssues", "Operator");
             }
