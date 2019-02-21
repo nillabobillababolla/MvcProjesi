@@ -85,7 +85,7 @@ namespace TeknikServis.Web.Controllers
                     Description = model.Description,
                     IssueState = model.IssueState,
                     Location = model.Location == Models.Enums.Locations.KonumYok ? user.Location : model.Location,
-                    PhotoPath = model.PhotoPath??"/assets/images/photo-unavailable.png",
+                    PhotoPath = model.PhotoPath??"~/assets/images/photo-unavailable.png",
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
                     PurchasedDate = model.PurchasedDate,

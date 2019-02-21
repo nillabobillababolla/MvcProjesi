@@ -18,15 +18,15 @@
         </tr>
         <tr>
             <td style="width: 35%; font-weight: bold">Müşteri Adı Soyadı</td>
-            <td style="width: 65%;">@MembershipTools.GetNameSurname(Model.CustomerId)</td>
+            <td style="width: 65%;">@(Model.CustomerId == null ? "Müşteri Adı" : MembershipTools.GetNameSurname(Model.CustomerId))</td>
         </tr>
         <tr>
             <td style="width: 35%; font-weight: bold">Operatör Adı Soyadı</td>
-            <td style="width: 65%;">@MembershipTools.GetNameSurname(Model.OperatorId)</td>
+            <td style="width: 65%;">@(Model.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(Model.OperatorId))</td>
         </tr>
         <tr>
             <td style="width: 35%; font-weight: bold">Teknisyen Adı Soyadı</td>
-            <td style="width: 65%;">@MembershipTools.GetNameSurname(Model.TechnicianId)</td>
+            <td style="width: 65%;">@(Model.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(Model.TechnicianId))</td>
         </tr>
         <tr>
             <td style="width: 35%; font-weight: bold">Açıklama</td>
