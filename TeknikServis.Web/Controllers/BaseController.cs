@@ -38,8 +38,8 @@ namespace TeknikServis.Web.Controllers
             {
                 if (NewUserManager().IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                 {
-                    var tech = new IssueRepo().GetAll().FirstOrDefault(issue => issue.TechnicianId == user.Id);
-                    if (tech == null)
+                    //var tech = new IssueRepo().GetAll().FirstOrDefault(issue => issue.TechnicianId == user.Id);
+                    if (user != null)
                     {
                         data.Add(new SelectListItem()
                         {
