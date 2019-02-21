@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -59,7 +60,7 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
 
-        public HttpPostedFileBase PostedPhoto { get; set; }
+        public List<HttpPostedFileBase> PostedPhoto { get; set; }
 
         [ForeignKey("CustomerId")]
         public virtual User Customer { get; set; }

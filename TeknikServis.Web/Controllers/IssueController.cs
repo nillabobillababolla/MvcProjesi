@@ -139,32 +139,36 @@ namespace TeknikServis.Web.Controllers
                     issue.ServiceCharge = 0;
                 }
 
-                if (model.PostedPhoto != null &&
-                    model.PostedPhoto.ContentLength > 0)
+                foreach (var photo in model.PostedPhoto)
                 {
-                    var file = model.PostedPhoto;
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extName = Path.GetExtension(file.FileName);
-                    fileName = StringHelpers.UrlFormatConverter(fileName);
-                    fileName += StringHelpers.GetCode();
-                    var directorypath = Server.MapPath("~/Upload/");
-                    var filepath = Server.MapPath("~/Upload/") + fileName + extName;
-
-                    if (!Directory.Exists(directorypath))
+                    if (photo != null &&
+                        photo.ContentLength > 0)
                     {
-                        Directory.CreateDirectory(directorypath);
+                        var file = photo;
+                        string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        string extName = Path.GetExtension(file.FileName);
+                        fileName = StringHelpers.UrlFormatConverter(fileName);
+                        fileName += StringHelpers.GetCode();
+                        var directorypath = Server.MapPath("~/Upload/");
+                        var filepath = Server.MapPath("~/Upload/") + fileName + extName;
+
+                        if (!Directory.Exists(directorypath))
+                        {
+                            Directory.CreateDirectory(directorypath);
+                        }
+
+                        file.SaveAs(filepath);
+
+                        WebImage img = new WebImage(filepath);
+                        img.Resize(250, 250, false);
+                        img.AddTextWatermark("TeknikServis");
+                        img.Save(filepath);
+                        var oldPath = issue.PhotoPath;
+                        issue.PhotoPath = "/Upload/" + fileName + extName;
+                        System.IO.File.Delete(Server.MapPath(oldPath));
                     }
-
-                    file.SaveAs(filepath);
-
-                    WebImage img = new WebImage(filepath);
-                    img.Resize(250, 250, false);
-                    img.AddTextWatermark("TeknikServis");
-                    img.Save(filepath);
-                    var oldPath = issue.PhotoPath;
-                    issue.PhotoPath = "/Upload/" + fileName + extName;
-                    System.IO.File.Delete(Server.MapPath(oldPath));
                 }
+                
 
                 var repo = new IssueRepo();
 
