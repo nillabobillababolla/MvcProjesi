@@ -49,7 +49,6 @@ namespace TeknikServis.Web.Controllers
                     }
                 }
             }
-
             return data;
         }
     }
