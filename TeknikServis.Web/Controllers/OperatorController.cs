@@ -61,11 +61,6 @@ namespace TeknikServis.Web.Controllers
             {
                 return RedirectToAction("Index", "Issue");
             }
-            if(issue.OperatorId!=null)
-            {
-                TempData["Message2"]="Bu kayıt zaten bir operatöre atanmış.";
-                return RedirectToAction("Index","Operator");
-            }
 
             issue.OperatorId = userid;
             var data = Mapper.Map<Issue, IssueVM>(issue);
