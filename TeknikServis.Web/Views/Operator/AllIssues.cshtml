@@ -43,7 +43,7 @@
                                                 <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
                                                 <td>@current.Location</td>
                                                 <td>
-                                                    <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-facebook">Detay</a>
+                                                    <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-instagram">Detay</a>
                                                 </td>
                                             </tr>
                                         }
@@ -58,7 +58,7 @@
 
     </div><!-- /Page Inner -->
     <div class="col-md-4">
-        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-facebook">Back to Profile</a>
+        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-instagram">Back to Profile</a>
     </div>
 </div>
 
