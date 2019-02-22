@@ -87,7 +87,6 @@ namespace TeknikServis.Web.Controllers
             {
                 var issue = new IssueRepo().GetById(model.IssueId);
                 issue.TechnicianId = model.TechnicianId;
-                issue.IsActive = true;
                 issue.IssueState = Models.Enums.IssueStates.Atandı;
                 new IssueRepo().Update(issue);
                 var technician = await NewUserStore().FindByIdAsync(issue.TechnicianId);

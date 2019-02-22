@@ -50,12 +50,12 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetJob(string id)
+        public JsonResult GetJob(string id)
         {
             try
             {
                 var issue = new IssueRepo().GetById(id);
-                if (issue==null)
+                if (issue == null)
                 {
                     return Json(new ResponseData()
                     {
@@ -63,7 +63,6 @@ namespace TeknikServis.Web.Controllers
                         success = false
                     });
                 }
-                issue.IsActive = true;
                 issue.IssueState = Models.Enums.IssueStates.İşlemde;
                 new IssueRepo().Update(issue);
                 return Json(new ResponseData()
@@ -99,7 +98,6 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Error500", "Home");
             }
             issue.IssueState = Models.Enums.IssueStates.Tamamlandı;
-            issue.IsActive = false;
             new IssueRepo().Update(issue);
             TempData["Message"] = "İş Tamamlandı.";
             return RedirectToAction("Index", "Technician");

@@ -24,29 +24,26 @@ namespace TeknikServis.Web.Controllers
                         Text = $"{x.Name}",
                         Value = x.Id
                     });
-                });
+                }); 
             return data;
         }
 
         protected List<SelectListItem> GetTechnicianList()
         {
             var data = new List<SelectListItem>();
+            var users = NewUserManager().Users.ToList();
 
-            var allTechs = NewRoleManager().FindByName(IdentityRoles.Technician.ToString()).Users.Select(x => x.UserId).ToList();
-            var busyTechs = new IssueRepo().GetAll(x => x.IsActive = true).ToList();
-
-            for (int i = 0; i < allTechs.Count; i++)
+            foreach (var user in users)
             {
-                var User = NewUserManager().FindById(allTechs[i]);
-
-                foreach (var tech in busyTechs)
+                if (NewUserManager().IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                 {
-                    if (tech.TechnicianId != User.Id)
+                    var tech = new IssueRepo().GetAll().FirstOrDefault(issue => issue.TechnicianId == user.Id && issue.IssueState!=IssueStates.İşlemde);
+                    if (tech == null)
                     {
                         data.Add(new SelectListItem()
                         {
-                            Text = User.Name + " " + User.Surname,
-                            Value = User.Id
+                            Text = $"{user.Name} {user.Surname}",
+                            Value = user.Id
                         });
                     }
                 }
