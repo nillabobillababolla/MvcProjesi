@@ -93,11 +93,31 @@
     <script>
         $(function () {
             $(".btniskabul").click(function () {
-                console.log(this);
                 var id = this.name;
                 $.ajax(
                     {
                         url: "@Url.Action("GetJob","Technician")",
+                        method: "post",
+                        dataType: "json",
+                        data: { id: id }
+                    }).done(function (e) {
+                        location.reload();
+                        $.notify({
+                            // options
+                            message: e.message,
+                            title: 'Mesaj: '
+                        },
+                            {
+                                // settings
+                                type: e.success ? "success" : "danger"
+                            });
+                    });
+            });
+             $(".btnislemtamam").click(function () {
+                var id = this.name;
+                $.ajax(
+                    {
+                        url: "@Url.Action("FinishJob","Technician")",
                         method: "post",
                         dataType: "json",
                         data: { id: id }
