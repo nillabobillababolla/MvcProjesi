@@ -14,6 +14,7 @@ using TeknikServis.BLL.Services.Senders;
 using TeknikServis.Models.Entities;
 using TeknikServis.Models.ViewModels;
 using static TeknikServis.BLL.Identity.MembershipTools;
+using WebImage = System.Web.Helpers.WebImage;
 
 namespace TeknikServis.Web.Controllers
 {
@@ -56,7 +57,8 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Index", "Issue");
             }
             var data = Mapper.Map<Issue, IssueVM>(issue);
-           var user = NewUserManager().FindById(data.CustomerId);
+            data.PhotoPath = issue.Photograph.Select(y => y.Path).ToList();
+            var user = NewUserManager().FindById(data.CustomerId);
             return View(data);
         }
 
@@ -85,7 +87,7 @@ namespace TeknikServis.Web.Controllers
                     Description = model.Description,
                     IssueState = model.IssueState,
                     Location = model.Location == Models.Enums.Locations.KonumYok ? user.Location : model.Location,
-                    PhotoPath = model.PhotoPath??"~/assets/images/photo-unavailable.png",
+                    //PhotoPath = model.PhotoPath??"~/assets/images/photo-unavailable.png",
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
                     PurchasedDate = model.PurchasedDate,
@@ -139,41 +141,43 @@ namespace TeknikServis.Web.Controllers
                     issue.ServiceCharge = 0;
                 }
 
-                foreach (var photo in model.PostedPhoto)
-                {
-                    if (photo != null &&
-                        photo.ContentLength > 0)
-                    {
-                        var file = photo;
-                        string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        string extName = Path.GetExtension(file.FileName);
-                        fileName = StringHelpers.UrlFormatConverter(fileName);
-                        fileName += StringHelpers.GetCode();
-                        var directorypath = Server.MapPath("~/Upload/");
-                        var filepath = Server.MapPath("~/Upload/") + fileName + extName;
-
-                        if (!Directory.Exists(directorypath))
-                        {
-                            Directory.CreateDirectory(directorypath);
-                        }
-
-                        file.SaveAs(filepath);
-
-                        WebImage img = new WebImage(filepath);
-                        img.Resize(250, 250, false);
-                        img.AddTextWatermark("TeknikServis");
-                        img.Save(filepath);
-                        var oldPath = issue.PhotoPath;
-                        issue.PhotoPath = "/Upload/" + fileName + extName;
-                        System.IO.File.Delete(Server.MapPath(oldPath));
-                    }
-                }
-                
-
                 var repo = new IssueRepo();
-
                 repo.InsertForMark(issue);
                 repo.Save();
+
+                if (model.PostedPhoto.Count > 0)
+                {
+                    model.PostedPhoto.ForEach(file =>
+                    {
+                        if (file != null && file.ContentLength > 0)
+                        {
+
+                            string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                            string extName = Path.GetExtension(file.FileName);
+                            fileName = StringHelpers.UrlFormatConverter(fileName);
+                            fileName += StringHelpers.GetCode();
+                            var directorypath = Server.MapPath("~/Upload/");
+                            var filepath = Server.MapPath("~/Upload/") + fileName + extName;
+
+                            if (!Directory.Exists(directorypath))
+                                Directory.CreateDirectory(directorypath);
+                            file.SaveAs(filepath);
+
+                            WebImage img = new WebImage(filepath);
+                            img.Resize(250, 250, false);
+                            img.Save(filepath);
+
+                            new PhotographRepo().Insert(new Photograph()
+                            {
+                                IssueId = issue.Id,
+                                Path = "/Upload/" + fileName + extName
+                            });
+                        }
+                    });
+                }
+
+                new IssueRepo().Update(issue);
+
                 TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
 
                 var emailService = new EmailService();
