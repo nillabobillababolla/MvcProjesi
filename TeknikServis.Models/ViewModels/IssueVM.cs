@@ -57,6 +57,8 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Rapor")]
         public string Report { get; set; }
 
+        public bool IsActive { get; set; } = false;
+
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
 

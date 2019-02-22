@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Enums;
-using  static TeknikServis.BLL.Identity.MembershipTools;
+using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
     [Authorize]
-   // [RequireHttps]
+    // [RequireHttps]
     public class BaseController : Controller
     {
         protected List<SelectListItem> GetRoleList()
@@ -32,19 +31,22 @@ namespace TeknikServis.Web.Controllers
         protected List<SelectListItem> GetTechnicianList()
         {
             var data = new List<SelectListItem>();
-            var users = NewUserManager().Users.ToList();
 
-            foreach (var user in users)
+            var allTechs = NewRoleManager().FindByName(IdentityRoles.Technician.ToString()).Users.Select(x => x.UserId).ToList();
+            var busyTechs = new IssueRepo().GetAll(x => x.IsActive = true).ToList();
+
+            for (int i = 0; i < allTechs.Count; i++)
             {
-                if (NewUserManager().IsInRole(user.Id, IdentityRoles.Technician.ToString()))
+                var User = NewUserManager().FindById(allTechs[i]);
+
+                foreach (var tech in busyTechs)
                 {
-                    var tech = new IssueRepo().GetAll().FirstOrDefault(issue => issue.TechnicianId == user.Id);
-                    if (tech == null)
+                    if (tech.TechnicianId != User.Id)
                     {
                         data.Add(new SelectListItem()
                         {
-                            Text = $"{user.Name} {user.Surname}",
-                            Value = user.Id
+                            Text = User.Name + " " + User.Surname,
+                            Value = User.Id
                         });
                     }
                 }
