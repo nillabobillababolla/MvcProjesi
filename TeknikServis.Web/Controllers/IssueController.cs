@@ -177,6 +177,9 @@ namespace TeknikServis.Web.Controllers
                     });
                 }
 
+                var fotograflar = new PhotographRepo().GetAll(x => x.IssueId == issue.Id).ToList();
+                var foto= fotograflar.Select(x => x.Path).ToList();
+                issue.PhotoPath = foto;
                 new IssueRepo().Update(issue);
 
                 TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
