@@ -1,9 +1,8 @@
 ﻿@using TeknikServis.BLL.Identity
-@using TeknikServis.Models.Enums
 @model List<TeknikServis.Models.ViewModels.IssueVM>
 
 @{
-    ViewBag.Title = "All Issues";
+    ViewBag.Title = "Tüm Kayıtlar";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 <div>
@@ -58,7 +57,7 @@
 
     </div><!-- /Page Inner -->
     <div class="col-md-4">
-        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-instagram">Back to Profile</a>
+        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-instagram">Profil Sayfası</a>
     </div>
 </div>
 

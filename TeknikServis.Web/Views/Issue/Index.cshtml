@@ -3,7 +3,7 @@
 @model List<TeknikServis.Models.ViewModels.IssueVM>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Arıza Kayıt Anasayfa";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 <div>
@@ -91,8 +91,8 @@
 
     </div><!-- /Page Inner -->
     <div class="col-md-4">
-        <a href="@Url.Action("Create","Issue")" class="btn btn-block btn-instagram">Create Issue</a>
-        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-google">Back to Profile</a>
+        <a href="@Url.Action("Create","Issue")" class="btn btn-block btn-instagram">Kayıt Oluştur</a>
+        <a href="@Url.Action("Index","Home")" class="btn btn-block btn-google">Profil Sayfası</a>
     </div>
 </div>
 

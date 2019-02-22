@@ -1,10 +1,8 @@
 ﻿@using TeknikServis.BLL.Identity;
 @model TeknikServis.Models.ViewModels.IssueVM
 @{
-                /**/
-
-                ViewBag.Title = "Details";
-                Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    ViewBag.Title = "Arıza Kaydı Detay";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
 <h3 style="color:green">@TempData["Message"]</h3>
@@ -23,7 +21,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 35%;font-weight: bold">Issue Id</td>
+                <td style="width: 35%;font-weight: bold">Kayıt Id</td>
                 <td style="width: 65%;">@Model.IssueId</td>
             </tr>
             <tr>

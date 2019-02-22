@@ -4,7 +4,7 @@
     <div class="search-form">
         <form action="#" method="GET">
             <div class="input-group">
-                <input type="text" name="search" class="form-control search-input" placeholder="Type something...">
+                <input type="text" name="search" class="form-control search-input" placeholder="Birşeyler yaz...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" id="close-search" type="button"><i class="icon-close"></i></button>
                 </span>
@@ -85,14 +85,14 @@
                         <p class="text-muted" style="font-size:small">@(MembershipTools.GetEmailCurrent() ?? "Bulunamadi.")</p>
                     </li>
                     <li class="dropdown user-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@MembershipTools.GetAvatarPath(null)" alt="User profile pic" class="img-circle"></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@MembershipTools.GetAvatarPath(null)" alt="Profil Fotoğrafı" class="img-circle"></a>
                         <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("UserProfile","Account")">Profile</a></li>
+                            <li><a href="@Url.Action("UserProfile","Account")">Profil</a></li>
                             <li><a href="#">Calendar</a></li>
-                            <li><a href="#"><span class="badge pull-right badge-danger">42</span>Messages</a></li>
+                            <li><a href="#"><span class="badge pull-right badge-danger">42</span>Mesajlar</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Account Settings</a></li>
-                            <li><a href="@Url.Action("Logout","Account")">Log Out</a></li>
+                            <li><a href="#">Hesap Ayarları</a></li>
+                            <li><a href="@Url.Action("Logout","Account")">Çıkış Yap</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -1,7 +1,7 @@
 ﻿@model TeknikServis.Models.ViewModels.UserProfileVM
 
 @{
-    ViewBag.Title = $"{Model.Name} {Model.Surname} Profile Page";
+    ViewBag.Title = $"{Model.Name} {Model.Surname} Profil Sayfası";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -73,8 +73,8 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-4">
-            <input type="submit" value="Save" class="btn btn-instagram btn-block" />
-            <a href="@Url.Action("ChangePassword","Account")" class="btn btn-google btn-block">Change Password</a>
+            <input type="submit" value="Kaydet" class="btn btn-instagram btn-block" />
+            <a href="@Url.Action("ChangePassword","Account")" class="btn btn-google btn-block">Şifreyi Değiştir</a>
         </div>
     </div>
 </div>

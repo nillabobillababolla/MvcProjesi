@@ -65,7 +65,7 @@ namespace TeknikServis.BLL.Identity
         public static int GetIssueCount()
         {
             var id = HttpContext.Current.User.Identity.GetUserId();
-            return new IssueRepo().GetAll(x => x.CustomerId == id && x.IssueState != IssueStates.Tamamlandı).Count;
+            return new IssueRepo().GetAll(x => x.CustomerId == id).Count;
         }
 
         public static string GetAvatarPath(string userId)

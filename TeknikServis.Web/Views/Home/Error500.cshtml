@@ -46,11 +46,11 @@
                     <div class="row">
                         <div class="col-md-6 center">
                             <h1 class="error-page-logo">500</h1>
-                            <p class="error-page-top-text">Oops.. Something went wrong..</p>
+                            <p class="error-page-top-text">Oops..</p>
                             <p> <h1 class="display-4 m-b-0 text-green animated bounceIn">@(message?.ErrorCode ?? 404) </h1>
                             <p class="m-b-lg">@(message?.Text ?? "Aradığınız sayfa bulunamadı.")</p>
-                            <p class="error-page-bottom-text">We can't seem to find the page you're looking for.</p>
-                            <a href="@Url.Action("Login","Account")" class="btn btn-default m-b-xxs">Return Home</a>
+                            <p class="error-page-bottom-text">Aradığınızı bulamadık.</p>
+                            <a href="@Url.Action("Login","Account")" class="btn btn-default m-b-xxs">Anasayfa</a>
                         </div>
                     </div><!-- Row -->
                 </div><!-- Main Wrapper -->
