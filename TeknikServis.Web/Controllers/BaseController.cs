@@ -31,24 +31,21 @@ namespace TeknikServis.Web.Controllers
         protected List<SelectListItem> GetTechnicianList()
         {
             var data = new List<SelectListItem>();
+            var userManager = NewUserManager();
+            var users = userManager.Users.ToList();
 
-            var allTechs = NewRoleManager().FindByName(IdentityRoles.Technician.ToString()).Users.Select(x => x.UserId).ToList();
-            var busyTechs = new IssueRepo().GetAll(x => x.IsActive = true).ToList();
+            var techIds = new IssueRepo().GetAll(x => x.IssueState == IssueStates.İşlemde ||x.IssueState==IssueStates.Atandı).Select(x => x.TechnicianId).ToList();
 
-            for (int i = 0; i < allTechs.Count; i++)
+            foreach (var user in users)
             {
-                var User = NewUserManager().FindById(allTechs[i]);
-
-                foreach (var tech in busyTechs)
+                if (userManager.IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                 {
-                    if (tech.TechnicianId != User.Id)
-                    {
+                    if (!techIds.Contains(user.Id))
                         data.Add(new SelectListItem()
                         {
-                            Text = User.Name + " " + User.Surname,
-                            Value = User.Id
+                            Text = $"{user.Name} {user.Surname}",
+                            Value = user.Id
                         });
-                    }
                 }
             }
             return data;

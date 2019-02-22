@@ -50,12 +50,12 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetJob(string id)
+        public JsonResult GetJob(string id)
         {
             try
             {
                 var issue = new IssueRepo().GetById(id);
-                if (issue==null)
+                if (issue == null)
                 {
                     return Json(new ResponseData()
                     {
@@ -63,7 +63,6 @@ namespace TeknikServis.Web.Controllers
                         success = false
                     });
                 }
-                issue.IsActive = true;
                 issue.IssueState = Models.Enums.IssueStates.İşlemde;
                 new IssueRepo().Update(issue);
                 return Json(new ResponseData()
@@ -83,26 +82,35 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult FinishJob(IssueVM model)
+        public JsonResult FinishJob(string id)
         {
-            var issue = new IssueRepo().GetById(model.IssueId);
-            if (issue == null)
+            try
             {
-                TempData["Message"] = new ErrorVM()
+                var issue = new IssueRepo().GetById(id);
+                if (issue == null)
                 {
-                    Text = $"Bir hata oluştu.",
-                    ActionName = "Index",
-                    ControllerName = "Technician",
-                    ErrorCode = 500
-                };
-                return RedirectToAction("Error500", "Home");
+                    return Json(new ResponseData()
+                    {
+                        message = "Bulunamadi.",
+                        success = false
+                    });
+                }
+                issue.IssueState = Models.Enums.IssueStates.Tamamlandı;
+                new IssueRepo().Update(issue);
+                return Json(new ResponseData()
+                {
+                    message = "İş bitti olarak işaretlendi.",
+                    success = true
+                });
             }
-            issue.IssueState = Models.Enums.IssueStates.Tamamlandı;
-            issue.IsActive = false;
-            new IssueRepo().Update(issue);
-            TempData["Message"] = "İş Tamamlandı.";
-            return RedirectToAction("Index", "Technician");
+            catch (Exception ex)
+            {
+                return Json(new ResponseData()
+                {
+                    message = $"Bir hata oluştu: {ex.Message}",
+                    success = false
+                });
+            }
         }
 
     }
