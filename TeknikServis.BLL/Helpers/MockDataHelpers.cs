@@ -15,79 +15,73 @@ namespace TeknikServis.BLL.Helpers
 
             List<User> Users = new List<User>();
 
-            var adm = new User()
+            for (int i = 0; i < 3; i++)
             {
-                Email = "admin@gmail.com",
-                AvatarPath = "/assets/images/icon-noprofile.png",
-                EmailConfirmed = true,
-                UserName = "admin",
-                Name = "Admin",
-                PhoneNumber = "123456789",
-                Surname = "adminsurname",
-                Location=Models.Enums.Locations.Beşiktaş,
-                RegisterDate = DateTime.Now,
-                PhoneNumberConfirmed = true,
-            };
-            Users.Add(adm);
-            var opr = new User()
-            {
-                Email = "operator@gmail.com",
-                AvatarPath = "/assets/images/icon-noprofile.png",
-                EmailConfirmed = true,
-                UserName = "operator",
-                Name = "Operator",
-                Location = Models.Enums.Locations.Esenler,
-                PhoneNumber = "123456789",
-                Surname = "operatorsurname",
-                RegisterDate = DateTime.Now,
-                PhoneNumberConfirmed = true,
-            };
-            Users.Add(opr);
-            var tech = new User()
-            {
-                Email = "technician@gmail.com",
-                AvatarPath = "/assets/images/icon-noprofile.png",
-                EmailConfirmed = true,
-                UserName = "technician",
-                Name = "Technician",
-                Location = Models.Enums.Locations.Kağıthane,
-                PhoneNumber = "123456789",
-                Surname = "techniciansurname",
-                RegisterDate = DateTime.Now,
-                PhoneNumberConfirmed = true,
-            };
-            Users.Add(tech);
-            var cust = new User()
-            {
-                Email = "customer@gmail.com",
-                AvatarPath = "/assets/images/icon-noprofile.png",
-                EmailConfirmed = true,
-                UserName = "customer",
-                Name = "Customer",
-                Location = Models.Enums.Locations.Kadıköy,
-                PhoneNumber = "123456789",
-                Surname = "customersurname",
-                RegisterDate = DateTime.Now,
-                PhoneNumberConfirmed = true,
-            };
-            Users.Add(cust);
+                var adm = new User()
+                {
+                    Email = $"admin{i+1}@gmail.com",
+                    UserName = $"admin{i+1}",
+                    Name = $"Admin{i+1}",
+                    Surname = $"adminsurname{i+1}",
+                    Location = Models.Enums.Locations.Beşiktaş,
+                };
+                Users.Add(adm);
+                var opr = new User()
+                {
+                    Email = $"operator{i+1}@gmail.com",
+                    UserName = $"operator{i+1}",
+                    Name = $"Operator{i+1}",
+                    Location = Models.Enums.Locations.Esenler,
+                    Surname = $"operatorsurname{i+1}",
+                };
+                Users.Add(opr);
+                var tech = new User()
+                {
+                    Email = $"technician{i+1}@gmail.com",
+                    UserName = $"technician{i+1}",
+                    Name = $"Technician{i+1}",
+                    Location = Models.Enums.Locations.Kağıthane,
+                    Surname = $"techniciansurname{i+1}",
+                };
+                Users.Add(tech);
+                var cust = new User()
+                {
+                    Email = $"customer{i+1}@gmail.com",
+                    UserName = $"customer{i+1}",
+                    Name = $"Customer{i+1}",
+                    Location = Models.Enums.Locations.Kadıköy,
+                    Surname = $"customersurname{i+1}",
+                };
+                Users.Add(cust);
+            }
 
             foreach (var user in Users)
             {
                 var newPassword = "123456";
                 var result = await usermanager.CreateAsync(user, newPassword);
+                user.AvatarPath = "/assets/images/icon-noprofile.png";
+                user.EmailConfirmed = true;
+                user.RegisterDate = DateTime.Now;
+                user.PhoneNumber = "123456789";
+                user.PhoneNumberConfirmed = true;
 
                 if (result.Succeeded)
                 {
                     switch (userstore.Users.Count())
                     {
                         case 1:
+                        case 5:
+                        case 9:
                             await usermanager.AddToRoleAsync(user.Id, "Admin");
                             break;
                         case 2:
+                        case 6:
+                        case 10:
                             await usermanager.AddToRoleAsync(user.Id, "Operator");
                             break;
                         case 3:
+                        case 7:
+                        case 11:
                             await usermanager.AddToRoleAsync(user.Id, "Technician");
                             break;
                         default:
