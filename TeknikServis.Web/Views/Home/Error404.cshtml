@@ -1,6 +1,7 @@
-﻿
+﻿@using TeknikServis.Models.ViewModels
 @{
     Layout = null;
+    var message = TempData["Message"] as ErrorVM;
 }
 
 <!DOCTYPE html>
@@ -16,17 +17,17 @@
     <!-- Title -->
     <title>Error Page - 404</title>
 
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link href="~/assets/plugins/icomoon/style.css" rel="stylesheet">
-        <link href="~/assets/plugins/uniform/css/default.css" rel="stylesheet" />
-        <link href="~/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
-        <!-- Theme Styles -->
-        <link href="~/assets/css/ecaps.min.css" rel="stylesheet">
-        <link href="~/assets/css/custom.css" rel="stylesheet">
-  
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/icomoon/style.css" rel="stylesheet">
+    <link href="~/assets/plugins/uniform/css/default.css" rel="stylesheet" />
+    <link href="~/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+    <!-- Theme Styles -->
+    <link href="~/assets/css/ecaps.min.css" rel="stylesheet">
+    <link href="~/assets/css/custom.css" rel="stylesheet">
+
 
 
 
@@ -44,27 +45,28 @@
             <!-- Page Inner -->
             <div class="page-inner">
                 <div id="main-wrapper" class="container">
-                    <div class="row">
-                        <div class="col-md-6 center">
-                            <h1 class="error-page-logo">404</h1>
-                            <p class="error-page-top-text">Oops.. Something went wrong..</p>
-                            <p class="error-page-bottom-text">We can't seem to find the page you're looking for.</p>
-                            <a href="@Url.Action("Login","Account")" class="btn btn-default m-b-xxs">Return Home</a>
-                        </div>
-                    </div><!-- Row -->
-                </div><!-- Main Wrapper -->
-            </div><!-- /Page Inner -->
-        </div><!-- /Page Content -->
+                    <div class="col-md-6 center">
+                        <h1 class="error-page-logo">404</h1>
+                        <p class="error-page-top-text">Oops.. Something went wrong..</p>
+                        <p> <h1 class="display-4 m-b-0 text-green animated bounceIn">@(message?.ErrorCode ?? 404) </h1>
+                        <p class="m-b-lg">@(message?.Text ?? "Aradığınız sayfa bulunamadı.")</p>
+                        <p class="error-page-bottom-text">We can't seem to find the page you're looking for.</p>
+                        <a href="@Url.Action("Login","Account")" class="btn btn-default m-b-xxs">Return Home</a>
+                    </div>
+                </div><!-- Row -->
+            </div><!-- Main Wrapper -->
+        </div><!-- /Page Inner -->
+    </div><!-- /Page Content -->
     </div>
 
 
-        <!-- Javascripts -->
-        <script src="~/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
-        <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="~/assets/plugins/uniform/js/jquery.uniform.standalone.js"></script>
-        <script src="~/assets/plugins/switchery/switchery.min.js"></script>
-        <script src="~/assets/js/ecaps.min.js"></script>
-    
+    <!-- Javascripts -->
+    <script src="~/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/plugins/uniform/js/jquery.uniform.standalone.js"></script>
+    <script src="~/assets/plugins/switchery/switchery.min.js"></script>
+    <script src="~/assets/js/ecaps.min.js"></script>
+
 </body>
 </html>
