@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,7 +28,7 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Ürün")]
         public ProductTypes ProductType { get; set; }
 
-        public string PhotoPath { get; set; }
+        public List<string> PhotoPath { get; set; }
 
         [DisplayName("Güncel Durum")]
         public IssueStates IssueState { get; set; } = IssueStates.Beklemede;
@@ -63,5 +64,7 @@ namespace TeknikServis.Models.Entities
 
         [ForeignKey("TechnicianId")]
         public virtual User Technician { get; set; }
+
+        public virtual List<Photograph> Photograph { get; set; } = new List<Photograph>();
     }
 }
