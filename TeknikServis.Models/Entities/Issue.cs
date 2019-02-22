@@ -28,6 +28,7 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Ürün")]
         public ProductTypes ProductType { get; set; }
 
+        [DisplayName("Fotoğraf")]
         public List<string> PhotoPath { get; set; }
 
         [DisplayName("Güncel Durum")]

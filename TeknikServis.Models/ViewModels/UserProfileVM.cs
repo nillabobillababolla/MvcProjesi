@@ -43,6 +43,7 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Konum")]
         public Locations Location { get; set; }
 
+        [DisplayName("Fotoğraf")]
         public HttpPostedFileBase PostedFile { get; set; }
     }
 }
