@@ -2,10 +2,12 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Entities;
+using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
 
 namespace TeknikServis.Web.Controllers
@@ -48,28 +50,40 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetJob(IssueVM model)
+        public async Task<JsonResult> GetJob(string id)
         {
-            var issue = new IssueRepo().GetById(model.IssueId);
-            if (issue == null)
+            try
             {
-                TempData["Message"] = new ErrorVM()
+                var issue = new IssueRepo().GetById(id);
+                if (issue==null)
                 {
-                    Text = $"Bir hata oluştu.",
-                    ActionName = "Index",
-                    ControllerName = "Technician",
-                    ErrorCode = 500
-                };
-                return RedirectToAction("Error500", "Home");
+                    return Json(new ResponseData()
+                    {
+                        message = "Bulunamadi.",
+                        success = false
+                    });
+                }
+                issue.IsActive = true;
+                issue.IssueState = Models.Enums.IssueStates.İşlemde;
+                new IssueRepo().Update(issue);
+                return Json(new ResponseData()
+                {
+                    message = "İş onayı başarılı",
+                    success = true
+                });
             }
-            issue.IssueState = Models.Enums.IssueStates.İşlemde;
-            issue.IsActive = true;
-            new IssueRepo().Update(issue);
-            TempData["Message"] = "İş Kabul Edildi.";
-            return RedirectToAction("Index","Technician");
+            catch (Exception ex)
+            {
+                return Json(new ResponseData()
+                {
+                    message = $"Bir hata oluştu: {ex.Message}",
+                    success = false
+                });
+            }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult FinishJob(IssueVM model)
         {
             var issue = new IssueRepo().GetById(model.IssueId);
