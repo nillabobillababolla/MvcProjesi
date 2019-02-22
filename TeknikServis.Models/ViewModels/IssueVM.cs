@@ -16,10 +16,10 @@ namespace TeknikServis.Models.ViewModels
         [Required]
         [DisplayName("Müşteri Id")]
         public string CustomerId { get; set; }
-               
+
         [DisplayName("Operatör Id")]
         public string OperatorId { get; set; }
-        
+
         [DisplayName("Teknisyen Id")]
         public string TechnicianId { get; set; }
 
@@ -54,8 +54,12 @@ namespace TeknikServis.Models.ViewModels
         public decimal ServiceCharge { get; set; } = 100;
 
         [StringLength(250)]
-        [DisplayName("Rapor")]
-        public string Report { get; set; }
+        [DisplayName("Operatör Notu")]
+        public string OptReport { get; set; }
+
+        [StringLength(250)]
+        [DisplayName("Teknisyen Raporu")]
+        public string TechReport { get; set; }
 
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }

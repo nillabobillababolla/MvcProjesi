@@ -48,8 +48,12 @@ namespace TeknikServis.Models.Entities
         public decimal ServiceCharge { get; set; } = 100;
 
         [StringLength(250)]
-        [DisplayName("Rapor")]
-        public string Report { get; set; }
+        [DisplayName("Operatör Notu")]
+        public string OptReport { get; set; }
+
+        [StringLength(250)]
+        [DisplayName("Teknisyen Raporu")]
+        public string TechReport { get; set; }
 
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
