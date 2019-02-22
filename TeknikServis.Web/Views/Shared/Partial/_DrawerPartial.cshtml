@@ -1,141 +1,146 @@
 ﻿@using TeknikServis.BLL.Identity
 <!-- Page Sidebar -->
-<div class="page-sidebar">
-    <div class="page-sidebar-inner">
-        <div class="page-sidebar-menu">
-            @if (HttpContext.Current.User.IsInRole("Customer"))
-            {
-                <ul class="accordion-menu">
-                    <li>
-                        <a href="@Url.Action("UserProfile","Account")">
-                            <i class="menu-icon icon-profile"></i><span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Home")">
-                            <i class="menu-icon icon-home4"></i><span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Create","Issue")">
-                            <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Issue")">
-                            <i class="menu-icon icon-list-numbered"></i><span>My Issues (@(MembershipTools.GetIssueCount()))</span>
-                        </a>
-                    </li>
-                    <li class="menu-divider"></li>
-                    <li>
-                        <a href="@Url.Action("Logout","Account")">
-                            <i class="menu-icon icon-power2"></i><span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            }
-            @if (HttpContext.Current.User.IsInRole("Operator"))
-            {
-                <ul class="accordion-menu">
-                    <li>
-                        <a href="@Url.Action("UserProfile","Account")">
-                            <i class="menu-icon icon-profile"></i><span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Home")">
-                            <i class="menu-icon icon-home4"></i><span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("AllIssues","Operator")">
-                            <i class="menu-icon icon-alarm_off"></i><span>All Issues</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Operator")">
-                            <i class="menu-icon icon-alarm_add"></i><span>Unassigned Issues</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("AssignedIssues","Operator")">
-                            <i class="menu-icon icon-alarm_on"></i><span>Assigned Issues</span>
-                        </a>
-                    </li>
+    <div class="page-sidebar">
+        <a class="logo-box" href="@Url.Action("Index","Home")">
+            <span>Teknik Servis</span>
+            <i class="icon-radio_button_unchecked" id="fixed-sidebar-toggle-button"></i>
+            <i class="icon-close" id="sidebar-toggle-button-close"></i>
+        </a>
+        <div class="page-sidebar-inner">
+            <div class="page-sidebar-menu">
+                @if (HttpContext.Current.User.IsInRole("Customer"))
+                {
+                    <ul class="accordion-menu">
+                        <li>
+                            <a href="@Url.Action("UserProfile","Account")">
+                                <i class="menu-icon icon-profile"></i><span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Home")">
+                                <i class="menu-icon icon-home4"></i><span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Create","Issue")">
+                                <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Issue")">
+                                <i class="menu-icon icon-list-numbered"></i><span>My Issues (@(MembershipTools.GetIssueCount()))</span>
+                            </a>
+                        </li>
+                        <li class="menu-divider"></li>
+                        <li>
+                            <a href="@Url.Action("Logout","Account")">
+                                <i class="menu-icon icon-power2"></i><span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                @if (HttpContext.Current.User.IsInRole("Operator"))
+                {
+                    <ul class="accordion-menu">
+                        <li>
+                            <a href="@Url.Action("UserProfile","Account")">
+                                <i class="menu-icon icon-profile"></i><span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Home")">
+                                <i class="menu-icon icon-home4"></i><span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("AllIssues","Operator")">
+                                <i class="menu-icon icon-alarm_off"></i><span>All Issues</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Operator")">
+                                <i class="menu-icon icon-alarm_add"></i><span>Unassigned Issues</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("AssignedIssues","Operator")">
+                                <i class="menu-icon icon-alarm_on"></i><span>Assigned Issues</span>
+                            </a>
+                        </li>
 
-                    <li class="menu-divider"></li>
-                    <li>
-                        <a href="@Url.Action("Logout","Account")">
-                            <i class="menu-icon icon-power2"></i><span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            }
-            @if (HttpContext.Current.User.IsInRole("Technician"))
-            {
-                <ul class="accordion-menu">
-                    <li>
-                        <a href="@Url.Action("UserProfile","Account")">
-                            <i class="menu-icon icon-profile"></i><span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Home")">
-                            <i class="menu-icon icon-home4"></i><span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Technician")">
-                            <i class="menu-icon icon-alarm_on"></i><span>Assigned Issues</span>
-                        </a>
-                    </li>
+                        <li class="menu-divider"></li>
+                        <li>
+                            <a href="@Url.Action("Logout","Account")">
+                                <i class="menu-icon icon-power2"></i><span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                @if (HttpContext.Current.User.IsInRole("Technician"))
+                {
+                    <ul class="accordion-menu">
+                        <li>
+                            <a href="@Url.Action("UserProfile","Account")">
+                                <i class="menu-icon icon-profile"></i><span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Home")">
+                                <i class="menu-icon icon-home4"></i><span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Technician")">
+                                <i class="menu-icon icon-alarm_on"></i><span>Assigned Issues</span>
+                            </a>
+                        </li>
 
-                    <li class="menu-divider"></li>
-                    
-                    <li>
-                        <a href="@Url.Action("Logout","Account")">
-                            <i class="menu-icon icon-power2"></i><span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            }
-            @if (HttpContext.Current.User.IsInRole("Admin"))
-            {
-        <ul class="accordion-menu">
-            <li>
-                <a href="@Url.Action("UserProfile","Account")">
-                    <i class="menu-icon icon-profile"></i><span>Profile</span>
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Index","Home")">
-                    <i class="menu-icon icon-home4"></i><span>Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Index","Admin")">
-                    <i class="menu-icon icon-user"></i><span>All Users</span>
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Create","Issue")">
-                    <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("EditIssue","Admin")">
-                    <i class="menu-icon icon-alarm_on"></i><span>All Issues</span>
-                </a>
-            </li>
-            <li class="menu-divider"></li>
+                        <li class="menu-divider"></li>
 
-            <li>
-                <a href="@Url.Action("Logout","Account")">
-                    <i class="menu-icon icon-power2"></i><span>Logout</span>
-                </a>
-            </li>
-        </ul>
-            }
+                        <li>
+                            <a href="@Url.Action("Logout","Account")">
+                                <i class="menu-icon icon-power2"></i><span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                @if (HttpContext.Current.User.IsInRole("Admin"))
+                {
+                    <ul class="accordion-menu">
+                        <li>
+                            <a href="@Url.Action("UserProfile","Account")">
+                                <i class="menu-icon icon-profile"></i><span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Home")">
+                                <i class="menu-icon icon-home4"></i><span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Admin")">
+                                <i class="menu-icon icon-user"></i><span>All Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Create","Issue")">
+                                <i class="menu-icon icon-alarm_on"></i><span>Create Issue</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EditIssue","Admin")">
+                                <i class="menu-icon icon-alarm_on"></i><span>All Issues</span>
+                            </a>
+                        </li>
+                        <li class="menu-divider"></li>
+
+                        <li>
+                            <a href="@Url.Action("Logout","Account")">
+                                <i class="menu-icon icon-power2"></i><span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </div>
         </div>
-    </div>
-</div><!-- /Page Sidebar -->
+    </div><!-- /Page Sidebar -->

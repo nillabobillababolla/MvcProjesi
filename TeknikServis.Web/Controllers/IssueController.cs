@@ -95,7 +95,7 @@ namespace TeknikServis.Web.Controllers
                     ClosedDate = model.ClosedDate,
                     CreatedDate = model.CreatedDate,
                     OperatorId = model.OperatorId,
-                    Report = model.Report
+                    TechReport = model.TechReport
                 };
                 switch (issue.ProductType)
                 {
