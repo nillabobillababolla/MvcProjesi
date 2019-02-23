@@ -5,11 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TeknikServis.BLL.Helpers;
+using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Repository;
+using TeknikServis.BLL.Services.Senders;
 using TeknikServis.Models.Entities;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
+using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
@@ -46,7 +50,7 @@ namespace TeknikServis.Web.Controllers
         public ActionResult Details(string id)
         {
             var issue = new IssueRepo().GetById(id);
-            var data = Mapper.Map <Issue , IssueVM> (issue);
+            var data = Mapper.Map<Issue, IssueVM>(issue);
             return View(data);
         }
 
@@ -83,25 +87,37 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult FinishJob(IssueVM model)
+        public async Task<ActionResult> FinishJob(IssueVM model)
         {
             try
             {
                 var repo = new IssueRepo();
-                 var issue = repo.GetById(model.IssueId);
-               if (issue == null)
-               {
-                   TempData["Message2"] = "Arıza kaydı bulunamadi.";
-                   return RedirectToAction("Index", "Technician");
-               }
+                var issue = repo.GetById(model.IssueId);
+                if (issue == null)
+                {
+                    TempData["Message2"] = "Arıza kaydı bulunamadi.";
+                    return RedirectToAction("Index", "Technician");
+                }
 
-               issue.TechReport = model.TechReport;
-               issue.ServiceCharge += model.ServiceCharge;
-               issue.IssueState = IssueStates.Tamamlandı;
-               issue.ClosedDate=DateTime.Now;
-               repo.Update(issue);
-               TempData["Message"] = $"{issue.Description} adlı iş tamamlandı.";
-               return RedirectToAction("Index", "Technician");
+                issue.TechReport = model.TechReport;
+                issue.ServiceCharge += model.ServiceCharge;
+                issue.IssueState = IssueStates.Tamamlandı;
+                issue.ClosedDate = DateTime.Now;
+                issue.SurveyCode = StringHelpers.GetCode();
+                repo.Update(issue);
+                TempData["Message"] = $"{issue.Description} adlı iş tamamlandı.";
+
+                var user = await NewUserStore().FindByIdAsync(issue.CustomerId);
+                var usernamesurname = GetNameSurname(issue.CustomerId);
+
+                string siteUrl = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host +
+                                 (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+
+                var emailService = new EmailService();
+                var body = $"Merhaba <b>{usernamesurname}</b><br>{issue.Description} adlı arıza kaydınız kapanmıştır.<br>Değerlendirmeniz için aşağıda linki bulunan anketi doldurmanızı rica ederiz.<br> <a href='{siteUrl}/issue/survey?code={issue.SurveyCode}' >Anket Linki </a> ";
+                await emailService.SendAsync(new IdentityMessage() { Body = body, Subject = "Değerlendirme Anketi" }, user.Email);
+
+                return RedirectToAction("Index", "Technician");
             }
             catch (Exception ex)
             {

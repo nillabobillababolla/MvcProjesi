@@ -12,67 +12,71 @@
 
         <table id="user" class="table table-bordered table-striped" style="clear: both">
             <tbody>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Kayıt Id</td>
-                <td style="width: 65%;">@Model.IssueId</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Müşteri Adı Soyadı</td>
-                <td style="width: 65%;">@(Model.CustomerId == null ? "Müşteri Adı" : MembershipTools.GetNameSurname(Model.CustomerId))</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Operatör Adı Soyadı</td>
-                <td style="width: 65%;">@(Model.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(Model.OperatorId))</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Teknisyen Adı Soyadı</td>
-                <td style="width: 65%;">@(Model.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(Model.TechnicianId))</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Açıklama</td>
-                <td style="width: 65%;">@Model.Description</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Operatör Notu</td>
-                @if (@Model.OptReport == null)
-                {
-                    <td style="width: 65%;text-decoration: underline red">Operatörün bir notu bulunmamaktadır.</td>
-                }
-                else
-                {
-                    <td style="width: 65%;text-decoration: underline red">@Model.OptReport</td>
-                }
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Konum</td>
-                <td style="width: 65%;">@Model.Location</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Garanti Durumu</td>
-                @if (@Model.WarrantyState)
-                {
-                    <td style="width: 65%;">Garantisi Var</td>
-                }
-                else
-                {
-                    <td style="width: 65%;">Garantisi Yok</td>
-                }
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Kayıt Oluşturma Tarihi</td>
-                <td style="width: 65%;">@Model.CreatedDate.ToShortDateString()</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Kayıt Kapanma Tarihi</td>
-                @if (@Model.ClosedDate == null)
-                {
-                    <td style="width: 65%;">Arıza henüz sonuçlanmamıştır.</td>
-                }
-                else
-                {
-                    <td style="width: 65%;">@(Model.ClosedDate?.ToShortDateString())</td>
-                }
-            </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Kayıt Id</td>
+                    <td style="width: 65%;">@Model.IssueId</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Müşteri Adı Soyadı</td>
+                    <td style="width: 65%;">@(Model.CustomerId == null ? "Müşteri Adı" : MembershipTools.GetNameSurname(Model.CustomerId))</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Operatör Adı Soyadı</td>
+                    <td style="width: 65%;">@(Model.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(Model.OperatorId))</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Teknisyen Adı Soyadı</td>
+                    <td style="width: 65%;">@(Model.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(Model.TechnicianId))</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Ürün</td>
+                    <td style="width: 65%;">@Model.ProductType</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Açıklama</td>
+                    <td style="width: 65%;">@Model.Description</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Operatör Notu</td>
+                    @if (@Model.OptReport == null)
+                    {
+                        <td style="width: 65%;text-decoration: underline red">Operatörün bir notu bulunmamaktadır.</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;text-decoration: underline red">@Model.OptReport</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Konum</td>
+                    <td style="width: 65%;">@Model.Location</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Garanti Durumu</td>
+                    @if (@Model.WarrantyState)
+                    {
+                        <td style="width: 65%;">Garantisi Var</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;">Garantisi Yok</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Kayıt Oluşturma Tarihi</td>
+                    <td style="width: 65%;">@Model.CreatedDate.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Kayıt Kapanma Tarihi</td>
+                    @if (@Model.ClosedDate == null)
+                    {
+                        <td style="width: 65%;">Arıza henüz sonuçlanmamıştır.</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;">@(Model.ClosedDate?.ToShortDateString())</td>
+                    }
+                </tr>
             </tbody>
         </table>
         <div class="form-group table-bordered">
@@ -94,7 +98,7 @@
                         @Html.ValidationMessageFor(model => model.ServiceCharge, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <button class="btn btn-instagram" type="submit">Kaydet</button>
+                <button class="btn btn-instagram" type="submit">Tamamla</button>
             }
         </div>
     }
@@ -185,10 +189,6 @@
         @if (Model.IssueState == TeknikServis.Models.Enums.IssueStates.Atandı)
         {
             <button class="btn btn-block btn-instagram btniskabul" name="@Model.IssueId">İş Kabul</button>
-        }
-        @if (Model.IssueState == TeknikServis.Models.Enums.IssueStates.İşlemde)
-        {
-            <button class="btn btn-block btn-instagram btnislemtamam" name="@Model.IssueId">Bitir</button>
         }
     </div>
 </div>

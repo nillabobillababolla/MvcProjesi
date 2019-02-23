@@ -64,6 +64,8 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
 
+        public string SurveyCode { get; set; }
+
         [DisplayName("Fotoğraf")]
         public List<HttpPostedFileBase> PostedPhoto { get; set; }
 

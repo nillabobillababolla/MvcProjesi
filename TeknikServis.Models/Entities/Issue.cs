@@ -59,6 +59,8 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
 
+        public string SurveyCode { get; set; }
+
         [ForeignKey("CustomerId")]
         public virtual User Customer { get; set; }
 

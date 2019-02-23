@@ -28,6 +28,10 @@
                 <td style="width: 65%;">@(Model.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(Model.TechnicianId))</td>
             </tr>
             <tr>
+                <td style="width: 35%; font-weight: bold">Ürün</td>
+                <td style="width: 65%;">@Model.ProductType</td>
+            </tr>
+            <tr>
                 <td style="width: 35%; font-weight: bold">Açıklama</td>
                 <td style="width: 65%;">@Model.Description</td>
             </tr>
@@ -84,9 +88,9 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.IssueId)
             <div class="form-group">
-                @Html.LabelFor(model => model.OptReport, htmlAttributes: new { @class = "control-label col-md-4",style="font-weight:900" })
+                @Html.LabelFor(model => model.OptReport, htmlAttributes: new { @class = "control-label col-md-4", style = "font-weight:900" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.OptReport, new { htmlAttributes = new { @class = "form-control input-rounded"} })
+                    @Html.EditorFor(model => model.OptReport, new { htmlAttributes = new { @class = "form-control input-rounded" } })
                     @Html.ValidationMessageFor(model => model.OptReport, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -58,7 +58,6 @@ namespace TeknikServis.Web.Controllers
             }
             var data = Mapper.Map<Issue, IssueVM>(issue);
             data.PhotoPath = issue.Photograph.Select(y => y.Path).ToList();
-            var user = NewUserManager().FindById(data.CustomerId);
             return View(data);
         }
 
@@ -87,7 +86,6 @@ namespace TeknikServis.Web.Controllers
                     Description = model.Description,
                     IssueState = model.IssueState,
                     Location = model.Location == Models.Enums.Locations.KonumYok ? user.Location : model.Location,
-                    //PhotoPath = model.PhotoPath??"~/assets/images/photo-unavailable.png",
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
                     PurchasedDate = model.PurchasedDate,
@@ -136,7 +134,7 @@ namespace TeknikServis.Web.Controllers
                         }
                         break;
                 }
-                if (issue.WarrantyState == true)
+                if (issue.WarrantyState)
                 {
                     issue.ServiceCharge = 0;
                 }
@@ -144,42 +142,39 @@ namespace TeknikServis.Web.Controllers
                 var repo = new IssueRepo();
                 repo.InsertForMark(issue);
                 repo.Save();
-
+                var fotorepo = new PhotographRepo();
                 if (model.PostedPhoto.Count > 0)
                 {
                     model.PostedPhoto.ForEach(file =>
                     {
-                        if (file != null && file.ContentLength > 0)
+                        if (file == null || file.ContentLength <= 0) return;
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var extName = Path.GetExtension(file.FileName);
+                        fileName = StringHelpers.UrlFormatConverter(fileName);
+                        fileName += StringHelpers.GetCode();
+                        var directorypath = Server.MapPath("~/Upload/");
+                        var filepath = Server.MapPath("~/Upload/") + fileName + extName;
+
+                        if (!Directory.Exists(directorypath))
+                            Directory.CreateDirectory(directorypath);
+                        file.SaveAs(filepath);
+
+                        var img = new WebImage(filepath);
+                        img.Resize(250, 250, false);
+                        img.Save(filepath);
+
+                        fotorepo.Insert(new Photograph()
                         {
-
-                            string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                            string extName = Path.GetExtension(file.FileName);
-                            fileName = StringHelpers.UrlFormatConverter(fileName);
-                            fileName += StringHelpers.GetCode();
-                            var directorypath = Server.MapPath("~/Upload/");
-                            var filepath = Server.MapPath("~/Upload/") + fileName + extName;
-
-                            if (!Directory.Exists(directorypath))
-                                Directory.CreateDirectory(directorypath);
-                            file.SaveAs(filepath);
-
-                            WebImage img = new WebImage(filepath);
-                            img.Resize(250, 250, false);
-                            img.Save(filepath);
-
-                            new PhotographRepo().Insert(new Photograph()
-                            {
-                                IssueId = issue.Id,
-                                Path = "/Upload/" + fileName + extName
-                            });
-                        }
+                            IssueId = issue.Id,
+                            Path = "/Upload/" + fileName + extName
+                        });
                     });
                 }
 
-                var fotograflar = new PhotographRepo().GetAll(x => x.IssueId == issue.Id).ToList();
-                var foto= fotograflar.Select(x => x.Path).ToList();
+                var fotograflar = fotorepo.GetAll(x => x.IssueId == issue.Id).ToList();
+                var foto = fotograflar.Select(x => x.Path).ToList();
                 issue.PhotoPath = foto;
-                new IssueRepo().Update(issue);
+                repo.Update(issue);
 
                 TempData["Message"] = "Arıza kaydınız başarı ile oluşturuldu.";
 
