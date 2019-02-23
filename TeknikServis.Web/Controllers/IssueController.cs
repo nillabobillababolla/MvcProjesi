@@ -89,6 +89,7 @@ namespace TeknikServis.Web.Controllers
                     ProductType = model.ProductType,
                     CustomerId = model.CustomerId,
                     PurchasedDate = model.PurchasedDate,
+                    PhotoPath = model.PhotoPath,
                     ServiceCharge = model.ServiceCharge,
                     ClosedDate = model.ClosedDate,
                     CreatedDate = model.CreatedDate,
