@@ -8,6 +8,7 @@
 }
 
     <h3>@TempData["Message"]</h3>
+    <h3>@TempData["Message2"]</h3>
 
 <div>
     <hr />
@@ -29,7 +30,7 @@
                                             <th>Operatör</th>
                                             <th>Teknisyen</th>
                                             <th>Konum</th>
-                                            <th>Actions</th>
+                                            <th>Aksiyon</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,7 +54,7 @@
                                             }
                                             if (current.IssueState == IssueStates.Atandı || current.IssueState == IssueStates.KabulEdildi || current.IssueState == IssueStates.İşlemde)
                                             {
-                                    <tr style="background: salmon">
+                                    <tr style="background: burlywood">
                                         <th>@(i + 1)</th>
                                         <td>@current.IssueId</td>
                                         <td>@current.Description</td>

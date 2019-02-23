@@ -71,19 +71,30 @@
                 <td style="width: 35%;font-weight: bold">Servis Bedeli</td>
                 <td style="width: 65%;">@Model.ServiceCharge ₺</td>
             </tr>
-            <tr>
-                <td style="width: 35%;font-weight: bold">Konum</td>
-                <td style="width: 65%;">@Model.Location</td>
-            </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Konum</td>
+            <td style="width: 65%;">@Model.Location</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;font-weight: bold">Rapor</td>
+            @if (@Model.OptReport == null)
+            {
+                <td style="width: 65%;text-decoration: underline red">Operatör notu bulunmamaktadır.</td>
+            }
+            else
+            {
+                <td style="width: 65%;text-decoration: underline red">@Model.OptReport</td>
+            }
+        </tr>
             <tr>
                 <td style="width: 35%;font-weight: bold">Rapor</td>
                 @if (@Model.TechReport == null)
                 {
-                    <td style="width: 65%;">Rapor henüz oluşturulmamıştır.</td>
+                    <td style="width: 65%;text-decoration: underline red">Teknisyen raporu bulunmamaktadır.</td>
                 }
                 else
                 {
-                    <td style="width: 65%;">@Model.TechReport</td>
+                    <td style="width: 65%;text-decoration: underline red">@Model.TechReport</td>
                 }
             </tr>
             <tr>

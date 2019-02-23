@@ -1,4 +1,5 @@
 ﻿@using TeknikServis.BLL.Identity
+@using TeknikServis.Models.Enums
 @model List<TeknikServis.Models.ViewModels.IssueVM>
 
 @{
@@ -27,24 +28,44 @@
                                             <th>Durum</th>
                                             <th>Teknisyen</th>
                                             <th>Konum</th>
-                                            <th>Detay</th>
+                                            <th>Aksiyon</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @for (int i = 0; i < Model.Count; i++)
                                         {
                                             var current = Model[i];
-                                            <tr style="background: lightgrey">
-                                                <th>@(i + 1)</th>
-                                                <td>@current.IssueId</td>
-                                                <td>@current.Description</td>
-                                                <td>@current.IssueState</td>
-                                                <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                                <td>@current.Location</td>
-                                                <td>
-                                                    <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-instagram">Detay</a>
-                                                </td>
-                                            </tr>
+
+                                            if (current.IssueState == IssueStates.Tamamlandı)
+                                            {
+                                                <tr style="background: mediumseagreen">
+                                                    <th>@(i + 1)</th>
+                                                    <td>@current.IssueId</td>
+                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueState</td>
+                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                    <td>
+                                                        @current.Location
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Issue",new {id=current.IssueId})" class="btn btn-instagram">Detay</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr style="background: lightgrey">
+                                                    <th>@(i + 1)</th>
+                                                    <td>@current.IssueId</td>
+                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueState</td>
+                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                    <td>@current.Location</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Operator",new {id=current.IssueId})" class="btn btn-instagram">Detay</a>
+                                                    </td>
+                                                </tr>
+                                            }
                                         }
                                     </tbody>
                                 </table>

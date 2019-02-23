@@ -88,6 +88,7 @@ namespace TeknikServis.Web.Controllers
                 var issue = new IssueRepo().GetById(model.IssueId);
                 issue.TechnicianId = model.TechnicianId;
                 issue.IssueState = Models.Enums.IssueStates.Atandı;
+                issue.OptReport = model.OptReport;
                 new IssueRepo().Update(issue);
                 var technician = await NewUserStore().FindByIdAsync(issue.TechnicianId);
                 TempData["Message"] =

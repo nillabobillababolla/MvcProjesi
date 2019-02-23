@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Entities;
+using TeknikServis.Models.Enums;
 using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
 
@@ -82,34 +83,36 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult FinishJob(string id)
+        public ActionResult FinishJob(IssueVM model)
         {
             try
             {
-                var issue = new IssueRepo().GetById(id);
-                if (issue == null)
-                {
-                    return Json(new ResponseData()
-                    {
-                        message = "Bulunamadi.",
-                        success = false
-                    });
-                }
-                issue.IssueState = Models.Enums.IssueStates.Tamamlandı;
-                new IssueRepo().Update(issue);
-                return Json(new ResponseData()
-                {
-                    message = "İş bitti olarak işaretlendi.",
-                    success = true
-                });
+                var repo = new IssueRepo();
+                 var issue = repo.GetById(model.IssueId);
+               if (issue == null)
+               {
+                   TempData["Message2"] = "Arıza kaydı bulunamadi.";
+                   return RedirectToAction("Index", "Technician");
+               }
+
+               issue.TechReport = model.TechReport;
+               issue.ServiceCharge += model.ServiceCharge;
+               issue.IssueState = IssueStates.Tamamlandı;
+               issue.ClosedDate=DateTime.Now;
+               repo.Update(issue);
+               TempData["Message"] = $"{issue.Description} adlı iş tamamlandı.";
+               return RedirectToAction("Index", "Technician");
             }
             catch (Exception ex)
             {
-                return Json(new ResponseData()
+                TempData["Message"] = new ErrorVM()
                 {
-                    message = $"Bir hata oluştu: {ex.Message}",
-                    success = false
-                });
+                    Text = $"Bir hata oluştu. {ex.Message}",
+                    ActionName = "Index",
+                    ControllerName = "Technician",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
             }
         }
 

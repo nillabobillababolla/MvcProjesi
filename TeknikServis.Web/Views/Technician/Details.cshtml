@@ -1,4 +1,5 @@
 ﻿@using TeknikServis.BLL.Identity;
+@using TeknikServis.Models.Enums
 @model TeknikServis.Models.ViewModels.IssueVM
 @{
     ViewBag.Title = "Issue Details";
@@ -6,8 +7,11 @@
 }
 
 <div class="col-md-6 col-md-offset-3">
-    <table id="user" class="table table-bordered table-striped" style="clear: both">
-        <tbody>
+    @if (Model.IssueState == IssueStates.İşlemde)
+    {
+
+        <table id="user" class="table table-bordered table-striped" style="clear: both">
+            <tbody>
             <tr>
                 <td style="width: 35%; font-weight: bold">Kayıt Id</td>
                 <td style="width: 65%;">@Model.IssueId</td>
@@ -29,6 +33,17 @@
                 <td style="width: 65%;">@Model.Description</td>
             </tr>
             <tr>
+                <td style="width: 35%; font-weight: bold">Operatör Notu</td>
+                @if (@Model.OptReport == null)
+                {
+                    <td style="width: 65%;text-decoration: underline red">Operatörün bir notu bulunmamaktadır.</td>
+                }
+                else
+                {
+                    <td style="width: 65%;text-decoration: underline red">@Model.OptReport</td>
+                }
+            </tr>
+            <tr>
                 <td style="width: 35%; font-weight: bold">Konum</td>
                 <td style="width: 65%;">@Model.Location</td>
             </tr>
@@ -48,21 +63,6 @@
                 <td style="width: 65%;">@Model.CreatedDate.ToShortDateString()</td>
             </tr>
             <tr>
-                <td style="width: 35%; font-weight: bold">Servis Bedeli</td>
-                <td style="width: 65%;">@Model.ServiceCharge ₺</td>
-            </tr>
-            <tr>
-                <td style="width: 35%; font-weight: bold">Rapor</td>
-                @if (@Model.TechReport == null)
-                {
-                    <td style="width: 65%;">Rapor henüz oluşturulmamıştır.</td>
-                }
-                else
-                {
-                    <td style="width: 65%;">@Model.TechReport</td>
-                }
-            </tr>
-            <tr>
                 <td style="width: 35%; font-weight: bold">Kayıt Kapanma Tarihi</td>
                 @if (@Model.ClosedDate == null)
                 {
@@ -73,16 +73,122 @@
                     <td style="width: 65%;">@(Model.ClosedDate?.ToShortDateString())</td>
                 }
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <div class="form-group table-bordered">
+            @using (Html.BeginForm("FinishJob", "Technician", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.IssueId)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TechReport, htmlAttributes: new { @class = "control-label col-md-4", style = "font-weight:900" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TechReport, new { htmlAttributes = new { @class = "form-control input-rounded" } })
+                        @Html.ValidationMessageFor(model => model.TechReport, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ServiceCharge, htmlAttributes: new { @class = "control-label col-md-4", style = "font-weight:900" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ServiceCharge, new { htmlAttributes = new { @class = "form-control input-rounded" } })
+                        @Html.ValidationMessageFor(model => model.ServiceCharge, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <button class="btn btn-instagram" type="submit">Kaydet</button>
+            }
+        </div>
+    }
+    else
+    {
+        <table id="user" class="table table-bordered table-striped" style="clear: both">
+            <tbody>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Kayıt Id</td>
+                    <td style="width: 65%;">@Model.IssueId</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Müşteri Adı Soyadı</td>
+                    <td style="width: 65%;">@(Model.CustomerId == null ? "Müşteri Adı" : MembershipTools.GetNameSurname(Model.CustomerId))</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Operatör Adı Soyadı</td>
+                    <td style="width: 65%;">@(Model.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(Model.OperatorId))</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Teknisyen Adı Soyadı</td>
+                    <td style="width: 65%;">@(Model.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(Model.TechnicianId))</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Açıklama</td>
+                    <td style="width: 65%;">@Model.Description</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Operatör Notu</td>
+                    @if (@Model.OptReport == null)
+                    {
+                        <td style="width: 65%;text-decoration: underline red">Operatörün bir notu bulunmamaktadır.</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;text-decoration: underline red">@Model.OptReport</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Konum</td>
+                    <td style="width: 65%;">@Model.Location</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Garanti Durumu</td>
+                    @if (@Model.WarrantyState)
+                    {
+                        <td style="width: 65%;">Garantisi Var</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;">Garantisi Yok</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Kayıt Oluşturma Tarihi</td>
+                    <td style="width: 65%;">@Model.CreatedDate.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Servis Bedeli</td>
+                    <td style="width: 65%;">@Model.ServiceCharge ₺</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Rapor</td>
+                    @if (@Model.TechReport == null)
+                    {
+                        <td style="width: 65%;">Rapor henüz oluşturulmamıştır.</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;">@Model.TechReport</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Kayıt Kapanma Tarihi</td>
+                    @if (@Model.ClosedDate == null)
+                    {
+                        <td style="width: 65%;">Arıza henüz sonuçlanmamıştır.</td>
+                    }
+                    else
+                    {
+                        <td style="width: 65%;">@(Model.ClosedDate?.ToShortDateString())</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    }
     <div class="form-group">
         @if (Model.IssueState == TeknikServis.Models.Enums.IssueStates.Atandı)
         {
-            <button class="btn btn-success btn-xs btniskabul" name="@Model.IssueId">İş Kabul</button>
+            <button class="btn btn-block btn-instagram btniskabul" name="@Model.IssueId">İş Kabul</button>
         }
         @if (Model.IssueState == TeknikServis.Models.Enums.IssueStates.İşlemde)
         {
-            <button class="btn btn-success btn-xs btnislemtamam" name="@Model.IssueId">Bitir</button>
+            <button class="btn btn-block btn-instagram btnislemtamam" name="@Model.IssueId">Bitir</button>
         }
     </div>
 </div>
@@ -103,33 +209,10 @@
                     }).done(function (e) {
                         location.reload();
                         $.notify({
-                            // options
                             message: e.message,
                             title: 'Mesaj: '
                         },
                             {
-                                // settings
-                                type: e.success ? "success" : "danger"
-                            });
-                    });
-            });
-             $(".btnislemtamam").click(function () {
-                var id = this.name;
-                $.ajax(
-                    {
-                        url: "@Url.Action("FinishJob","Technician")",
-                        method: "post",
-                        dataType: "json",
-                        data: { id: id }
-                    }).done(function (e) {
-                        location.reload();
-                        $.notify({
-                            // options
-                            message: e.message,
-                            title: 'Mesaj: '
-                        },
-                            {
-                                // settings
                                 type: e.success ? "success" : "danger"
                             });
                     });
