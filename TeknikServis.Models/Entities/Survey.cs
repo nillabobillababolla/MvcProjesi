@@ -32,6 +32,8 @@ namespace TeknikServis.Models.Entities
         [StringLength(200,ErrorMessage = "Max 200 karakter giriniz.")]
         public string Suggestions { get; set; }
 
+        public bool IsDone { get; set; } = false;
+
         public virtual ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
     }
 }

@@ -25,5 +25,8 @@ namespace TeknikServis.Models.ViewModels
         [DisplayName("Görüşleriniz")]
         [StringLength(200, ErrorMessage = "Max 200 karakter giriniz.")]
         public string Suggestions { get; set; }
+
+        public bool IsDone { get; set; } = false;
+
     }
 }

@@ -275,17 +275,15 @@ namespace TeknikServis.Web.Controllers
                 var surveyRepo = new SurveyRepo();
                 var issueList = issueRepo.GetAll(x => x.SurveyId != null).ToList();
 
-                var surveyList = new List<Survey>();
+                var surveyList = surveyRepo.GetAll().Where(x=>x.IsDone==true).ToList();
                 var totalSpeed = 0.0;
                 var totalTech = 0.0;
                 var totalPrice = 0.0;
                 var totalSatisfaction = 0.0;
                 var totalSolving = 0.0;
                 var count = issueList.Count;
-                foreach (var issue in issueList)
+                foreach (var survey in surveyList)
                 {
-                    var survey = surveyRepo.GetById(issue.SurveyId);
-                    surveyList.Add(survey);
                     totalSpeed += survey.Speed;
                     totalTech += survey.TechPoint;
                     totalPrice += survey.Pricing;
@@ -297,7 +295,8 @@ namespace TeknikServis.Web.Controllers
                 ViewBag.AvgPrice = totalPrice/count;
                 ViewBag.AvgSatisfaction= totalSatisfaction/count;
                 ViewBag.AvgSolving= totalSolving/count;
-                return View();
+                
+                return View(surveyList);
             }
             catch (Exception ex)
             {
