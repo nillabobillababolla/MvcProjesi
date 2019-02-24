@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Enums;
 using static TeknikServis.BLL.Identity.MembershipTools;
@@ -34,18 +35,21 @@ namespace TeknikServis.Web.Controllers
             var userManager = NewUserManager();
             var users = userManager.Users.ToList();
 
-            var techIds = new IssueRepo().GetAll(x => x.IssueState == IssueStates.İşlemde ||x.IssueState==IssueStates.Atandı).Select(x => x.TechnicianId).ToList();
+            var techIds = new IssueRepo().GetAll(x => x.IssueState == IssueStates.İşlemde || x.IssueState == IssueStates.Atandı).Select(x => x.TechnicianId).ToList();
 
             foreach (var user in users)
             {
                 if (userManager.IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                 {
                     if (!techIds.Contains(user.Id))
+                    {
+                        string techPoint = GetTechPoint(user.Id);
                         data.Add(new SelectListItem()
                         {
-                            Text = $"{user.Name} {user.Surname}",
+                            Text = $"{user.Name} {user.Surname} ({techPoint})",
                             Value = user.Id
                         });
+                    }
                 }
             }
             return data;

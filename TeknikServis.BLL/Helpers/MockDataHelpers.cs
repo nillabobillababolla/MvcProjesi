@@ -22,7 +22,7 @@ namespace TeknikServis.BLL.Helpers
                     Email = $"admin{i+1}@gmail.com",
                     UserName = $"admin{i+1}",
                     Name = $"Admin{i+1}",
-                    Surname = $"adminsurname{i+1}",
+                    Surname = $"Surname",
                     Location = Models.Enums.Locations.Beşiktaş,
                 };
                 Users.Add(adm);
@@ -32,7 +32,7 @@ namespace TeknikServis.BLL.Helpers
                     UserName = $"operator{i+1}",
                     Name = $"Operator{i+1}",
                     Location = Models.Enums.Locations.Esenler,
-                    Surname = $"operatorsurname{i+1}",
+                    Surname = $"Surname",
                 };
                 Users.Add(opr);
                 var tech = new User()
@@ -41,7 +41,7 @@ namespace TeknikServis.BLL.Helpers
                     UserName = $"technician{i+1}",
                     Name = $"Technician{i+1}",
                     Location = Models.Enums.Locations.Kağıthane,
-                    Surname = $"techniciansurname{i+1}",
+                    Surname = $"Surname",
                 };
                 Users.Add(tech);
                 var cust = new User()
@@ -50,7 +50,7 @@ namespace TeknikServis.BLL.Helpers
                     UserName = $"customer{i+1}",
                     Name = $"Customer{i+1}",
                     Location = Models.Enums.Locations.Kadıköy,
-                    Surname = $"customersurname{i+1}",
+                    Surname = $"Surname",
                 };
                 Users.Add(cust);
             }

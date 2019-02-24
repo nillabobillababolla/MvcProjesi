@@ -92,5 +92,22 @@ namespace TeknikServis.BLL.Identity
 
             return $"{user.AvatarPath}";
         }
+
+        public static string GetTechPoint(string techId)
+        {
+            var tech = NewUserManager().FindById(techId);
+            if (tech == null)
+                return "N/A";
+            var issues = new IssueRepo().GetAll(x => x.TechnicianId == techId);
+            if (issues == null)
+                return "N/A";
+
+            var count = 0.0;
+            foreach (var issue in issues)
+            {
+                count += issue.Survey.TechPoint;
+            }
+            return $"{count / issues.Count}";
+        }
     }
 }
