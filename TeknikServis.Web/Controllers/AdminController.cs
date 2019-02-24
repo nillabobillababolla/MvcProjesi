@@ -276,16 +276,27 @@ namespace TeknikServis.Web.Controllers
                 var issueList = issueRepo.GetAll(x => x.SurveyId != null).ToList();
 
                 var surveyList = new List<Survey>();
-                var count = 0.0;
+                var totalSpeed = 0.0;
+                var totalTech = 0.0;
+                var totalPrice = 0.0;
+                var totalSatisfaction = 0.0;
+                var totalSolving = 0.0;
+                var count = issueList.Count;
                 foreach (var issue in issueList)
                 {
                     var survey = surveyRepo.GetById(issue.SurveyId);
                     surveyList.Add(survey);
-                    count += survey.Speed;
+                    totalSpeed += survey.Speed;
+                    totalTech += survey.TechPoint;
+                    totalPrice += survey.Pricing;
+                    totalSatisfaction += survey.Satisfaction;
+                    totalSolving += survey.Solving;
                 }
-
-                var avgSpeed = count / issueList.Count;
-                ViewBag.AvgSpeed = avgSpeed;
+                ViewBag.AvgSpeed = totalSpeed/count;
+                ViewBag.AvgTech = totalTech/count;
+                ViewBag.AvgPrice = totalPrice/count;
+                ViewBag.AvgSatisfaction= totalSatisfaction/count;
+                ViewBag.AvgSolving= totalSolving/count;
                 return View();
             }
             catch (Exception ex)
