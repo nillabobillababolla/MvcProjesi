@@ -98,7 +98,7 @@ namespace TeknikServis.BLL.Identity
             var tech = NewUserManager().FindById(techId);
             if (tech == null)
                 return "N/A";
-            var issues = new IssueRepo().GetAll(x => x.TechnicianId == techId);
+            var issues = new IssueRepo().GetAll(x => x.TechnicianId == techId && x.Survey.IsDone == true);
             if (issues == null)
                 return "N/A";
 
