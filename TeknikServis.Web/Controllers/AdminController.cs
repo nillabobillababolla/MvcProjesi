@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using TeknikServis.BLL.Helpers;
+using TeknikServis.BLL.Repository;
 using TeknikServis.BLL.Services.Senders;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
 using static TeknikServis.BLL.Identity.MembershipTools;
@@ -227,7 +230,7 @@ namespace TeknikServis.Web.Controllers
                     ControllerName = "Admin",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
         }
 
@@ -261,6 +264,41 @@ namespace TeknikServis.Web.Controllers
             }
 
             return RedirectToAction("EditUser", new { id = userId });
+        }
+
+        [HttpGet]
+        public ActionResult Reports()
+        {
+            try
+            {
+                var issueRepo = new IssueRepo();
+                var surveyRepo = new SurveyRepo();
+                var issueList = issueRepo.GetAll(x => x.SurveyId != null).ToList();
+
+                var surveyList = new List<Survey>();
+                var count = 0.0;
+                foreach (var issue in issueList)
+                {
+                    var survey = surveyRepo.GetById(issue.SurveyId);
+                    surveyList.Add(survey);
+                    count += survey.Speed;
+                }
+
+                var avgSpeed = count / issueList.Count;
+                ViewBag.AvgSpeed = avgSpeed;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Reports",
+                    ControllerName = "Admin",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
         }
     }
 }

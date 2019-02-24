@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="table-responsive">
+    <table id="example2" class="display table" style="width: 100%; mso-cellspacing: 0;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Hız</th>
+                <th>Açıklama</th>
+                <th>Durum</th>
+                <th>Teknisyen</th>
+                <th>Konum</th>
+                <th>Aksiyon</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+                    <tr style="background: lightgrey">
+                        <th>1</th>
+                        <td>@ViewBag.AvgSpeed</td>
+                        <td>Description</td>
+                        <td>IssueState</td>
+                        <td>Teknisyen</td>
+                        <td>Location</td>
+                        <td>Aksiyon</td>
+                    </tr>
+                
+        </tbody>
+    </table>
+</div>
+
