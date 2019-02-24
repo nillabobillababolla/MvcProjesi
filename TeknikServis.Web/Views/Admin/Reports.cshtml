@@ -26,7 +26,7 @@
                 var item = Model[i];
                 var issue = new IssueRepo().GetAll().FirstOrDefault(x => x.SurveyId == item.Id);
                 <tr style="background: lightgrey">
-                    <th style="font-weight: bold">@(i+1)</th>
+                    <th style="font-weight: bold">@(i + 1)</th>
                     <td>@(issue?.Id)</td>
                     <td>@(issue.Description)</td>
                     <td>@item.Speed</td>
@@ -34,7 +34,7 @@
                     <td>@item.Pricing</td>
                     <td>@item.Satisfaction</td>
                     <td>@item.Solving</td>
-                    <td><a href="@Url.Action("Details","Issue",new{issue.Id})" class="btn btn-instagram">Detay</a></td>
+                    <td><a href="@Url.Action("Details","Issue",new{id = issue.Id})" class="btn btn-instagram">Detay</a></td>
                 </tr>
             }
         </tbody>
