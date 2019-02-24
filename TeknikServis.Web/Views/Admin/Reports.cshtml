@@ -6,7 +6,7 @@
 }
 
 <div class="table-responsive">
-    <table id="example2" class="display table" style="width: 100%; mso-cellspacing: 0;">
+    <table id="example2" class="display table table-striped" style="width: 100%; mso-cellspacing: 0;">
         <thead>
             <tr>
                 <th style="font-weight: bold">#</th>
@@ -25,7 +25,7 @@
             {
                 var item = Model[i];
                 var issue = new IssueRepo().GetAll().FirstOrDefault(x => x.SurveyId == item.Id);
-                <tr style="background: lightgrey">
+                <tr>
                     <th style="font-weight: bold">@(i + 1)</th>
                     <td>@(issue?.Id)</td>
                     <td>@(issue.Description)</td>
@@ -42,12 +42,12 @@
             <tr>
                 <td></td>
                 <td></td>
-                <th style="font-weight: bold">Ortalama Puan</th>
-                <th style="font-weight: bold">@ViewBag.AvgSpeed.ToString("0.00")</th>
-                <th style="font-weight: bold">@ViewBag.AvgTech.ToString("0.00")</th>
-                <th style="font-weight: bold">@ViewBag.AvgPrice.ToString("0.00")</th>
-                <th style="font-weight: bold">@ViewBag.AvgSatisfaction.ToString("0.00")</th>
-                <th style="font-weight: bold">@ViewBag.AvgSolving.ToString("0.00")</th>
+                <th style="font-weight: bold; background-color: maroon;color:white">Ortalama Puan</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSpeed.ToString("0.00")</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgTech.ToString("0.00")</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgPrice.ToString("0.00")</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSatisfaction.ToString("0.00")</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSolving.ToString("0.00")</th>
             </tr>
         </tfoot>
     </table>
