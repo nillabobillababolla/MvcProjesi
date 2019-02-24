@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.ComponentModel.DataAnnotations;
 using TeknikServis.Models.Abstracts;
 
 namespace TeknikServis.Models.Entities
@@ -29,6 +29,7 @@ namespace TeknikServis.Models.Entities
         public double Solving { get; set; } = 0;
 
         [DisplayName("Görüşleriniz")]
+        [StringLength(200,ErrorMessage = "Max 200 karakter giriniz.")]
         public string Suggestions { get; set; }
 
         public virtual ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();

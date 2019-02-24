@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TeknikServis.Models.ViewModels
 {
@@ -22,6 +23,7 @@ namespace TeknikServis.Models.ViewModels
         public double Solving { get; set; } = 0;
 
         [DisplayName("Görüşleriniz")]
+        [StringLength(200, ErrorMessage = "Max 200 karakter giriniz.")]
         public string Suggestions { get; set; }
     }
 }
