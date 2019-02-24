@@ -19,7 +19,15 @@ namespace TeknikServis.Web.App_Start
                 RegisterUserMapping(cfg);
                 ProfileUserMapping(cfg);
                 ChangePasswordMapping(cfg);
+                SurveyMapping(cfg);
             });
+        }
+
+        private static void SurveyMapping(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<Survey, SurveyVM>()
+                .ForMember(dest=>dest.SurveyId,opt=>opt.MapFrom(x=>x.Id))
+                .ReverseMap();
         }
 
         private static void ChangePasswordMapping(IMapperConfigurationExpression cfg)
@@ -37,7 +45,8 @@ namespace TeknikServis.Web.App_Start
 
         private static void RegisterUserMapping(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<User, RegisterVM>().ReverseMap();
+            cfg.CreateMap<User, RegisterVM>()
+                .ReverseMap();
         }
 
         private static void IssueMapping(IMapperConfigurationExpression cfg)

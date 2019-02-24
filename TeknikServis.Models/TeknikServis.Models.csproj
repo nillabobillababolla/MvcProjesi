@@ -80,6 +80,7 @@
     <Compile Include="Abstracts\BaseEntity2.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Photograph.cs" />
+    <Compile Include="Entities\Survey.cs" />
     <Compile Include="Enums\IdentityRoles.cs" />
     <Compile Include="Enums\Locations.cs" />
     <Compile Include="Enums\MessageStates.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\RecoverPasswordVM.cs" />
     <Compile Include="ViewModels\RegisterVM.cs" />
+    <Compile Include="ViewModels\SurveyVM.cs" />
     <Compile Include="ViewModels\UpdateUserRoleVM.cs" />
     <Compile Include="ViewModels\UserProfileVM.cs" />
   </ItemGroup>

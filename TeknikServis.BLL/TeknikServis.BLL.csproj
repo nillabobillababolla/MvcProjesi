@@ -85,6 +85,7 @@
     <Compile Include="Repository\IssueRepo.cs" />
     <Compile Include="Repository\PhotographRepo.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
+    <Compile Include="Repository\SurveyRepo.cs" />
     <Compile Include="Services\Senders\EmailService.cs" />
     <Compile Include="Services\Senders\IMessageService.cs" />
   </ItemGroup>

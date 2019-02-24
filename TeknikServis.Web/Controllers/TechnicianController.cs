@@ -124,19 +124,24 @@ namespace TeknikServis.Web.Controllers
         {
             try
             {
-                var repo = new IssueRepo();
-                var issue = repo.GetById(model.IssueId);
+                var issueRepo = new IssueRepo();
+                var issue = issueRepo.GetById(model.IssueId);
                 if (issue == null)
                 {
                     TempData["Message2"] = "Arıza kaydı bulunamadi.";
                     return RedirectToAction("Index", "Technician");
                 }
-                
+
                 issue.IssueState = IssueStates.Tamamlandı;
                 issue.ClosedDate = DateTime.Now;
-                issue.SurveyCode = StringHelpers.GetCode();
-                repo.Update(issue);
+                issueRepo.Update(issue);
                 TempData["Message"] = $"{issue.Description} adlı iş tamamlandı.";
+
+                var survey = new Survey();
+                var surveyRepo=new SurveyRepo();
+                surveyRepo.Insert(survey);
+                issue.SurveyId = survey.Id;
+                issueRepo.Update(issue);
 
                 var user = await NewUserStore().FindByIdAsync(issue.CustomerId);
                 var usernamesurname = GetNameSurname(issue.CustomerId);
@@ -145,7 +150,7 @@ namespace TeknikServis.Web.Controllers
                                  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
 
                 var emailService = new EmailService();
-                var body = $"Merhaba <b>{usernamesurname}</b><br>{issue.Description} adlı arıza kaydınız kapanmıştır.<br>Değerlendirmeniz için aşağıda linki bulunan anketi doldurmanızı rica ederiz.<br> <a href='{siteUrl}/issue/survey?code={issue.SurveyCode}' >Anket Linki </a> ";
+                var body = $"Merhaba <b>{usernamesurname}</b><br>{issue.Description} adlı arıza kaydınız kapanmıştır.<br>Değerlendirmeniz için aşağıda linki bulunan anketi doldurmanızı rica ederiz.<br> <a href='{siteUrl}/issue/survey?code={issue.SurveyId}' >Anket Linki </a> ";
                 await emailService.SendAsync(new IdentityMessage() { Body = body, Subject = "Değerlendirme Anketi" }, user.Email);
 
                 return RedirectToAction("Index", "Technician");

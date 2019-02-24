@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-    <h3 style="color:green">@TempData["Message"]</h3>
+<h3 style="color:green">@TempData["Message"]</h3>
+<h3 style="color:green">@TempData["Message2"]</h3>
 
 @using (Html.BeginForm("UserProfile","Account",FormMethod.Post,new {enctype="multipart/form-data"}))
 {

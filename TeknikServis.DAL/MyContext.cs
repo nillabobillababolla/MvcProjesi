@@ -17,6 +17,7 @@ namespace TeknikServis.DAL
 
         public virtual DbSet<Issue> Issues { get; set; }
         public virtual DbSet<Photograph> Photographs { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

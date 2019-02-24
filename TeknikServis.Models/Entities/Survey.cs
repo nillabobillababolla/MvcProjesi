@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+
+using TeknikServis.Models.Abstracts;
+
+namespace TeknikServis.Models.Entities
+{
+    public class Survey : BaseEntity<string>
+    {
+        public Survey()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        [DisplayName("Genel Memnuniyet")]
+        public double Satisfaction { get; set; } = 0;
+
+        [DisplayName("Teknisyen")]
+        public double TechPoint { get; set; } = 0;
+
+        [DisplayName("Hız")]
+        public double Speed { get; set; } = 0;
+
+        [DisplayName("Fiyat")]
+        public double Pricing { get; set; } = 0;
+
+        [DisplayName("Çözüm Odaklılık")]
+        public double Solving { get; set; } = 0;
+
+        [DisplayName("Görüşleriniz")]
+        public string Suggestions { get; set; }
+
+        public virtual ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
+    }
+}

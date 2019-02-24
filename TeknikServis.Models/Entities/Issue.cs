@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using TeknikServis.Models.Abstracts;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
+using TeknikServis.Models.ViewModels;
 
 namespace TeknikServis.Models.Entities
 {
@@ -20,6 +21,7 @@ namespace TeknikServis.Models.Entities
         public string CustomerId { get; set; }
         public string OperatorId { get; set; }
         public string TechnicianId { get; set; }
+        public string SurveyId { get; set; }
 
         [StringLength(250)]
         [DisplayName("Açıklama")]
@@ -58,9 +60,7 @@ namespace TeknikServis.Models.Entities
 
         [DisplayName("Arıza Kapanma Tarihi")]
         public DateTime? ClosedDate { get; set; }
-
-        public string SurveyCode { get; set; }
-
+        
         [ForeignKey("CustomerId")]
         public virtual User Customer { get; set; }
 
@@ -69,6 +69,9 @@ namespace TeknikServis.Models.Entities
 
         [ForeignKey("TechnicianId")]
         public virtual User Technician { get; set; }
+
+        [ForeignKey("SurveyId")]
+        public virtual Survey Survey { get; set; }
 
         public virtual List<Photograph> Photograph { get; set; } = new List<Photograph>();
     }

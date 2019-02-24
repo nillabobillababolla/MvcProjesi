@@ -75,7 +75,7 @@ namespace TeknikServis.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Hata Oluştu.");
-                RedirectToAction("Create", "Issue", model);
+                return RedirectToAction("Create", "Issue", model);
             }
             try
             {
@@ -141,8 +141,7 @@ namespace TeknikServis.Web.Controllers
                 }
 
                 var repo = new IssueRepo();
-                repo.InsertForMark(issue);
-                repo.Save();
+                repo.Insert(issue);
                 var fotorepo = new PhotographRepo();
                 if (model.PostedPhoto.Count > 0)
                 {
@@ -214,6 +213,69 @@ namespace TeknikServis.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public ActionResult Survey(string code)
+        {
+            try
+            {
+                var surveyRepo = new SurveyRepo();
+                var survey = surveyRepo.GetById(code);
+                if (survey == null)
+                    return RedirectToAction("Index", "Home");
+                var data = Mapper.Map<Survey, SurveyVM>(survey);
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                TempData["Message2"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Survey",
+                    ControllerName = "Issue",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
+        public ActionResult Survey(SurveyVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Hata Oluştu.");
+                return RedirectToAction("Survey", "Issue", model);
+            }
+            try
+            {
+                var surveyRepo = new SurveyRepo();
+                var survey = surveyRepo.GetById(model.SurveyId);
+                if (survey == null)
+                    return RedirectToAction("Index", "Home");
+                survey.Pricing = model.Pricing;
+                survey.Satisfaction = model.Satisfaction;
+                survey.Solving = model.Solving;
+                survey.Speed = model.Speed;
+                survey.Suggestions = model.Suggestions;
+                surveyRepo.Update(survey);
+                TempData["Message2"] = "Anket tamamlandı.";
+                return RedirectToAction("UserProfile", "Account");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message2"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu {ex.Message}",
+                    ActionName = "Survey",
+                    ControllerName = "Issue",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
+        }
 
         // GET: Issue/Edit/5
         public ActionResult Edit(int id)

@@ -719,6 +719,7 @@
     <Content Include="Views\Operator\AllIssues.cshtml" />
     <Content Include="Views\Technician\Index.cshtml" />
     <Content Include="Views\Technician\Details.cshtml" />
+    <Content Include="Views\Issue\Survey.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
