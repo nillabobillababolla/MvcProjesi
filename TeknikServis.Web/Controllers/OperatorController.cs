@@ -62,20 +62,22 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Index", "Issue");
             }
 
-            issue.OperatorId = userid;
+
             var data = Mapper.Map<Issue, IssueVM>(issue);
-            if (new IssueRepo().Update(issue) > 0)
+
+            if (issue.OperatorId == null)
             {
-                issue.IssueState = Models.Enums.IssueStates.KabulEdildi;
-                data.IssueState = issue.IssueState;
-                new IssueRepo().Update(issue);
-                return View(data);
+                issue.OperatorId = userid;
+                if (new IssueRepo().Update(issue) > 0)
+                {
+                    issue.IssueState = Models.Enums.IssueStates.KabulEdildi;
+                    data.IssueState = issue.IssueState;
+                    new IssueRepo().Update(issue);
+                    return View(data);
+                }
             }
-            else
-            {
-                TempData["Message2"] = "Üzerine alma işlemi başarısız.";
-                return RedirectToAction("Index", "Operator");
-            }
+
+            return View(data);
         }
 
         [HttpPost]

@@ -48,20 +48,35 @@
                     }
                 </tr>
                 <tr>
-                    <td style="width: 35%; font-weight: bold">Konum</td>
-                    <td style="width: 65%;">@Model.Location</td>
-                </tr>
-                <tr>
-                    <td style="width: 35%; font-weight: bold">Garanti Durumu</td>
-                    @if (@Model.WarrantyState)
+                    <td style="width: 35%; font-weight: bold">Teknisyen Notu</td>
+                    @if (@Model.TechReport == null)
                     {
-                        <td style="width: 65%;">Garantisi Var</td>
+                        <td style="width: 65%;text-decoration: underline red">Teknisyen notu oluşturulmamıştır.</td>
                     }
                     else
                     {
-                        <td style="width: 65%;">Garantisi Yok</td>
+                        <td style="width: 65%;text-decoration: underline red">@Model.TechReport</td>
                     }
                 </tr>
+                <tr>
+                    <td style="width: 35%; font-weight: bold">Konum</td>
+                    <td style="width: 65%;">@Model.Location</td>
+                </tr>
+            <tr>
+                <td style="width: 35%; font-weight: bold">Garanti Durumu</td>
+                @if (@Model.WarrantyState)
+                {
+                    <td style="width: 65%;">Garantisi Var</td>
+                }
+                else
+                {
+                    <td style="width: 65%;">Garantisi Yok</td>
+                }
+            </tr>
+            <tr>
+                <td style="width: 35%; font-weight: bold">Servis Bedeli</td>
+                <td style="width: 65%;">@Model.ServiceCharge ₺</td>
+            </tr>
                 <tr>
                     <td style="width: 35%; font-weight: bold">Kayıt Oluşturma Tarihi</td>
                     <td style="width: 65%;">@Model.CreatedDate.ToShortDateString()</td>
@@ -79,8 +94,8 @@
                 </tr>
             </tbody>
         </table>
-        <div class="form-group table-bordered">
-            @using (Html.BeginForm("FinishJob", "Technician", FormMethod.Post, new { @class = "form-horizontal" }))
+        <div class="form-group table-bordered" style="padding: 10px;padding-bottom: 40px">
+            @using (Html.BeginForm("UpdateJob", "Technician", FormMethod.Post, new { @class = "form-horizontal" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.IssueId)
@@ -94,11 +109,17 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.ServiceCharge, htmlAttributes: new { @class = "control-label col-md-4", style = "font-weight:900" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.ServiceCharge, new { htmlAttributes = new { @class = "form-control input-rounded" } })
+                        @Html.EditorFor(model => model.ServiceCharge, new { htmlAttributes = new { @class = "form-control input-rounded"} })
                         @Html.ValidationMessageFor(model => model.ServiceCharge, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <button class="btn btn-instagram" type="submit">Tamamla</button>
+                <button class="btn btn-instagram col-md-6" type="submit">Güncelle</button>
+            }
+            @using (Html.BeginForm("FinishJob", "Technician", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.IssueId)
+                <button class="btn btn-google col-md-6" type="submit">Tamamla</button>
             }
         </div>
     }

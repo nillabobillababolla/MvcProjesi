@@ -87,7 +87,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> FinishJob(IssueVM model)
+        public ActionResult UpdateJob(IssueVM model)
         {
             try
             {
@@ -101,6 +101,37 @@ namespace TeknikServis.Web.Controllers
 
                 issue.TechReport = model.TechReport;
                 issue.ServiceCharge += model.ServiceCharge;
+                issue.UpdatedDate = DateTime.Now;
+                repo.Update(issue);
+
+                return RedirectToAction("Index", "Technician");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = new ErrorVM()
+                {
+                    Text = $"Bir hata oluştu. {ex.Message}",
+                    ActionName = "Index",
+                    ControllerName = "Technician",
+                    ErrorCode = 500
+                };
+                return RedirectToAction("Error500", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> FinishJob(IssueVM model)
+        {
+            try
+            {
+                var repo = new IssueRepo();
+                var issue = repo.GetById(model.IssueId);
+                if (issue == null)
+                {
+                    TempData["Message2"] = "Arıza kaydı bulunamadi.";
+                    return RedirectToAction("Index", "Technician");
+                }
+                
                 issue.IssueState = IssueStates.Tamamlandı;
                 issue.ClosedDate = DateTime.Now;
                 issue.SurveyCode = StringHelpers.GetCode();
@@ -131,6 +162,5 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Error500", "Home");
             }
         }
-
     }
 }
