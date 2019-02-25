@@ -17,6 +17,7 @@
                 <th style="font-weight: bold">Fiyat</th>
                 <th style="font-weight: bold">Memnuniyet</th>
                 <th style="font-weight: bold">Çözüm</th>
+                <th style="font-weight: bold">Süre (Gün)</th>
                 <th style="font-weight: bold">Aksiyon</th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                     <td>@item.Pricing &#x2605;</td>
                     <td>@item.Satisfaction &#x2605;</td>
                     <td>@item.Solving &#x2605;</td>
+                    <td>@(issue.ClosedDate?.DayOfYear-issue.CreatedDate.DayOfYear)</td>
                     <td><a href="@Url.Action("Details","Issue",new{id = issue.Id})" class="btn btn-instagram">Detay</a></td>
                 </tr>
             }
@@ -48,6 +50,7 @@
                 <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgPrice.ToString("0.00") &#x2605;</th>
                 <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSatisfaction.ToString("0.00") &#x2605;</th>
                 <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSolving.ToString("0.00") &#x2605;</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgTime</th>
                 <th></th>
             </tr>
         </tfoot>
