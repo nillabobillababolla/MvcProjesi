@@ -290,11 +290,18 @@ namespace TeknikServis.Web.Controllers
                     totalSatisfaction += survey.Satisfaction;
                     totalSolving += survey.Solving;
                 }
+
+                var totalDays = 0;
+                foreach (var issue in issueList)
+                {
+                    totalDays += issue.ClosedDate.Value.DayOfYear - issue.CreatedDate.DayOfYear;
+                }
                 ViewBag.AvgSpeed = totalSpeed/count;
                 ViewBag.AvgTech = totalTech/count;
                 ViewBag.AvgPrice = totalPrice/count;
                 ViewBag.AvgSatisfaction= totalSatisfaction/count;
                 ViewBag.AvgSolving= totalSolving/count;
+                ViewBag.AvgTime= totalDays / issueList.Count;
                 
                 return View(surveyList);
             }
