@@ -301,6 +301,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Route("IssueTimeline/{id}")]
         public ActionResult Timeline(string id)
         {
             var data = new IssueLogRepo().GetAll(x => x.IssueId == id).OrderBy(x=>x.CreatedDate).ToList();

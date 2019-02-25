@@ -3,21 +3,10 @@
     ViewBag.Title = "Kayıt Zaman Çizelgesi";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+<hr />
 
-@section top{
-    <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/assets/plugins/icomoon/style.css" rel="stylesheet">
-    <link href="~/assets/plugins/uniform/css/default.css" rel="stylesheet" />
-    <link href="~/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+@section timelinetop{
     <link href="~/assets/plugins/vertical-timeline/css/style.css" rel="stylesheet">
-
-    <!-- Theme Styles -->
-    <link href="~/assets/css/ecaps.min.css" rel="stylesheet">
-    <link href="~/assets/css/custom.css" rel="stylesheet">
-
     <script src="~/assets/plugins/vertical-timeline/js/modernizr.js"></script>
 }
 
@@ -67,17 +56,11 @@
         </div>
     }
 }
+<hr />
 <br />
 
-@section bottom{
+@section timelinebottom{
     <!-- Javascripts -->
-    <script src="~/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
-    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="~/assets/plugins/uniform/js/jquery.uniform.standalone.js"></script>
-    <script src="~/assets/plugins/switchery/switchery.min.js"></script>
     <script src="~/assets/plugins/vertical-timeline/js/main.js"></script>
-    <script src="~/assets/js/ecaps.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzjeZ1lORVesmjaaFu0EbYeTw84t1_nek"></script>
     <script src="~/assets/js/pages/timeline.js"></script>
 }
