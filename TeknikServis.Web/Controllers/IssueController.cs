@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
@@ -57,7 +56,7 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Index", "Issue");
             }
             var data = Mapper.Map<Issue, IssueVM>(issue);
-            data.PhotoPath = issue.Photograph.Select(y => y.Path).ToList();
+            data.PhotoPath = new PhotographRepo().GetAll(x => x.IssueId == id).Select(y => y.Path).ToList();
             return View(data);
         }
 
@@ -147,7 +146,11 @@ namespace TeknikServis.Web.Controllers
                 {
                     model.PostedPhoto.ForEach(file =>
                     {
-                        if (file == null || file.ContentLength <= 0) return;
+                        if (file == null || file.ContentLength <= 0)
+                        {
+                            return;
+                        }
+
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var extName = Path.GetExtension(file.FileName);
                         fileName = StringHelpers.UrlFormatConverter(fileName);
@@ -156,7 +159,10 @@ namespace TeknikServis.Web.Controllers
                         var filepath = Server.MapPath("~/Upload/") + fileName + extName;
 
                         if (!Directory.Exists(directorypath))
+                        {
                             Directory.CreateDirectory(directorypath);
+                        }
+
                         file.SaveAs(filepath);
 
                         var img = new WebImage(filepath);
@@ -187,6 +193,15 @@ namespace TeknikServis.Web.Controllers
                     Body = body,
                     Subject = "Arıza kaydı oluşturuldu."
                 }, user.Email);
+
+                var issueLog = new IssueLog()
+                {
+                    IssueId = issue.Id,
+                    Description = "Arıza Kaydı Oluşturuldu.",
+                    FromWhom = "Müşteri"
+                };
+                new IssueLogRepo().Insert(issueLog);
+
                 return RedirectToAction("Index", "Issue");
             }
             catch (DbEntityValidationException ex)
@@ -222,7 +237,10 @@ namespace TeknikServis.Web.Controllers
                 var surveyRepo = new SurveyRepo();
                 var survey = surveyRepo.GetById(code);
                 if (survey == null)
+                {
                     return RedirectToAction("Index", "Home");
+                }
+
                 var data = Mapper.Map<Survey, SurveyVM>(survey);
                 return View(data);
             }
@@ -254,7 +272,10 @@ namespace TeknikServis.Web.Controllers
                 var surveyRepo = new SurveyRepo();
                 var survey = surveyRepo.GetById(model.SurveyId);
                 if (survey == null)
+                {
                     return RedirectToAction("Index", "Home");
+                }
+
                 survey.Pricing = model.Pricing;
                 survey.Satisfaction = model.Satisfaction;
                 survey.Solving = model.Solving;
@@ -279,49 +300,14 @@ namespace TeknikServis.Web.Controllers
             }
         }
 
-        // GET: Issue/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        [Route("IssueTimeline/{id}")]
+        public ActionResult Timeline(string id)
         {
-            return View();
+            var data = new IssueLogRepo().GetAll(x => x.IssueId == id).OrderBy(x => x.CreatedDate).ToList();
+            if (data == null)
+                return RedirectToAction("Details", "Issue", id);
+            return View(data);
         }
-
-        // POST: Issue/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Issue/List/5
-        public ActionResult List(string id)
-        {
-            return View();
-        }
-
-        // POST: Issue/List/5
-        [HttpPost]
-        public ActionResult List(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add list logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
     }
 }

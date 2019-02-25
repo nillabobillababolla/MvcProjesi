@@ -73,6 +73,7 @@ namespace TeknikServis.Models.Entities
         [ForeignKey("SurveyId")]
         public virtual Survey Survey { get; set; }
 
-        public virtual List<Photograph> Photograph { get; set; } = new List<Photograph>();
+        public virtual ICollection<Photograph> Photographs { get; set; } = new List<Photograph>();
+        public virtual ICollection<IssueLog> IssueLogs { get; set; } = new List<IssueLog>();
     }
 }

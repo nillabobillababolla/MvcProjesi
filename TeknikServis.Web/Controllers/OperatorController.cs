@@ -73,6 +73,15 @@ namespace TeknikServis.Web.Controllers
                     issue.IssueState = Models.Enums.IssueStates.KabulEdildi;
                     data.IssueState = issue.IssueState;
                     new IssueRepo().Update(issue);
+
+                    var issueLog = new IssueLog()
+                    {
+                        IssueId = issue.Id,
+                        Description = "Operatör tarafından kabul edildi.",
+                        FromWhom = "Operatör"
+                    };
+                    new IssueLogRepo().Insert(issueLog);
+
                     return View(data);
                 }
             }
@@ -97,7 +106,6 @@ namespace TeknikServis.Web.Controllers
                     $"{issue.Description} adlı arızaya {technician.Name}  {technician.Surname} teknisyeni atandı.";
 
                 var customer = NewUserManager().FindById(issue.CustomerId);
-
                 var emailService = new EmailService();
                 var body = $"Merhaba <b>{GetNameSurname(issue.CustomerId)}</b><br>{issue.Description} adlı arızanız onaylanmıştır ve görevli teknisyen en kısa sürede yola çıkacaktır.";
                 await emailService.SendAsync(new IdentityMessage()
@@ -105,6 +113,14 @@ namespace TeknikServis.Web.Controllers
                     Body = body,
                     Subject = $"{issue.Description} adlı arıza hk."
                 }, customer.Email);
+
+                var issueLog = new IssueLog()
+                {
+                    IssueId = issue.Id,
+                    Description = "Teknisyene atandı.",
+                    FromWhom = "Operatör"
+                };
+                new IssueLogRepo().Insert(issueLog);
 
                 return RedirectToAction("AllIssues", "Operator");
             }

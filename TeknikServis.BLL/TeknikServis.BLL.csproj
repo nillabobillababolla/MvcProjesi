@@ -82,6 +82,7 @@
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Identity\MembershipTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IssueLogRepo.cs" />
     <Compile Include="Repository\IssueRepo.cs" />
     <Compile Include="Repository\PhotographRepo.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />

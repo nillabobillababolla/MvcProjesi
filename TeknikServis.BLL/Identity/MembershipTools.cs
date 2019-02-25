@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 using System.Web;
 using TeknikServis.BLL.Repository;
 using TeknikServis.DAL;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
 
@@ -98,15 +100,24 @@ namespace TeknikServis.BLL.Identity
             var tech = NewUserManager().FindById(techId);
             if (tech == null)
                 return "0";
-            var issues = new IssueRepo().GetAll(x => x.TechnicianId == techId && x.Survey.IsDone==true);
+            var issues = new IssueRepo().GetAll(x => x.TechnicianId == techId);
             if (issues == null)
                 return "0";
-            var count = 0.0;
+            var isDoneIssues = new List<Issue>();
             foreach (var issue in issues)
             {
-                count += issue.Survey.TechPoint;
+                var survey = new SurveyRepo().GetById(issue.SurveyId);
+                if (survey.IsDone)
+                    isDoneIssues.Add(issue);
             }
-            return $"{count / issues.Count}";
+
+            var count = 0.0;
+            foreach (var item in isDoneIssues)
+            {
+                var survey = new SurveyRepo().GetById(item.SurveyId);
+                count += survey.TechPoint;
+            }
+            return $"{count / isDoneIssues.Count}";
         }
     }
 }

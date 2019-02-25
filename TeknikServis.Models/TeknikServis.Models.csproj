@@ -79,6 +79,7 @@
     <Compile Include="Abstracts\BaseEntity.cs" />
     <Compile Include="Abstracts\BaseEntity2.cs" />
     <Compile Include="Entities\Issue.cs" />
+    <Compile Include="Entities\IssueLog.cs" />
     <Compile Include="Entities\Photograph.cs" />
     <Compile Include="Entities\Survey.cs" />
     <Compile Include="Enums\IdentityRoles.cs" />
