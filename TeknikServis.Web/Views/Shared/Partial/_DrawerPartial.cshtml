@@ -54,20 +54,24 @@
                         </li>
                         <li>
                             <a href="@Url.Action("AllIssues","Operator")">
-                                <i class="menu-icon icon-alarm_off"></i><span>Tüm Kayıtlar</span>
+                                <i class="menu-icon icon-alarm2"></i><span>Tüm Kayıtlar</span>
                             </a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index","Operator")">
-                                <i class="menu-icon icon-alarm_add"></i><span>Atanmamış Kayıtlar</span>
+                                <i class="menu-icon icon-alarm_add"></i><span>Boştaki Kayıtlar</span>
                             </a>
                         </li>
                         <li>
                             <a href="@Url.Action("AssignedIssues","Operator")">
-                                <i class="menu-icon icon-alarm_on"></i><span>Atanan Kayıtlar</span>
+                                <i class="menu-icon icon-check_circle"></i><span>Onaylanan Kayıtlar</span>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="@Url.Action("ListAll","Issue")">
+                                <i class="menu-icon icon-cancel-circle"></i><span>Kapanmış Kayıtlar</span>
+                            </a>
+                        </li>
                         <li class="menu-divider"></li>
                         <li>
                             <a href="@Url.Action("Logout","Account")">
@@ -123,13 +127,18 @@
                             </a>
                         </li>
                         <li>
+                            <a href="@Url.Action("AllIssues","Operator")">
+                                <i class="menu-icon icon-list-numbered"></i><span>Tüm Kayıtları Gör</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="@Url.Action("Create","Issue")">
                                 <i class="menu-icon icon-alarm_on"></i><span>Yeni Kayıt Oluştur</span>
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("EditIssue","Admin")">
-                                <i class="menu-icon icon-alarm_on"></i><span>Tüm Kayıtlar</span>
+                            <a href="@Url.Action("Reports","Admin")">
+                                <i class="menu-icon icon-attach_file"></i><span>Raporlar</span>
                             </a>
                         </li>
                         <li class="menu-divider"></li>

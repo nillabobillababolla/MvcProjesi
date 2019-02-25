@@ -61,14 +61,14 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Admin")]
         public async Task<ActionResult> Create(IssueVM model)
         {
             if (!ModelState.IsValid)
@@ -319,6 +319,16 @@ namespace TeknikServis.Web.Controllers
             var data = new IssueLogRepo().GetAll(x => x.IssueId == id).OrderBy(x => x.CreatedDate).ToList();
             if (data == null)
                 return RedirectToAction("Details", "Issue", id);
+            return View(data);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Operator")]
+        public ActionResult ListAll()
+        {
+            var data = new IssueRepo().GetAll(x=>x.ClosedDate!=null);
+            if (data == null)
+                return RedirectToAction("Index", "Home");
             return View(data);
         }
     }

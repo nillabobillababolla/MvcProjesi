@@ -275,13 +275,20 @@ namespace TeknikServis.Web.Controllers
                 var surveyRepo = new SurveyRepo();
                 var issueList = issueRepo.GetAll(x => x.SurveyId != null).ToList();
 
-                var surveyList = surveyRepo.GetAll().Where(x=>x.IsDone==true).ToList();
+                var surveyList = surveyRepo.GetAll().Where(x => x.IsDone).ToList();
                 var totalSpeed = 0.0;
                 var totalTech = 0.0;
                 var totalPrice = 0.0;
                 var totalSatisfaction = 0.0;
                 var totalSolving = 0.0;
                 var count = issueList.Count;
+
+                if (count == 0)
+                {
+                    TempData["Message"] = "Raporu getirilecek kayıt bulunmamaktadır.";
+                    return RedirectToAction("Index", "Home");
+                }
+
                 foreach (var survey in surveyList)
                 {
                     totalSpeed += survey.Speed;
@@ -296,13 +303,13 @@ namespace TeknikServis.Web.Controllers
                 {
                     totalDays += issue.ClosedDate.Value.DayOfYear - issue.CreatedDate.DayOfYear;
                 }
-                ViewBag.AvgSpeed = totalSpeed/count;
-                ViewBag.AvgTech = totalTech/count;
-                ViewBag.AvgPrice = totalPrice/count;
-                ViewBag.AvgSatisfaction= totalSatisfaction/count;
-                ViewBag.AvgSolving= totalSolving/count;
-                ViewBag.AvgTime= totalDays / issueList.Count;
-                
+                ViewBag.AvgSpeed = totalSpeed / count;
+                ViewBag.AvgTech = totalTech / count;
+                ViewBag.AvgPrice = totalPrice / count;
+                ViewBag.AvgSatisfaction = totalSatisfaction / count;
+                ViewBag.AvgSolving = totalSolving / count;
+                ViewBag.AvgTime = totalDays / issueList.Count;
+
                 return View(surveyList);
             }
             catch (Exception ex)
@@ -315,6 +322,29 @@ namespace TeknikServis.Web.Controllers
                     ErrorCode = 500
                 };
                 return RedirectToAction("Error500", "Home");
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetDailyReport()
+        {
+            try
+            {
+                var dailyIssues = new IssueRepo().GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear).Count;
+
+                return Json(new DailyReport()
+                {
+                    completed = dailyIssues,
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new DailyReport()
+                {
+                    completed = 0,
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

@@ -117,7 +117,8 @@ namespace TeknikServis.BLL.Identity
                 var survey = new SurveyRepo().GetById(item.SurveyId);
                 count += survey.TechPoint;
             }
-            return $"{count / isDoneIssues.Count}";
+
+            return isDoneIssues.Count != 0 ? $"{count / isDoneIssues.Count}" : "0";
         }
     }
 }

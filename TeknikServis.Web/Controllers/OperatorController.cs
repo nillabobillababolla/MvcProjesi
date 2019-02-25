@@ -175,6 +175,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Operator")]
         public ActionResult AllIssues()
         {
             try

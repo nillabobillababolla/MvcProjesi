@@ -744,6 +744,7 @@
     <Content Include="sass\_variables.sass" />
     <Content Include="sass\screen.sass" />
     <Content Include="sass\lightbox.sass" />
+    <Content Include="Views\Issue\ListAll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
