@@ -11,6 +11,8 @@ using System.Web.Mvc;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
 using TeknikServis.BLL.Services.Senders;
+using TeknikServis.Models.Enums;
+using TeknikServis.Models.IdentityModels;
 using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
 
@@ -42,6 +44,7 @@ namespace TeknikServis.Web.Controllers
                         success = false
                     });
                 }
+
                 if (user.EmailConfirmed)
                 {
                     return Json(new ResponseData()
@@ -58,7 +61,8 @@ namespace TeknikServis.Web.Controllers
                                  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
 
                 var emailService = new EmailService();
-                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızı aktif etmek için aşağıdaki linke tıklayınız.<br> <a href='{SiteUrl}/account/activation?code={user.ActivationCode}' >Aktivasyon Linki </a> ";
+                var body =
+                    $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızı aktif etmek için aşağıdaki linke tıklayınız.<br> <a href='{SiteUrl}/account/activation?code={user.ActivationCode}' >Aktivasyon Linki </a> ";
                 await emailService.SendAsync(new IdentityMessage()
                 {
                     Body = body,
@@ -79,6 +83,7 @@ namespace TeknikServis.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public async Task<JsonResult> SendPassword(string id)
         {
@@ -103,8 +108,10 @@ namespace TeknikServis.Web.Controllers
                 string SiteUrl = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host +
                                  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
                 var emailService = new EmailService();
-                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sistemize giriş yapabilirsiniz.</p>";
-                emailService.Send(new IdentityMessage() { Body = body, Subject = $"{user.UserName} Şifre Kurtarma" }, user.Email);
+                var body =
+                    $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sistemize giriş yapabilirsiniz.</p>";
+                emailService.Send(new IdentityMessage() {Body = body, Subject = $"{user.UserName} Şifre Kurtarma"},
+                    user.Email);
 
                 return Json(new ResponseData()
                 {
@@ -219,9 +226,10 @@ namespace TeknikServis.Web.Controllers
 
                     System.IO.File.Delete(Server.MapPath(oldPath));
                 }
+
                 await userManager.UpdateAsync(user);
                 TempData["Message"] = "Güncelleme işlemi başarılı";
-                return RedirectToAction("EditUser", new { id = user.Id });
+                return RedirectToAction("EditUser", new {id = user.Id});
             }
             catch (Exception ex)
             {
@@ -265,7 +273,7 @@ namespace TeknikServis.Web.Controllers
                 userManager.AddToRole(userId, seciliRoller[i]);
             }
 
-            return RedirectToAction("EditUser", new { id = userId });
+            return RedirectToAction("EditUser", new {id = userId});
         }
 
         [HttpGet]
@@ -305,6 +313,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     totalDays += issue.ClosedDate.Value.DayOfYear - issue.CreatedDate.DayOfYear;
                 }
+
                 ViewBag.AvgSpeed = totalSpeed / count;
                 ViewBag.AvgTech = totalTech / count;
                 ViewBag.AvgPrice = totalPrice / count;
@@ -366,25 +375,28 @@ namespace TeknikServis.Web.Controllers
                 var data = new List<SurveyReport>();
                 data.Add(new SurveyReport()
                 {
-                    Question = "Genel Memnuniyet",
-                    Point = quest1
+                    question = "Genel Memnuniyet",
+                    point = quest1
                 });
                 data.Add(new SurveyReport()
                 {
-                    Question = "Teknisyen",
-                    Point = quest2
-                }); data.Add(new SurveyReport()
+                    question = "Teknisyen",
+                    point = quest2
+                });
+                data.Add(new SurveyReport()
                 {
-                    Question = "Hız",
-                    Point = quest3
-                }); data.Add(new SurveyReport()
+                    question = "Hız",
+                    point = quest3
+                });
+                data.Add(new SurveyReport()
                 {
-                    Question = "Fiyat",
-                    Point = quest4
-                }); data.Add(new SurveyReport()
+                    question = "Fiyat",
+                    point = quest4
+                });
+                data.Add(new SurveyReport()
                 {
-                    Question = "Çözüm Odaklılık",
-                    Point = quest5
+                    question = "Çözüm Odaklılık",
+                    point = quest5
                 });
 
                 return Json(new ResponseData()
@@ -399,6 +411,40 @@ namespace TeknikServis.Web.Controllers
                 return Json(new ResponseData()
                 {
                     message = "Kayıt bulunamadı",
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetTechReport()
+        {
+            try
+            {
+                var users = NewUserManager().Users.ToList();
+                var data = new List<TechReport>();
+                foreach (var user in users)
+                {
+                    if (NewUserManager().IsInRole(user.Id, IdentityRoles.Technician.ToString()))
+                    {
+                        data.Add(new TechReport()
+                        {
+                            nameSurname = GetNameSurname(user.Id),
+                            point =double.Parse(GetTechPoint(user.Id))
+                        });
+                    }
+                }
+
+                return Json(new ResponseData()
+                {
+                    success = true,
+                    data = data
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new ResponseData()
+                {
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }

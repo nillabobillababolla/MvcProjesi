@@ -89,6 +89,19 @@
     </div>
 </div>
 
+<div class="row">
+    <div class=" col-md-6">
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <div>
+                    <div id="chart_div2"></div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
 @section bottom{
     <script>
         $.ajax({
@@ -117,7 +130,7 @@
                     data.addColumn('number', 'Puan');
                     $.each(e.data,
                         function(key, value) {
-                            data.addRow([value.Question, value.Point]);
+                            data.addRow([value.question, value.point]);
                         });
                     var view = new google.visualization.DataView(data);
                     var options = {
@@ -129,6 +142,40 @@
 
                     };
                     var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+                    chart.draw(view, options);
+                });
+            }
+        });
+    </script>
+
+    <script>
+        $(function() {
+            google.charts.load("current", { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                $.ajax({
+                    url: "@Url.Action("GetTechReport", "Admin")",
+                    method: "get",
+                    type: "json"
+                }).done(function(e) {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Teknisyenler');
+                    data.addColumn('number', 'Puan');
+                    $.each(e.data,
+                        function(key, value) {
+                            data.addRow([value.nameSurname, value.point]);
+                        });
+                    var view = new google.visualization.DataView(data);
+                    var options = {
+                        title: "Teknisyen Ortalamaları",
+                        width: 600,
+                        height: 500,
+                        bar: { groupWidth: "50%" },
+                        legend: { position: "none" }
+
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("chart_div2"));
                     chart.draw(view, options);
                 });
             }
