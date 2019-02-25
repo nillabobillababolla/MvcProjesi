@@ -4,7 +4,9 @@
     ViewBag.Title = "Arıza Kaydı Detay";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-
+@section top{
+    <link href="~/assets/lightbox/dist/css/lightbox.css" rel="stylesheet" />
+    }
 <h3 style="color:green">@TempData["Message"]</h3>
 <h3 style="color:red">@TempData["Message2"]</h3>
 <div class="col-md-6 col-md-offset-3">
@@ -15,7 +17,7 @@
                 <td style="width: 65%;">
                     @foreach (var current in Model.PhotoPath)
                     {
-                        @:<img class="mySlides" src="@current" style="margin:auto" alt="Arıza Kaydı Fotoğrafları">
+                        <a href="@current" data-lightbox="@current"><img class="mySlides" src="@current" alt="Alternate Text" /></a>
                     }
                 </td>
             </tr>
@@ -70,10 +72,10 @@
                 <td style="width: 35%;font-weight: bold">Servis Bedeli</td>
                 <td style="width: 65%;">@Model.ServiceCharge ₺</td>
             </tr>
-        <tr>
-            <td style="width: 35%;font-weight: bold">Konum</td>
-            <td style="width: 65%;">@Model.Location</td>
-        </tr>
+            <tr>
+                <td style="width: 35%;font-weight: bold">Konum</td>
+                <td style="width: 65%;">@Model.Location</td>
+            </tr>
             <tr>
                 <td style="width: 35%;font-weight: bold">Rapor</td>
                 @if (@Model.TechReport == null)
@@ -102,6 +104,8 @@
 
 @section bottom
 {
+    <script src="~/assets/lightbox/dist/js/lightbox.js"></script>
+
     <script>
         var slideIndex = 0;
         carousel();
@@ -110,12 +114,19 @@
             var i;
             var x = document.getElementsByClassName("mySlides");
             for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none"; 
+                x[i].style.display = "none";
             }
             slideIndex++;
-            if (slideIndex > x.length) {slideIndex = 1} 
-            x[slideIndex-1].style.display = "block"; 
+            if (slideIndex > x.length) { slideIndex = 1 }
+            x[slideIndex - 1].style.display = "block";
             setTimeout(carousel, 2000); // Change image every 2 seconds
         }
+    </script>
+
+    <script>
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
     </script>
 }

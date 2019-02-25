@@ -164,6 +164,16 @@
     <Content Include="assets\js\pages\ui-nestable.js" />
     <Content Include="assets\js\pages\ui-notifications.js" />
     <Content Include="assets\js\pages\ui-tree-view.js" />
+    <Content Include="assets\lightbox\dist\css\lightbox.css" />
+    <Content Include="assets\lightbox\dist\css\lightbox.min.css" />
+    <Content Include="assets\lightbox\dist\images\close.png" />
+    <Content Include="assets\lightbox\dist\images\loading.gif" />
+    <Content Include="assets\lightbox\dist\images\next.png" />
+    <Content Include="assets\lightbox\dist\images\prev.png" />
+    <Content Include="assets\lightbox\dist\js\lightbox-plus-jquery.js" />
+    <Content Include="assets\lightbox\dist\js\lightbox-plus-jquery.min.js" />
+    <Content Include="assets\lightbox\dist\js\lightbox.js" />
+    <Content Include="assets\lightbox\dist\js\lightbox.min.js" />
     <Content Include="assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
     <Content Include="assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
@@ -583,7 +593,12 @@
     <Content Include="assets\plugins\x-editable\inputs-ext\wysihtml5\wysihtml5.js" />
     <Content Include="assets\Scripts\jquery-ui.js" />
     <Content Include="assets\Scripts\jquery-ui.min.js" />
+    <Content Include="Content\lightbox.css" />
     <Content Include="Global.asax" />
+    <Content Include="assets\lightbox\.github\ISSUE_TEMPLATE.md" />
+    <Content Include="assets\lightbox\.github\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="assets\lightbox\dist\js\lightbox-plus-jquery.min.map" />
+    <Content Include="assets\lightbox\dist\js\lightbox.min.map" />
     <None Include="assets\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="assets\Scripts\jquery-3.3.1.js" />
     <Content Include="assets\Scripts\jquery-3.3.1.min.js" />
@@ -594,6 +609,13 @@
     <Content Include="assets\Scripts\jquery.validate.min.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="img\close.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\next.png" />
+    <Content Include="img\prev.png" />
+    <Content Include="Scripts\lightbox-2.6.js" />
+    <Content Include="Scripts\lightbox-2.6.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -722,6 +744,9 @@
     <Content Include="Views\Issue\Survey.cshtml" />
     <Content Include="Views\Admin\Reports.cshtml" />
     <Content Include="Views\Issue\Timeline.cshtml" />
+    <Content Include="sass\_variables.sass" />
+    <Content Include="sass\screen.sass" />
+    <Content Include="sass\lightbox.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
