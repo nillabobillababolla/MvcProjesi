@@ -70,6 +70,14 @@ namespace TeknikServis.Web.Controllers
                 }
                 issue.IssueState = Models.Enums.IssueStates.İşlemde;
                 new IssueRepo().Update(issue);
+
+                var issueLog = new IssueLog()
+                {
+                    IssueId = issue.Id,
+                    Description = "Teknisyen işi aldı.",
+                };
+                new IssueLogRepo().Insert(issueLog);
+
                 return Json(new ResponseData()
                 {
                     message = "İş onayı başarılı",
@@ -103,6 +111,13 @@ namespace TeknikServis.Web.Controllers
                 issue.ServiceCharge += model.ServiceCharge;
                 issue.UpdatedDate = DateTime.Now;
                 repo.Update(issue);
+
+                var issueLog = new IssueLog()
+                {
+                    IssueId = issue.Id,
+                    Description = $"Güncelleme: {issue.TechReport}",
+                };
+                new IssueLogRepo().Insert(issueLog);
 
                 return RedirectToAction("Index", "Technician");
             }
@@ -152,6 +167,13 @@ namespace TeknikServis.Web.Controllers
                 var emailService = new EmailService();
                 var body = $"Merhaba <b>{usernamesurname}</b><br>{issue.Description} adlı arıza kaydınız kapanmıştır.<br>Değerlendirmeniz için aşağıda linki bulunan anketi doldurmanızı rica ederiz.<br> <a href='{siteUrl}/issue/survey?code={issue.SurveyId}' >Anket Linki </a> ";
                 await emailService.SendAsync(new IdentityMessage() { Body = body, Subject = "Değerlendirme Anketi" }, user.Email);
+
+                var issueLog = new IssueLog()
+                {
+                    IssueId = issue.Id,
+                    Description = "İş tamamlandı.",
+                };
+                new IssueLogRepo().Insert(issueLog);
 
                 return RedirectToAction("Index", "Technician");
             }
