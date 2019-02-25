@@ -110,7 +110,7 @@ namespace TeknikServis.Web.Controllers
                 var emailService = new EmailService();
                 var body =
                     $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sistemize giriş yapabilirsiniz.</p>";
-                emailService.Send(new IdentityMessage() {Body = body, Subject = $"{user.UserName} Şifre Kurtarma"},
+                emailService.Send(new IdentityMessage() { Body = body, Subject = $"{user.UserName} Şifre Kurtarma" },
                     user.Email);
 
                 return Json(new ResponseData()
@@ -229,7 +229,7 @@ namespace TeknikServis.Web.Controllers
 
                 await userManager.UpdateAsync(user);
                 TempData["Message"] = "Güncelleme işlemi başarılı";
-                return RedirectToAction("EditUser", new {id = user.Id});
+                return RedirectToAction("EditUser", new { id = user.Id });
             }
             catch (Exception ex)
             {
@@ -273,7 +273,7 @@ namespace TeknikServis.Web.Controllers
                 userManager.AddToRole(userId, seciliRoller[i]);
             }
 
-            return RedirectToAction("EditUser", new {id = userId});
+            return RedirectToAction("EditUser", new { id = userId });
         }
 
         [HttpGet]
@@ -360,6 +360,33 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetDailyProfit()
+        {
+            try
+            {
+                var dailyIssues = new IssueRepo().GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear && x.ClosedDate != null);
+                decimal data = 0;
+                foreach (var item in dailyIssues)
+                {
+                    data += item.ServiceCharge;
+                }
+                return Json(new DailyProfitReport()
+                {
+                    completed = data,
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new DailyProfitReport()
+                {
+                    completed = 0,
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
         public JsonResult GetSurveyReport()
         {
             try
@@ -430,7 +457,7 @@ namespace TeknikServis.Web.Controllers
                         data.Add(new TechReport()
                         {
                             nameSurname = GetNameSurname(user.Id),
-                            point =double.Parse(GetTechPoint(user.Id))
+                            point = double.Parse(GetTechPoint(user.Id))
                         });
                     }
                 }
@@ -441,10 +468,11 @@ namespace TeknikServis.Web.Controllers
                     data = data
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Json(new ResponseData()
                 {
+                    message = $"{ex}",
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
