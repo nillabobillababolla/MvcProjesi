@@ -285,7 +285,7 @@ namespace TeknikServis.Web.Controllers
 
                 if (count == 0)
                 {
-                    TempData["Message"] = "Raporu getirilecek kayıt bulunmamaktadır.";
+                    TempData["Message"] = "Rapor oluşturmak için yeterli kayıt bulunamadı.";
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -341,6 +341,33 @@ namespace TeknikServis.Web.Controllers
             catch (Exception)
             {
                 return Json(new DailyReport()
+                {
+                    completed = 0,
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetDailyProfit()
+        {
+            try
+            {
+                var dailyIssues = new IssueRepo().GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear && x.ClosedDate!=null);
+                decimal data=0;
+                foreach (var item in dailyIssues)
+                {
+                    data+=item.ServiceCharge;
+                }
+                return Json(new DailyProfitReport()
+                {
+                    completed = data,
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new DailyProfitReport()
                 {
                     completed = 0,
                     success = false

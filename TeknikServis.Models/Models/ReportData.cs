@@ -9,4 +9,10 @@
         public int completed { get; set; }
         public bool success { get; set; }
     }
+
+    public class DailyProfitReport
+    {
+        public decimal completed { get; set; }
+        public bool success { get; set; }
+    }
 }

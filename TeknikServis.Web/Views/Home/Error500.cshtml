@@ -47,7 +47,7 @@
                         <div class="col-md-6 center">
                             <h1 class="error-page-logo">500</h1>
                             <p class="error-page-top-text">Oops..</p>
-                            <p> <h1 class="display-4 m-b-0 text-green animated bounceIn">@(message?.ErrorCode ?? 500) </h1>
+                            <p> <h1 class="display-4 m-b-0 text-green animated bounceIn">@(message?.ErrorCode) </h1>
                             <p class="m-b-lg">@(message?.Text ?? "Aradığınız sayfa bulunamadı.")</p>
                             <p class="error-page-bottom-text">Aradığınızı bulamadık.</p>
                             <a href="@Url.Action("Login","Account")" class="btn btn-default m-b-xxs">Anasayfa</a>
