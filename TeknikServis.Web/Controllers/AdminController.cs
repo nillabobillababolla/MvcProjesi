@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,12 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
+
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
 using TeknikServis.BLL.Services.Senders;
-using TeknikServis.Models.Entities;
 using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
+
 using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
@@ -349,27 +351,54 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetDailyProfit()
+        public JsonResult GetSurveyReport()
         {
             try
             {
-                var dailyIssues = new IssueRepo().GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear && x.ClosedDate!=null);
-                decimal data=0;
-                foreach (var item in dailyIssues)
+                var surveys = new SurveyRepo();
+                var count = surveys.GetAll().Count;
+                var quest1 = surveys.GetAll().Select(x => x.Satisfaction).Sum() / count;
+                var quest2 = surveys.GetAll().Select(x => x.TechPoint).Sum() / count;
+                var quest3 = surveys.GetAll().Select(x => x.Speed).Sum() / count;
+                var quest4 = surveys.GetAll().Select(x => x.Pricing).Sum() / count;
+                var quest5 = surveys.GetAll().Select(x => x.Solving).Sum() / count;
+
+                var data = new List<SurveyReport>();
+                data.Add(new SurveyReport()
                 {
-                    data+=item.ServiceCharge;
-                }
-                return Json(new DailyProfitReport()
+                    Question = "Genel Memnuniyet",
+                    Point = quest1
+                });
+                data.Add(new SurveyReport()
                 {
-                    completed = data,
-                    success = true
+                    Question = "Teknisyen",
+                    Point = quest2
+                }); data.Add(new SurveyReport()
+                {
+                    Question = "Hız",
+                    Point = quest3
+                }); data.Add(new SurveyReport()
+                {
+                    Question = "Fiyat",
+                    Point = quest4
+                }); data.Add(new SurveyReport()
+                {
+                    Question = "Çözüm Odaklılık",
+                    Point = quest5
+                });
+
+                return Json(new ResponseData()
+                {
+                    message = $"{data.Count} adet kayıt bulundu",
+                    success = true,
+                    data = data
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
-                return Json(new DailyProfitReport()
+                return Json(new ResponseData()
                 {
-                    completed = 0,
+                    message = "Kayıt bulunamadı",
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
