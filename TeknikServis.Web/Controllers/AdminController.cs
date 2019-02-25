@@ -295,7 +295,7 @@ namespace TeknikServis.Web.Controllers
 
                 if (count == 0)
                 {
-                    TempData["Message"] = "Raporu getirilecek kayıt bulunmamaktadır.";
+                    TempData["Message"] = "Rapor oluşturmak için yeterli kayıt bulunamadı.";
                     return RedirectToAction("Index", "Home");
                 }
 

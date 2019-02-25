@@ -118,7 +118,7 @@ namespace TeknikServis.BLL.Identity
                 count += survey.TechPoint;
             }
 
-            return isDoneIssues.Count != 0 ? $"{count / isDoneIssues.Count}" : "0";
+            return isDoneIssues.Count != 0 ? $"{count / isDoneIssues.Count}" : "--";
         }
     }
 }

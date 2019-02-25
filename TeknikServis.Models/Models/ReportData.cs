@@ -10,6 +10,12 @@
         public bool success { get; set; }
     }
 
+    public class DailyProfitReport
+    {
+        public decimal completed { get; set; }
+        public bool success { get; set; }
+    }
+
     public class SurveyReport
     {
         public string question { get; set; }

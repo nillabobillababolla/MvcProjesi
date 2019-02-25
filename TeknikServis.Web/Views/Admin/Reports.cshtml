@@ -76,6 +76,20 @@
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="panel panel-white stats-widget">
+            <div class="panel-body">
+                <div class="pull-left">
+                    <span class="stats-number2"></span>
+                    <p class="stats-info">Günlük Kazanç</p>
+                </div>
+                <div class="pull-right">
+                    <i class="icon-arrow_upward stats-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class=" col-md-6">
         <div class="box box-danger">
@@ -109,11 +123,9 @@
             method: 'get',
             type:'json'
         }).done(function (e) {
-            console.log(e);
             $(".stats-number").html(e.completed);
         });
     </script>
-
     <script>
         $(function() {
             google.charts.load("current", { packages: ['corechart'] });
@@ -145,6 +157,15 @@
                     chart.draw(view, options);
                 });
             }
+        });
+    </script>
+    <script>
+         $.ajax({
+            url: '@Url.Action("GetDailyProfit","Admin")',
+            method: 'get',
+            type:'json'
+        }).done(function (e) {
+            $(".stats-number2").html(e.completed);
         });
     </script>
 
