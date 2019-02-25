@@ -19,6 +19,9 @@ namespace TeknikServis.Models.Entities
         [DisplayName("Açıklama")]
         public string Description { get; set; }
 
+        [DisplayName("Tarafından")]
+        public string FromWhom { get; set; }
+
         [ForeignKey("IssueId")]
         public virtual Issue Issue { get; set; }
     }

@@ -75,6 +75,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IssueId = issue.Id,
                     Description = "Teknisyen işi aldı.",
+                    FromWhom = "Teknisyen"
                 };
                 new IssueLogRepo().Insert(issueLog);
 
@@ -116,6 +117,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IssueId = issue.Id,
                     Description = $"Güncelleme: {issue.TechReport}",
+                    FromWhom = "Teknisyen"
                 };
                 new IssueLogRepo().Insert(issueLog);
 
@@ -172,6 +174,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IssueId = issue.Id,
                     Description = "İş tamamlandı.",
+                    FromWhom = "Teknisyen"
                 };
                 new IssueLogRepo().Insert(issueLog);
 

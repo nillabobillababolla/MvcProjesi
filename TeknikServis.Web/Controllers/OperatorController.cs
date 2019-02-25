@@ -78,6 +78,7 @@ namespace TeknikServis.Web.Controllers
                     {
                         IssueId = issue.Id,
                         Description = "Operatör tarafından kabul edildi.",
+                        FromWhom = "Operatör"
                     };
                     new IssueLogRepo().Insert(issueLog);
 
@@ -117,6 +118,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IssueId = issue.Id,
                     Description = "Teknisyene atandı.",
+                    FromWhom = "Operatör"
                 };
                 new IssueLogRepo().Insert(issueLog);
 

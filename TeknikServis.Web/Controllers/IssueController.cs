@@ -198,6 +198,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IssueId = issue.Id,
                     Description = "Arıza Kaydı Oluşturuldu.",
+                    FromWhom="Müşteri"
                 };
                 new IssueLogRepo().Insert(issueLog);
 
@@ -297,6 +298,15 @@ namespace TeknikServis.Web.Controllers
                 };
                 return RedirectToAction("Error500", "Home");
             }
+        }
+
+        [HttpGet]
+        public ActionResult Timeline(string id)
+        {
+            var data = new IssueLogRepo().GetAll(x => x.IssueId == id).OrderBy(x=>x.CreatedDate).ToList();
+            if (data == null)
+                return RedirectToAction("Details", "Issue", id);
+            return View(data);
         }
     }
 }
