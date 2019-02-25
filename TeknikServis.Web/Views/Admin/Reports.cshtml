@@ -12,66 +12,79 @@
 <div class="table-responsive">
     <table id="example2" class="display table table-striped" style="width: 100%; mso-cellspacing: 0;">
         <thead>
-        <tr>
-            <th style="font-weight: bold">#</th>
-            <th style="font-weight: bold">Arıza Id</th>
-            <th style="font-weight: bold">Arıza Açıklama</th>
-            <th style="font-weight: bold">Hız</th>
-            <th style="font-weight: bold">Teknisyen</th>
-            <th style="font-weight: bold">Fiyat</th>
-            <th style="font-weight: bold">Memnuniyet</th>
-            <th style="font-weight: bold">Çözüm</th>
-            <th style="font-weight: bold">Süre (Gün)</th>
-            <th style="font-weight: bold">Aksiyon</th>
-        </tr>
+            <tr>
+                <th style="font-weight: bold">#</th>
+                <th style="font-weight: bold">Arıza Id</th>
+                <th style="font-weight: bold">Arıza Açıklama</th>
+                <th style="font-weight: bold">Memnuniyet</th>
+                <th style="font-weight: bold">Teknisyen</th>
+                <th style="font-weight: bold">Hız</th>
+                <th style="font-weight: bold">Fiyat</th>
+                <th style="font-weight: bold">Çözüm</th>
+                <th style="font-weight: bold">Süre (Gün)</th>
+                <th style="font-weight: bold">Aksiyon</th>
+            </tr>
         </thead>
         <tbody>
-        @for (var i = 0; i < Model.Count; i++)
-        {
-            var item = Model[i];
-            var issue = new IssueRepo().GetAll().FirstOrDefault(x => x.SurveyId == item.Id);
-            <tr>
-                <th style="font-weight: bold">@(i + 1)</th>
-                <td>@(issue?.Id)</td>
-                <td>@(issue?.Description)</td>
-                <td>@item.Speed &#x2605;</td>
-                <td>@item.TechPoint &#x2605;</td>
-                <td>@item.Pricing &#x2605;</td>
-                <td>@item.Satisfaction &#x2605;</td>
-                <td>@item.Solving &#x2605;</td>
-                <td>@(issue?.ClosedDate?.DayOfYear - issue?.CreatedDate.DayOfYear)</td>
-                <td><a href="@Url.Action("Details","Issue",new{id = issue.Id})" class="btn btn-instagram">Detay</a></td>
-            </tr>
-        }
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                var issue = new IssueRepo().GetAll().FirstOrDefault(x => x.SurveyId == item.Id);
+                <tr>
+                    <th style="font-weight: bold">@(i + 1)</th>
+                    <td>@(issue?.Id)</td>
+                    <td>@(issue?.Description)</td>
+                    <td>@item.Satisfaction &#x2605;</td>
+                    <td>@item.TechPoint &#x2605;</td>
+                    <td>@item.Speed &#x2605;</td>
+                    <td>@item.Pricing &#x2605;</td>
+                    <td>@item.Solving &#x2605;</td>
+                    <td>@(issue?.ClosedDate?.DayOfYear - issue?.CreatedDate.DayOfYear)</td>
+                    <td><a href="@Url.Action("Details","Issue",new{id = issue.Id})" class="btn btn-instagram">Detay</a></td>
+                </tr>
+            }
         </tbody>
         <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <th style="font-weight: bold; background-color: maroon;color:white">Ortalama Puan</th>
-            <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSpeed.ToString("0.00") &#x2605;</th>
-            <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgTech.ToString("0.00") &#x2605;</th>
-            <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgPrice.ToString("0.00") &#x2605;</th>
-            <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSatisfaction.ToString("0.00") &#x2605;</th>
-            <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSolving.ToString("0.00") &#x2605;</th>
-            <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgTime</th>
-            <th></th>
-        </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <th style="font-weight: bold; background-color: maroon;color:white">Ortalama Puan</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSatisfaction.ToString("0.00") &#x2605;</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgTech.ToString("0.00") &#x2605;</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSpeed.ToString("0.00") &#x2605;</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgPrice.ToString("0.00") &#x2605;</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgSolving.ToString("0.00") &#x2605;</th>
+                <th style="font-weight: bold;background-color:maroon;color:white">@ViewBag.AvgTime</th>
+                <th></th>
+            </tr>
         </tfoot>
     </table>
 </div>
 <hr />
 
-<div class="col-md-4">
-    <div class="panel panel-white stats-widget">
-        <div class="panel-body">
-            <div class="pull-left">
-                <span class="stats-number"></span>
-                <p class="stats-info">Günlük Kayıt</p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-white stats-widget">
+            <div class="panel-body">
+                <div class="pull-left">
+                    <span class="stats-number"></span>
+                    <p class="stats-info">Günlük Kayıt</p>
+                </div>
+                <div class="pull-right">
+                    <i class="icon-arrow_upward stats-icon"></i>
+                </div>
             </div>
-            <div class="pull-right">
-                <i class="icon-arrow_upward stats-icon"></i>
+        </div>
+    </div>
+
+    <div class=" col-md-6">
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <div>
+                    <div id="chart_div"></div>
+                </div>
             </div>
+            <!-- /.box-body -->
         </div>
     </div>
 </div>
@@ -85,6 +98,40 @@
         }).done(function (e) {
             console.log(e);
             $(".stats-number").html(e.completed);
+        });
+    </script>
+
+    <script>
+        $(function() {
+            google.charts.load("current", { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                $.ajax({
+                    url: "@Url.Action("GetSurveyReport", "Admin")",
+                    method: "get",
+                    type: "json"
+                }).done(function(e) {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Anket Soruları');
+                    data.addColumn('number', 'Puan');
+                    $.each(e.data,
+                        function(key, value) {
+                            data.addRow([value.Question, value.Point]);
+                        });
+                    var view = new google.visualization.DataView(data);
+                    var options = {
+                        title: "Anket Sonuçları",
+                        width: 600,
+                        height: 500,
+                        bar: { groupWidth: "50%" },
+                        legend: { position: "none" }
+
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+                    chart.draw(view, options);
+                });
+            }
         });
     </script>
 }

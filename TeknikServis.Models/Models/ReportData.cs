@@ -9,4 +9,10 @@
         public int completed { get; set; }
         public bool success { get; set; }
     }
+
+    public class SurveyReport
+    {
+        public string Question { get; set; }
+        public double Point { get; set; }
+    }
 }
