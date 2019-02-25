@@ -56,7 +56,7 @@ namespace TeknikServis.Web.Controllers
                 return RedirectToAction("Index", "Issue");
             }
             var data = Mapper.Map<Issue, IssueVM>(issue);
-            data.PhotoPath = issue.Photographs.Select(y => y.Path).ToList();
+            data.PhotoPath = new PhotographRepo().GetAll(x => x.IssueId == id).Select(y => y.Path).ToList();
             return View(data);
         }
 
@@ -198,7 +198,7 @@ namespace TeknikServis.Web.Controllers
                 {
                     IssueId = issue.Id,
                     Description = "Arıza Kaydı Oluşturuldu.",
-                    FromWhom="Müşteri"
+                    FromWhom = "Müşteri"
                 };
                 new IssueLogRepo().Insert(issueLog);
 
@@ -304,7 +304,7 @@ namespace TeknikServis.Web.Controllers
         [Route("IssueTimeline/{id}")]
         public ActionResult Timeline(string id)
         {
-            var data = new IssueLogRepo().GetAll(x => x.IssueId == id).OrderBy(x=>x.CreatedDate).ToList();
+            var data = new IssueLogRepo().GetAll(x => x.IssueId == id).OrderBy(x => x.CreatedDate).ToList();
             if (data == null)
                 return RedirectToAction("Details", "Issue", id);
             return View(data);
