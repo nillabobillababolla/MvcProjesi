@@ -43,10 +43,9 @@ namespace TeknikServis.Web.Controllers
                 {
                     if (!techIds.Contains(user.Id))
                     {
-                        var techPoint = GetTechPoint(user.Id);
                         data.Add(new SelectListItem()
                         {
-                            Text = $"{user.Name} {user.Surname} ({techPoint})",
+                            Text = $"{user.Name} {user.Surname} ({GetTechPoint(user.Id)})",
                             Value = user.Id
                         });
                     }
