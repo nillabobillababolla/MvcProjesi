@@ -141,6 +141,7 @@
     <Content Include="assets\css\jquery-ui.css" />
     <Content Include="assets\css\jquery-ui.min.css" />
     <Content Include="assets\images\icon-noprofile.png" />
+    <Content Include="assets\images\image-not-available.png" />
     <Content Include="assets\js\ecaps.js" />
     <Content Include="assets\js\ecaps.min.js" />
     <Content Include="assets\js\pages\chart.js" />
@@ -609,10 +610,6 @@
     <Content Include="assets\Scripts\jquery.validate.min.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="assets\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="img\close.png" />
-    <Content Include="img\loading.gif" />
-    <Content Include="img\next.png" />
-    <Content Include="img\prev.png" />
     <Content Include="Scripts\lightbox-2.6.js" />
     <Content Include="Scripts\lightbox-2.6.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

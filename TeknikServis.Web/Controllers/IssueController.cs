@@ -148,6 +148,18 @@ namespace TeknikServis.Web.Controllers
                     {
                         if (file == null || file.ContentLength <= 0)
                         {
+                            var filepath2 = Server.MapPath("~/assets/images/image-not-available.png");
+
+                            var img2 = new WebImage(filepath2);
+                            img2.Resize(250, 250, false);
+                            img2.Save(filepath2);
+
+                            fotorepo.Insert(new Photograph()
+                            {
+                                IssueId = issue.Id,
+                                Path = "/assets/images/image-not-available.png"
+                            });
+
                             return;
                         }
 
