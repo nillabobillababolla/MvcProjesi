@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Enums;
 using TeknikServis.Web.App_Code;
@@ -12,7 +11,7 @@ namespace TeknikServis.Web.Controllers
 {
     [Authorize]
     [ExceptionHandlerFilter]
-    // [RequireHttps]
+    [RequireHttps]
     public class BaseController : Controller
     {
         protected List<SelectListItem> GetRoleList()
