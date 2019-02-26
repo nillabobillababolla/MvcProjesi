@@ -500,13 +500,25 @@ namespace TeknikServis.Web.Controllers
                         var techIssues = new IssueRepo().GetAll(x => x.TechnicianId == user.Id);
                         foreach (var issue in techIssues)
                         {
-                            if (issue.ClosedDate != null)
+                            if (issue.ClosedDate != null && data==null)
                             {
                                 data.Add(new TechReport()
+                                        {
+                                            nameSurname = GetNameSurname(user.Id),
+                                            point = double.Parse(GetTechPoint(user.Id))
+                                        });
+
+                                foreach (var item in data)
                                 {
-                                    nameSurname = GetNameSurname(user.Id),
-                                    point = double.Parse(GetTechPoint(user.Id))
-                                });
+                                    if (GetNameSurname(issue.TechnicianId) != item.nameSurname)
+                                    {
+                                        data.Add(new TechReport()
+                                        {
+                                            nameSurname = GetNameSurname(user.Id),
+                                            point = double.Parse(GetTechPoint(user.Id))
+                                        });
+                                    }
+                                }
                             }
                         }
                     }
@@ -535,14 +547,14 @@ namespace TeknikServis.Web.Controllers
             {
                 var userManager = NewUserManager();
                 var users = userManager.Users.ToList();
-                var minutes = issueRepo.GetAll().Min(x => x.ClosedDate?.Minute- x.CreatedDate.Minute);
-                var data=new Issue();
+                var minutes = issueRepo.GetAll().Min(x => x.ClosedDate?.Minute - x.CreatedDate.Minute);
+                var data = new Issue();
                 foreach (var user in users)
                 {
                     if (userManager.IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                     {
-                       data= issueRepo.GetAll(x =>
-                            x.TechnicianId == user.Id && x.ClosedDate?.Minute - x.CreatedDate.Minute == minutes).FirstOrDefault();
+                        data = issueRepo.GetAll(x =>
+                              x.TechnicianId == user.Id && x.ClosedDate?.Minute - x.CreatedDate.Minute == minutes).FirstOrDefault();
                     }
                 }
 
