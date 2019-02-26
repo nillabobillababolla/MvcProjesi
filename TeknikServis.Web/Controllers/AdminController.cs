@@ -23,6 +23,12 @@ namespace TeknikServis.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
+        private readonly IssueRepo issueRepo;
+        public AdminController()
+        {
+            issueRepo = new IssueRepo();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -341,19 +347,52 @@ namespace TeknikServis.Web.Controllers
         {
             try
             {
-                var dailyIssues = new IssueRepo().GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear).Count;
+                var dailyIssues = issueRepo.GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear).Count;
 
-                return Json(new DailyReport()
+                return Json(new ResponseData()
                 {
-                    completed = dailyIssues,
+                    data = dailyIssues,
                     success = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(new DailyReport()
+                return Json(new ResponseData()
                 {
-                    completed = 0,
+                    data = 0,
+                    message=ex.Message,
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetWeeklyReport()
+        {
+            try
+            {
+                List<WeeklyReport> weeklies = new List<WeeklyReport>();
+                
+                for (int i = 6; i >= 0; i--)
+                {
+                   var data = issueRepo.GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.AddDays(-i).DayOfYear).Count();
+                    weeklies.Add(new WeeklyReport() {
+                        date= DateTime.Now.AddDays(-i).ToShortDateString(),
+                        count=data
+                    });
+                }
+
+                return Json(new ResponseData()
+                {
+                    data = weeklies,
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseData()
+                {
+                    message = ex.Message,
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -364,23 +403,24 @@ namespace TeknikServis.Web.Controllers
         {
             try
             {
-                var dailyIssues = new IssueRepo().GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear && x.ClosedDate != null);
+                var dailyIssues = issueRepo.GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.DayOfYear && x.ClosedDate != null);
+
                 decimal data = 0;
                 foreach (var item in dailyIssues)
                 {
                     data += item.ServiceCharge;
                 }
-                return Json(new DailyProfitReport()
+                return Json(new ResponseData()
                 {
-                    completed = data,
+                    data = data,
                     success = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(new DailyProfitReport()
+                return Json(new ResponseData()
                 {
-                    completed = 0,
+                    message = ex.Message,
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -433,11 +473,11 @@ namespace TeknikServis.Web.Controllers
                     data = data
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Json(new ResponseData()
                 {
-                    message = "Kayıt bulunamadı",
+                    message = "Kayıt bulunamadı " + ex.Message,
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -448,17 +488,25 @@ namespace TeknikServis.Web.Controllers
         {
             try
             {
-                var users = NewUserManager().Users.ToList();
+                var userManager = NewUserManager();
+                var users = userManager.Users.ToList();
                 var data = new List<TechReport>();
                 foreach (var user in users)
                 {
-                    if (NewUserManager().IsInRole(user.Id, IdentityRoles.Technician.ToString()))
+                    if (userManager.IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                     {
-                        data.Add(new TechReport()
+                        var techIssues = new IssueRepo().GetAll(x => x.TechnicianId == user.Id);
+                        foreach (var issue in techIssues)
                         {
-                            nameSurname = GetNameSurname(user.Id),
-                            point = double.Parse(GetTechPoint(user.Id))
-                        });
+                            if (issue.ClosedDate != null)
+                            {
+                                data.Add(new TechReport()
+                                {
+                                    nameSurname = GetNameSurname(user.Id),
+                                    point = double.Parse(GetTechPoint(user.Id))
+                                });
+                            }
+                        }
                     }
                 }
 
