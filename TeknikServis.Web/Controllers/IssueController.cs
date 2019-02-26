@@ -48,7 +48,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        [Route("kayit_detay")]
+        [Route("kayit_detay/{id}")]
         public ActionResult Details(string id)
         {
             var issue = new IssueRepo().GetById(id);
@@ -71,6 +71,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpPost]
+        [Route("yenikayitolustur")]
         [Authorize(Roles = "Admin, Customer")]
         public async Task<ActionResult> Create(IssueVM model)
         {
@@ -244,7 +245,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public ActionResult Survey(string code)
         {
             try
@@ -279,7 +280,7 @@ namespace TeknikServis.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public ActionResult Survey(SurveyVM model)
         {
             if (!ModelState.IsValid)
