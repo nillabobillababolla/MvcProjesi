@@ -99,7 +99,7 @@ namespace TeknikServis.Web.Controllers
                     return View("Register", model);
                 }
 
-                TempData["Message"] = "Kaydınız alınmıştır. Lütfen giriş yapınız";
+                TempData["Message1"] = "Kaydınız alınmıştır. Lütfen giriş yapınız";
                 return RedirectToAction("Login");
             }
             catch (Exception ex)

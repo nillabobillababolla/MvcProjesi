@@ -37,7 +37,6 @@
     <![endif]-->
 </head>
 <body>
-
     <!-- Page Container -->
     <div class="page-container">
         <!-- Page Inner -->
@@ -54,7 +53,8 @@
                         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-                            <h4 style="color: forestgreen">@TempData["Message"]</h4>
+                            <h4 style="color: forestgreen">@TempData["Message1"]</h4>
+                            <h4 style="color: darkred">@TempData["Message2"]</h4>
                             <div class="form-horizontal">
                                 <hr/>
                                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
