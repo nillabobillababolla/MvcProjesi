@@ -548,7 +548,7 @@ namespace TeknikServis.Web.Controllers
 
                 return Json(new ResponseData()
                 {
-                    data = $"{GetNameSurname(data.TechnicianId)} ({minutes}) dk",
+                    data = $"{GetNameSurname(data.TechnicianId)} ({minutes} dk)",
                     success = true,
                 }, JsonRequestBehavior.AllowGet);
             }
