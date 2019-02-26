@@ -21,6 +21,7 @@ namespace TeknikServis.Web.Controllers
     public class IssueController : BaseController
     {
         [HttpGet]
+        [Route("arizakayit_anasayfa")]
         public ActionResult Index()
         {
             try
@@ -47,6 +48,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Route("kayit_detay")]
         public ActionResult Details(string id)
         {
             var issue = new IssueRepo().GetById(id);
@@ -61,6 +63,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Route("yenikayitolustur")]
         [Authorize(Roles = "Admin, Customer")]
         public ActionResult Create()
         {

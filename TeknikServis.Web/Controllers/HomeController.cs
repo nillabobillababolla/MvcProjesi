@@ -12,6 +12,7 @@ namespace TeknikServis.Web.Controllers
     public class HomeController : BaseController
     {
         [HttpGet]
+        [Route("kullanici_profil")]
         public ActionResult Index()
         {
             var userManager = NewUserManager();
