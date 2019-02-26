@@ -408,6 +408,7 @@ namespace TeknikServis.Web.Controllers
                 var userStore = NewUserStore();
                 var userManager = NewUserManager();
                 var user = await userStore.FindByEmailAsync(model.Email);
+
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, $"{model.Email} mail adresine kayıtlı bir üyeliğe erişilemedi");
