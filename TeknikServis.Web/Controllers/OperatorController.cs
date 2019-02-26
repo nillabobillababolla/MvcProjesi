@@ -128,7 +128,7 @@ namespace TeknikServis.Web.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                TempData["Message3"] = new ErrorVM()
+                TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu: {EntityHelpers.ValidationMessage(ex)}",
                     ActionName = "Create",
