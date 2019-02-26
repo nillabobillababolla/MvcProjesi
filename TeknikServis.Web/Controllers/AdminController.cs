@@ -500,25 +500,13 @@ namespace TeknikServis.Web.Controllers
                         var techIssues = new IssueRepo().GetAll(x => x.TechnicianId == user.Id);
                         foreach (var issue in techIssues)
                         {
-                            if (issue.ClosedDate != null && data==null)
+                            if (issue.ClosedDate != null)
                             {
                                 data.Add(new TechReport()
-                                        {
-                                            nameSurname = GetNameSurname(user.Id),
-                                            point = double.Parse(GetTechPoint(user.Id))
-                                        });
-
-                                foreach (var item in data)
                                 {
-                                    if (GetNameSurname(issue.TechnicianId) != item.nameSurname)
-                                    {
-                                        data.Add(new TechReport()
-                                        {
-                                            nameSurname = GetNameSurname(user.Id),
-                                            point = double.Parse(GetTechPoint(user.Id))
-                                        });
-                                    }
-                                }
+                                    nameSurname = GetNameSurname(user.Id),
+                                    point = double.Parse(GetTechPoint(user.Id))
+                                });
                             }
                         }
                     }
