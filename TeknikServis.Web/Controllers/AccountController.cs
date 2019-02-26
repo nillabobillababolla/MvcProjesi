@@ -316,10 +316,8 @@ namespace TeknikServis.Web.Controllers
                 model = data;
                 if (!ModelState.IsValid)
                 {
-                    model = new ChangePasswordVM();
-                    return View("UserProfile", model);
+                    return RedirectToAction("Index", "Home");
                 }
-
 
                 var result = await userManager.ChangePasswordAsync(
                     HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId(),
@@ -327,7 +325,10 @@ namespace TeknikServis.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    //todo kullanıcıyı bilgilendiren bir mail atılır
+                    var emailService = new EmailService();
+                    var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın şifresi değiştirilmiştir. <br> Bilginiz dahilinde olmayan değişiklikler için hesabınızı güvence altına almanızı öneririz.</p>";
+                    emailService.Send(new IdentityMessage() { Body = body, Subject = "Şifre Değiştirme hk." }, user.Email);
+
                     return RedirectToAction("Logout", "Account");
                 }
                 else
@@ -338,8 +339,7 @@ namespace TeknikServis.Web.Controllers
                         err += resultError + " ";
                     }
                     ModelState.AddModelError("", err);
-                    model = new ChangePasswordVM();
-                    return View("UserProfile", model);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)
