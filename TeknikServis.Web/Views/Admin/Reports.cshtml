@@ -64,7 +64,7 @@
 <br />
 
 <div class="row">
-    <div class="col-md-4 col-md-offset-2">
+    <div class="col-md-4">
         <div class="panel panel-white stats-widget">
             <div class="panel-body">
                 <div class="pull-left">
@@ -84,6 +84,20 @@
                 <div class="pull-left">
                     <span class="stats-number" id="Profit"></span>
                     <p class="stats-info">Günlük Kazanç</p>
+                </div>
+                <div class="pull-right">
+                    <i class="icon-arrow_upward stats-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-white stats-widget">
+            <div class="panel-body">
+                <div class="pull-left">
+                    <span class="stats-number" id="Teknisyen"></span>
+                    <p class="stats-info">Günün Teknisyeni</p>
                 </div>
                 <div class="pull-right">
                     <i class="icon-arrow_upward stats-icon"></i>
@@ -142,6 +156,13 @@
                 type: 'json'
                 }).done(function (e) {
                      $("#Profit").html(e.data + " ₺");
+                    });
+                $.ajax({
+                    url: '@Url.Action("GetBestTech","Admin")',
+                    method: 'get',
+                    type: 'json'
+                }).done(function (e) {
+                    $("#Teknisyen").html(e.data);
                 });
             });
 

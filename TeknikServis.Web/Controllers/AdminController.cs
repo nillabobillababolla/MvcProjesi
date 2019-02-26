@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
 using TeknikServis.BLL.Services.Senders;
+using TeknikServis.Models.Entities;
 using TeknikServis.Models.Enums;
 using TeknikServis.Models.IdentityModels;
 using TeknikServis.Models.Models;
@@ -360,7 +361,7 @@ namespace TeknikServis.Web.Controllers
                 return Json(new ResponseData()
                 {
                     data = 0,
-                    message=ex.Message,
+                    message = ex.Message,
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -372,13 +373,14 @@ namespace TeknikServis.Web.Controllers
             try
             {
                 List<WeeklyReport> weeklies = new List<WeeklyReport>();
-                
+
                 for (int i = 6; i >= 0; i--)
                 {
-                   var data = issueRepo.GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.AddDays(-i).DayOfYear).Count();
-                    weeklies.Add(new WeeklyReport() {
-                        date= DateTime.Now.AddDays(-i).ToShortDateString(),
-                        count=data
+                    var data = issueRepo.GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.AddDays(-i).DayOfYear).Count();
+                    weeklies.Add(new WeeklyReport()
+                    {
+                        date = DateTime.Now.AddDays(-i).ToShortDateString(),
+                        count = data
                     });
                 }
 
@@ -526,25 +528,38 @@ namespace TeknikServis.Web.Controllers
             }
         }
 
-        //[HttpGet]
-        //public JsonResult GetBestTech()
-        //{
-        //    try
-        //    {
+        [HttpGet]
+        public JsonResult GetBestTech()
+        {
+            try
+            {
+                var userManager = NewUserManager();
+                var users = userManager.Users.ToList();
+                var minutes = issueRepo.GetAll().Min(x => x.ClosedDate?.Minute- x.CreatedDate.Minute);
+                var data=new Issue();
+                foreach (var user in users)
+                {
+                    if (userManager.IsInRole(user.Id, IdentityRoles.Technician.ToString()))
+                    {
+                       data= issueRepo.GetAll(x =>
+                            x.TechnicianId == user.Id && x.ClosedDate?.Minute - x.CreatedDate.Minute == minutes).FirstOrDefault();
+                    }
+                }
 
-        //        return Json(new ResponseData()
-        //        {
-        //            success = true,
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new ResponseData()
-        //        {
-        //            message = $"{ex.Message}",
-        //            success = false
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+                return Json(new ResponseData()
+                {
+                    data = $"{GetNameSurname(data.TechnicianId)} ({minutes}) dk",
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseData()
+                {
+                    message = $"{ex.Message}",
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
