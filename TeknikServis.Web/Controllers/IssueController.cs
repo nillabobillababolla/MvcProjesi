@@ -61,14 +61,14 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer, Admin")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer, Admin")]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<ActionResult> Create(IssueVM model)
         {
             if (!ModelState.IsValid)
@@ -241,7 +241,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Survey(string code)
         {
             try
@@ -276,7 +276,7 @@ namespace TeknikServis.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Survey(SurveyVM model)
         {
             if (!ModelState.IsValid)
@@ -331,7 +331,7 @@ namespace TeknikServis.Web.Controllers
         [Authorize(Roles = "Admin, Operator")]
         public ActionResult ListAll()
         {
-            var data = new IssueRepo().GetAll(x=>x.ClosedDate!=null);
+            var data = new IssueRepo().GetAll(x => x.ClosedDate != null);
             if (data == null)
                 return RedirectToAction("Index", "Home");
             return View(data);

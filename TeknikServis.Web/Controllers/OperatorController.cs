@@ -16,10 +16,11 @@ using TeknikServis.BLL.Identity;
 
 namespace TeknikServis.Web.Controllers
 {
-    [Authorize(Roles = "Operator")]
+    [Authorize]
     public class OperatorController : BaseController
     {
         [HttpGet]
+        [Authorize(Roles = "Operator")]
         public ActionResult Index()
         {
             try
@@ -46,6 +47,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Operator")]
         public ActionResult Details(string id)
         {
             ViewBag.TechnicianList = GetTechnicianList();
@@ -149,6 +151,7 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Operator")]
         public ActionResult AssignedIssues()
         {
             try

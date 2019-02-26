@@ -9,6 +9,7 @@ namespace TeknikServis.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
+            routes.LowercaseUrls = true;
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

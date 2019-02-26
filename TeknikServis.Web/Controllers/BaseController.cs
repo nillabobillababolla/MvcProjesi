@@ -5,11 +5,13 @@ using System.Web.Mvc;
 using TeknikServis.BLL.Identity;
 using TeknikServis.BLL.Repository;
 using TeknikServis.Models.Enums;
+using TeknikServis.Web.App_Code;
 using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
 {
     [Authorize]
+    [ExceptionHandlerFilter]
     // [RequireHttps]
     public class BaseController : Controller
     {
