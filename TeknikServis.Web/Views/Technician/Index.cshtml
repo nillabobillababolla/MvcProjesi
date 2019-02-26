@@ -7,8 +7,8 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-    <h3>@TempData["Message"]</h3>
-    <h3>@TempData["Message2"]</h3>
+<h3 style="color: green">@TempData["Message"]</h3>
+<h3 style="color:red">@TempData["Message2"]</h3>
 
 <div>
     <hr />
@@ -39,48 +39,48 @@
                                             var current = Model[i];
                                             if (current.IssueState == IssueStates.Beklemede)
                                             {
-                                        <tr style="background: lightgrey">
-                                            <th>@(i + 1)</th>
-                                            <td>@current.IssueId</td>
-                                            <td>@current.Description</td>
-                                            <td>@current.IssueState</td>
-                                            <td style="text-align:justify">@(current.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(current.OperatorId))</td>
-                                            <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                            <td>@current.Location</td>
-                                            <td>
-                                                <a href="@Url.Action("Details", "Technician",new {id=current.IssueId})" class="btn btn-instagram">İş Detayı</a>
-                                            </td>
-                                        </tr>
+                                                <tr style="background: lightgrey">
+                                                    <th>@(i + 1)</th>
+                                                    <td>@current.IssueId</td>
+                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueState</td>
+                                                    <td style="text-align:justify">@(current.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(current.OperatorId))</td>
+                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                    <td>@current.Location</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Technician",new {id=current.IssueId})" class="btn btn-instagram">İş Detayı</a>
+                                                    </td>
+                                                </tr>
                                             }
                                             if (current.IssueState == IssueStates.Atandı || current.IssueState == IssueStates.KabulEdildi || current.IssueState == IssueStates.İşlemde)
                                             {
-                                    <tr style="background: burlywood">
-                                        <th>@(i + 1)</th>
-                                        <td>@current.IssueId</td>
-                                        <td>@current.Description</td>
-                                        <td>@current.IssueState</td>
-                                        <td style="text-align:justify">@(current.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(current.OperatorId))</td>
-                                        <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                        <td>@current.Location</td>
-                                        <td>
-                                            <a href="@Url.Action("Details", "Technician",new {id=current.IssueId})" class="btn btn-instagram">İş Detayı</a>
-                                        </td>
-                                    </tr>
+                                                <tr style="background: burlywood">
+                                                    <th>@(i + 1)</th>
+                                                    <td>@current.IssueId</td>
+                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueState</td>
+                                                    <td style="text-align:justify">@(current.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(current.OperatorId))</td>
+                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                    <td>@current.Location</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Technician",new {id=current.IssueId})" class="btn btn-instagram">İş Detayı</a>
+                                                    </td>
+                                                </tr>
                                             }
                                             if (current.IssueState == IssueStates.Tamamlandı)
                                             {
-                                    <tr style="background: mediumseagreen">
-                                        <th>@(i + 1)</th>
-                                        <td>@current.IssueId</td>
-                                        <td>@current.Description</td>
-                                        <td>@current.IssueState</td>
-                                        <td style="text-align:justify">@(current.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(current.OperatorId))</td>
-                                        <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
-                                        <td>@current.Location</td>
-                                        <td>
-                                            <a href="@Url.Action("Details", "Technician",new {id=current.IssueId})" class="btn btn-instagram">İş Detayı</a>
-                                        </td>
-                                    </tr>
+                                                <tr style="background: mediumseagreen">
+                                                    <th>@(i + 1)</th>
+                                                    <td>@current.IssueId</td>
+                                                    <td>@current.Description</td>
+                                                    <td>@current.IssueState</td>
+                                                    <td style="text-align:justify">@(current.OperatorId == null ? "Operatör Atanmadı" : MembershipTools.GetNameSurname(current.OperatorId))</td>
+                                                    <td style="text-align:justify">@(current.TechnicianId == null ? "Teknisyen Atanmadı" : MembershipTools.GetNameSurname(current.TechnicianId))</td>
+                                                    <td>@current.Location</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Technician",new {id=current.IssueId})" class="btn btn-instagram">İş Detayı</a>
+                                                    </td>
+                                                </tr>
                                             }
                                         }
                                     </tbody>

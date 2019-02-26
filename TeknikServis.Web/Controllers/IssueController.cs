@@ -296,7 +296,7 @@ namespace TeknikServis.Web.Controllers
                 survey.Suggestions = model.Suggestions;
                 survey.IsDone = true;
                 surveyRepo.Update(survey);
-                TempData["Message2"] = "Anket tamamlandı.";
+                TempData["Message"] = "Anket tamamlandı.";
                 return RedirectToAction("UserProfile", "Account");
             }
             catch (Exception ex)
