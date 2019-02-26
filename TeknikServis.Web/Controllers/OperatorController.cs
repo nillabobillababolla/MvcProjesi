@@ -131,8 +131,8 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu: {EntityHelpers.ValidationMessage(ex)}",
-                    ActionName = "Create",
-                    ControllerName = "Issue",
+                    ActionName = "AssignTechAsync",
+                    ControllerName = "Operator",
                     ErrorCode = 500
                 };
                 return RedirectToAction("Error500", "Home");
@@ -168,7 +168,7 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
-                    ActionName = "Index",
+                    ActionName = "AssignedIssues",
                     ControllerName = "Operator",
                     ErrorCode = 500
                 };
@@ -194,7 +194,7 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
-                    ActionName = "Index",
+                    ActionName = "AllIssues",
                     ControllerName = "Operator",
                     ErrorCode = 500
                 };

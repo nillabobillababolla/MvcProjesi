@@ -38,7 +38,7 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
-                    ActionName = "Details",
+                    ActionName = "Index",
                     ControllerName = "Issue",
                     ErrorCode = 500
                 };

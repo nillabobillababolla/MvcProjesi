@@ -10,34 +10,39 @@
             <div class="page-sidebar-menu">
                 @if (HttpContext.Current.User.IsInRole("Customer"))
                 {
-                    <ul class="accordion-menu">
-                        <li>
-                            <a href="@Url.Action("UserProfile","Account")">
-                                <i class="menu-icon icon-profile"></i><span>Düzenle</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index","Home")">
-                                <i class="menu-icon icon-home4"></i><span>Profil</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Create","Issue")">
-                                <i class="menu-icon icon-alarm_on"></i><span>Yeni Kayıt Oluştur</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index","Issue")">
-                                <i class="menu-icon icon-list-numbered"></i><span>Aktif Kayıtlarım (@(MembershipTools.GetIssueCount()))</span>
-                            </a>
-                        </li>
-                        <li class="menu-divider"></li>
-                        <li>
-                            <a href="@Url.Action("Logout","Account")">
-                                <i class="menu-icon icon-power2"></i><span>Çıkış Yap</span>
-                            </a>
-                        </li>
-                    </ul>
+                <ul class="accordion-menu">
+                    <li>
+                        <a href="@Url.Action("UserProfile","Account")">
+                            <i class="menu-icon icon-profile"></i><span>Düzenle</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChangePassword","Account")">
+                            <i class="menu-icon icon-cloud"></i><span>Şifremi Değiştir</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Home")">
+                            <i class="menu-icon icon-home4"></i><span>Profil</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Create","Issue")">
+                            <i class="menu-icon icon-alarm_on"></i><span>Yeni Kayıt Oluştur</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Issue")">
+                            <i class="menu-icon icon-list-numbered"></i><span>Aktif Kayıtlarım (@(MembershipTools.GetIssueCount()))</span>
+                        </a>
+                    </li>
+                    <li class="menu-divider"></li>
+                    <li>
+                        <a href="@Url.Action("Logout","Account")">
+                            <i class="menu-icon icon-power2"></i><span>Çıkış Yap</span>
+                        </a>
+                    </li>
+                </ul>
                 }
                 @if (HttpContext.Current.User.IsInRole("Operator"))
                 {

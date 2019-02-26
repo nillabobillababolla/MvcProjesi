@@ -178,11 +178,11 @@ namespace TeknikServis.Web.Controllers
                 TempData["Message"] = new ErrorVM()
                 {
                     Text = $"Bir hata oluştu {ex.Message}",
-                    ActionName = "Index",
+                    ActionName = "EditUser",
                     ControllerName = "Admin",
                     ErrorCode = 500
                 };
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error500", "Home");
             }
         }
 
