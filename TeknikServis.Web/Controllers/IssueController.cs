@@ -248,6 +248,11 @@ namespace TeknikServis.Web.Controllers
             {
                 var surveyRepo = new SurveyRepo();
                 var survey = surveyRepo.GetById(code);
+                if (survey.IsDone == true)
+                {
+                    TempData["Message2"] = "Bu anket zaten tamamlanmış.";
+                    return RedirectToAction("Index", "Home");
+                }
                 if (survey == null)
                 {
                     return RedirectToAction("Index", "Home");
