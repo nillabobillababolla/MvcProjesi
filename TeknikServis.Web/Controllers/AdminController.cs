@@ -28,6 +28,7 @@ namespace TeknikServis.Web.Controllers
         {
             issueRepo = new IssueRepo();
         }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -366,6 +367,38 @@ namespace TeknikServis.Web.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetWeeklyReport()
+        {
+            try
+            {
+                List<WeeklyReport> weeklies = new List<WeeklyReport>();
+                
+                for (int i = 6; i >= 0; i--)
+                {
+                   var data = issueRepo.GetAll(x => x.CreatedDate.DayOfYear == DateTime.Now.AddDays(-i).DayOfYear).Count();
+                    weeklies.Add(new WeeklyReport() {
+                        date= DateTime.Now.AddDays(-i).ToShortDateString(),
+                        count=data
+                    });
+                }
+
+                return Json(new ResponseData()
+                {
+                    data = weeklies,
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseData()
+                {
+                    message = ex.Message,
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
         public JsonResult GetDailyProfit()
         {
             try
@@ -387,7 +420,6 @@ namespace TeknikServis.Web.Controllers
             {
                 return Json(new ResponseData()
                 {
-                    data = 0,
                     message = ex.Message,
                     success = false
                 }, JsonRequestBehavior.AllowGet);

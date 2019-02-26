@@ -1,4 +1,6 @@
-﻿namespace TeknikServis.Models.Models
+﻿using System;
+
+namespace TeknikServis.Models.Models
 {
     public class SurveyReport
     {
@@ -10,5 +12,11 @@
     {
         public string nameSurname { get; set; }
         public double point { get; set; }
+    }
+
+    public class WeeklyReport
+    {
+        public string date { get; set; }
+        public int count { get; set; }
     }
 }

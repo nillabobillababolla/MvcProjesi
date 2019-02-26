@@ -115,10 +115,21 @@
 </div>
 <hr />
 
+<div class="row">
+    <div class="box box-danger col-md-10">
+        <div class="box-header with-border">
+            <div>
+                <div id="chart_div3"></div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<hr />
+
 @section bottom{
     <script>
         $(function () {
-
              $.ajax({
                 url: '@Url.Action("GetDailyReport","Admin")',
                 method: 'get',
@@ -196,6 +207,38 @@
                     chart.draw(view, options);
                 });
             };
+
+            google.charts.load("current", { packages: ['corechart'] });
+            google.charts.setOnLoadCallback(drawWeekly);
+
+            function drawWeekly() {
+                $.ajax({
+                    url: "@Url.Action("GetWeeklyReport", "Admin")",
+                    method: "get",
+                    type: "json"
+                }).done(function (e) {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Tarih');
+                    data.addColumn('number', 'Kayıt');
+                    $.each(e.data,
+                        function (key, value) {
+                            data.addRow([value.date, value.count]);
+                        });
+                    var view = new google.visualization.DataView(data);
+                    var options = {
+                        title: "Haftalık Rapor",
+                        width: 1050,
+                        height: 500,
+                        bar: { groupWidth: "50%" },
+                        legend: { position: "none" }
+
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("chart_div3"));
+                    chart.draw(view, options);
+                });
+            };
+
+
         });
     </script>
 }
