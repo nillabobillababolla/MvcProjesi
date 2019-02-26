@@ -520,10 +520,31 @@ namespace TeknikServis.Web.Controllers
             {
                 return Json(new ResponseData()
                 {
-                    message = $"{ex}",
+                    message = $"{ex.Message}",
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //[HttpGet]
+        //public JsonResult GetBestTech()
+        //{
+        //    try
+        //    {
+
+        //        return Json(new ResponseData()
+        //        {
+        //            success = true,
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new ResponseData()
+        //        {
+        //            message = $"{ex.Message}",
+        //            success = false
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
     }
 }
