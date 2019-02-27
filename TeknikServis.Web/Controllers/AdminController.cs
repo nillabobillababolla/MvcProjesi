@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,16 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
-
 using TeknikServis.BLL.Helpers;
 using TeknikServis.BLL.Repository;
 using TeknikServis.BLL.Services.Senders;
 using TeknikServis.Models.Entities;
 using TeknikServis.Models.Enums;
-using TeknikServis.Models.IdentityModels;
 using TeknikServis.Models.Models;
 using TeknikServis.Models.ViewModels;
-
 using static TeknikServis.BLL.Identity.MembershipTools;
 
 namespace TeknikServis.Web.Controllers
@@ -535,14 +531,16 @@ namespace TeknikServis.Web.Controllers
             {
                 var userManager = NewUserManager();
                 var users = userManager.Users.ToList();
-                var minutes = issueRepo.GetAll().Min(x => x.ClosedDate?.Minute - x.CreatedDate.Minute);
+                var unclosed = issueRepo.GetAll(x => x.ClosedDate != null);
+                var minutes = unclosed.Min(x => x.ClosedDate?.Minute - x.CreatedDate.Minute);
                 var data = new Issue();
                 foreach (var user in users)
                 {
                     if (userManager.IsInRole(user.Id, IdentityRoles.Technician.ToString()))
                     {
-                        data = issueRepo.GetAll(x =>
-                              x.TechnicianId == user.Id && x.ClosedDate?.Minute - x.CreatedDate.Minute == minutes).FirstOrDefault();
+                        data = issueRepo.GetAll(x => x.TechnicianId == user.Id && x.ClosedDate?.Minute - x.CreatedDate.Minute == minutes).FirstOrDefault();
+                        if (data != null)
+                            break;
                     }
                 }
 
