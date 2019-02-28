@@ -17,7 +17,7 @@ ASP.Net MVC ile geliştirilen teknik servis projesi.Yönetim paneli ve kullanıc
 
 ----------
 
-> **2)** *Nuget Package Manager Console*'dan Default Project'i Emlak.DAL yaptıktan sonra "**update-database**" komutunu çalıştırınız.
+> **2)** *Nuget Package Manager Console*'dan Default Project'i TeknikServis.DAL yaptıktan sonra "**update-database**" komutunu çalıştırınız.
 > > **2-a)** Hata vermesi durumunda "**Rebuilt Solution**" yapıp projeyi kapatıp tekrar açabilirsiniz.
 
 ## Kullanılan Teknolojiler ##
