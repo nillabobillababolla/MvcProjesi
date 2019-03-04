@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28531.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proje", "Proje", "{92B26469-BEE2-4DF6-8A96-39F5CE0BAAB2}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Desktop\kurulacakPaketler.txt = ..\..\..\..\..\Desktop\kurulacakPaketler.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeknikServis.BLL", "TeknikServis.BLL\TeknikServis.BLL.csproj", "{2F40FABE-DFB0-474B-83A9-FA2223D87DD0}"
 EndProject
