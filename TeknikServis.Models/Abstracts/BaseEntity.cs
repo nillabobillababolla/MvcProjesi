@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TeknikServis.Models.Abstracts
 {
@@ -16,5 +18,22 @@ namespace TeknikServis.Models.Abstracts
 
         [DisplayName("Güncelleme Tarihi")]
         public DateTime? UpdatedDate { get; set; }
+
+        public T ShallowCopy()
+        {
+            return (T)this.MemberwiseClone();
+        }
+
+        public T DeepCopy()
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, this);
+                ms.Position = 0;
+                return (T)formatter.Deserialize(ms);
+            }
+        }
+
     }
 }
