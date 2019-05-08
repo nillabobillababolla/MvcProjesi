@@ -37,17 +37,28 @@ Test bulunmamaktadır.
 
 ## Built With
 
-NTier Project Pattern
-Repository Entity Pattern
-ASP.Net MVC 5
-AutoMapper
-EntityFramework Code First
-ASP.Net Identity
-ASP.Net Identity EntityFramework
-Microsoft Owin
-Microsoft Owin Security
-Microsoft Owin Security.Cookies
-Newtonsoft.Json
+-NTier Project Pattern
+
+-Repository Entity Pattern
+
+-ASP.Net MVC 5
+
+-AutoMapper
+
+-EntityFramework Code First
+
+-ASP.Net Identity
+
+-ASP.Net Identity EntityFramework
+
+-Microsoft Owin
+
+-Microsoft Owin Security
+
+-Microsoft Owin Security.Cookies
+
+-Newtonsoft.Json
+
 
 ## Contributing
 
